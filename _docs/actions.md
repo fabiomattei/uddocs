@@ -35,8 +35,7 @@ One of the following parameters is mandatory:
 
 # Complete Example
 
-```
-#!json
+{% highlight json %}
 "actions": [
     { "label": "Info", 
       "resource": "inforequestv1",
@@ -53,5 +52,5 @@ One of the following parameters is mandatory:
     { "label": "Export", "resource": "requestexportv1", "parameters":[] },
     { "icon": "pencil", "resource": "requestexportv1", "parameters":[] }
 ]
-```
+{% endhighlight %}
 
