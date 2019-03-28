@@ -3,6 +3,8 @@ layout: page
 name: Validation
 ---
 
+# Validation
+
 This class check the content of a set o fields to see if they contina what they are ment to, possible filters are:
 
 * boolean             can contain [true, false]
@@ -21,5 +23,10 @@ This class check the content of a set o fields to see if they contina what they 
 * checkbox            the field could be missing and that would not give an error, a check box must be followed by a type ex: integer or alphanumerical
 
 Example of usages
-"required|integer"                      the parameter is a required integer number
-"required|alphanumerical|max_len250"     the parameter is required, alphanumerical and has a maximum allowed lenght of 250
+
+* "required|integer"                      the parameter is a required integer number
+
+* "required|alphanumerical|max_len250"     the parameter is required, alphanumerical and has a maximum allowed lenght of 250
+
+
+
