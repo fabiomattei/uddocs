@@ -3,8 +3,7 @@ layout: page
 name: Title bar
 ---
 
-```
-#!json
+{% highlight json %}
 {
   "name": "unitlisttitlebar",
   "metadata": { "type":"titlebar", "version": "1" },
@@ -25,4 +24,4 @@ name: Title bar
     }
   }
 }
-```
+{% endhighlight %}

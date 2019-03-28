@@ -5,8 +5,7 @@ name: Table page
 
 # Structure
 
-```
-#!json
+{% highlight json %}
 {
   "name": "unitstable",
   "metadata": { "type":"table", "version": "1" },
@@ -41,4 +40,4 @@ name: Table page
     }
   }
 }
-```
+{% endhighlight %}

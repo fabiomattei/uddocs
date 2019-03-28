@@ -5,8 +5,7 @@ name: Group
 
 # Structure
 
-```
-#!json
+{% highlight json %}
 {
   "name": "riskmanagergroup",
   "metadata": { "type":"group", "version": "1" },
@@ -29,4 +28,4 @@ name: Group
     }
   ]
 }
-```
+{% endhighlight %}

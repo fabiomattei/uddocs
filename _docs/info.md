@@ -12,8 +12,7 @@ Possible fields are:
 * date
 * dropdown
 
-```
-#!json
+{% highlight json %}
 {
   "name": "technicalassetinfo",
   "metadata": { "type":"info", "version": "1" },
@@ -40,5 +39,4 @@ Possible fields are:
     }
   }
 }
-
-```
+{% endhighlight %}

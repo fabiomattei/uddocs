@@ -4,8 +4,8 @@ name: Chartjs
 ---
 
 # Structure
-```
-#!json
+
+{% highlight json %}
 {
   "name": "top10consequences",
   "metadata": { "type":"chartjs", "version": "1" },
@@ -107,4 +107,4 @@ name: Chartjs
     }
   }
 }
-```
+{% endhighlight %}

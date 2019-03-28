@@ -6,8 +6,7 @@ name: Dashboard
 # Structure
 
 
-```
-#!json
+{% highlight json %}
 {
   "name": "centralheadofficedashboard",
   "metadata": { "type":"dashboard", "version": "1" },
@@ -27,4 +26,4 @@ name: Dashboard
     { "title":"My table", "resource":"unitheatmap", "row":"4", "width":"6" }
   ]
 }
-```
+{% endhighlight %}

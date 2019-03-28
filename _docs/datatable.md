@@ -82,8 +82,7 @@ We describe a set of actions liked to each item of the table. To see a better de
 
 Combining all the described information in a unique file we obtain something like this:
 
-```
-#!json
+{% highlight json %}
 {
   "name": "mytableresourcename",
   "metadata": { "type":"datatable", "version": "1" },
@@ -114,4 +113,4 @@ Combining all the described information in a unique file we obtain something lik
     }
   }
 }
-```
+{% endhighlight %}

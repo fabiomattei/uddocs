@@ -5,8 +5,7 @@ name: Form
 
 # Structure
 
-```
-#!json
+{% highlight json %}
 {
   "name": "technicalassetform",
   "metadata": { "type":"form", "version": "1" },
@@ -81,7 +80,6 @@ name: Form
     ]
   }
 }
-
-```
+{% endhighlight %}
 
 If you want to know about the [Validation](https://bitbucket.org/fabiomattei/esb/wiki/Validation) check the related page.

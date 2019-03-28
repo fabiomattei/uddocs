@@ -3,8 +3,7 @@ layout: page
 name: Tabbed page
 ---
 
-```
-#!json
+{% highlight json %}
 {
   "name": "technicalassetstabbedpage",
   "metadata": { "type":"tabbedpage", "version": "1" },
@@ -21,4 +20,4 @@ name: Tabbed page
     { "title":"Top 10 risks by risk rating", "resource":"top10risksbyriskrating" }
   ]
 }
-```
+{% endhighlight %}
