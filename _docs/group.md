@@ -9,7 +9,7 @@ name: Group
 {
   "name": "riskmanagergroup",
   "metadata": { "type":"group", "version": "1" },
-  "defaultdashboard": "managermaindashboard",
+  "defaultaction": "managermaindashboard",
   "home": { "label":"My app", "action":"#" },
   "menu": [
     { "label":"Dashboard", "resource":"managermaindashboard", "icon":"dashboard" },
