@@ -5,9 +5,37 @@ name: Form
 
 # Structure
 
+A form resource allows the programmer to insert a form in an application. 
+A form is a complex structure. A form often need to be filled in advance with data coming from the database.
+Then it send POST data through a POST request and after that some logic is executed in order to update the 
+system.
+
+## GET section 
+
+### Request
+
+As we said before, often we need to load data from the database in order to fill the form.
+In case we need to send some data to the SQL query we can do that using GET data.
+
+
+### Query
+
+
+### Form
+
+## POST section
+
+### Request
+
+### Transactions
+
+### Notifications
+
+## Complete example
+
 {% highlight json %}
 {
-  "name": "technicalassetform",
+  "name": "sampleform",
   "metadata": { "type":"form", "version": "1" },
   "allowedgroups": [ "administrationgroup", "teachergroup", "managergroup" ],
   "get": {
