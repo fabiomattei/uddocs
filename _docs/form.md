@@ -23,7 +23,7 @@ Example: parentId = 2302
   { "type":"integer", "validation":"required|integer", "name":"parentId" }
 ]
 {% endhighlight %}
-If you want to know about the [Validation](https://bitbucket.org/fabiomattei/esb/wiki/Validation) check out the related page.
+If you want to know about the <a href="{{site.baseurl}}/docs/validation">Validation</a> check out the related page.
 
 ### Query
 
