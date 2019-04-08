@@ -14,22 +14,104 @@ system.
 
 ### Request
 
-As we said before, often we need to load data from the database in order to fill the form.
-In case we need to send some data to the SQL query we can do that using GET data.
+Sometimes we need to pass some parameter to a query that feels the form.
 
+Example: parentId = 2302
+
+{% highlight json %}
+"parameters": [
+  { "type":"integer", "validation":"required|integer", "name":"parentId" }
+]
+{% endhighlight %}
+If you want to know about the [Validation](https://bitbucket.org/fabiomattei/esb/wiki/Validation) check out the related page.
 
 ### Query
 
-
 ### Form
+
+{% highlight json %}
+"form": {
+  "title": "",
+  "submitTitle": "Save",
+  "fields": [
+    { "type":"textarea", "name":"name", "label":"Name", "placeholder":"Name", "sqlfield":"name", "width":"6", "row":"1" },
+    { "type":"currency", "name":"amount", "label":"Amount", "placeholder":"10.0", "sqlfield":"amount", "width":"6", "row":"1" },
+    { "type":"date", "name":"duedate", "label":"Due date", "sqlfield":"duedate", "width":"12", "row":"2" },
+    { "type":"sqldropdown", "name":"consequenceid", "label":"Consequence", "sqlfield":"c_name", "width":"6", "row":"2",
+      "query": {
+        "sql": "SELECT c_id, c_name FROM consequences;",
+        "parameters":[]
+      },
+      "valuesqlfield": "c_id",
+      "labelsqlfield": "c_name"
+    },
+    { "type":"dropdown", "name":"environmental", "label":"Impact Environmental", "sqlfield":"r_environmental", "width":"6", "row":"4", "options": [
+      { "value": "0", "label":"(Not set)" },
+      { "value": "1", "label":"1: No contamination; Localised Effects; Potential breach of license/permit" },
+      { "value": "2", "label":"2: Contained contamination; Localised Effects; Breach of license/permit" },
+      { "value": "3", "label":"3: Low contamination; Localised effects of short duration; Limited impact to water/land/air" },
+      { "value": "4", "label":"4: Medium contamination; Widespread effects of extended duration; Significant impact to water/land/air" },
+      { "value": "5", "label":"5: Heavy contamination; Effects of extended duration; Potentially resulting in temporary or permanent shutdown" }
+      ]
+    },
+    { "type":"hidden", "name":"unitassetid", "getparameter":"assetid", "row":"4" }
+  ]
+}
+{% endhighlight %}
 
 ## POST section
 
 ### Request
 
+What a form usually does is to pass POST parameters using a POST request and then to process that parameters
+We need to give a description of the post parameters and of the validation we need to apply to them.
+
+{% highlight json %}
+"request": {
+  "postparameters": [
+    { "name":"name", "validation":"required|max_len,250" },
+    { "name":"plantcode", "validation":"max_len,250" },
+    { "name":"description", "validation":"alpha_numeric" },
+    { "name":"condition", "validation":"alpha_numeric" },
+    { "name":"competentperson", "validation":"alpha_numeric" },
+    { "name":"comment", "validation":"alpha_numeric" },
+    { "name":"unitassetid", "validation":"required|integer" },
+    { "name":"technicalassetid", "validation":"required|integer" }
+  ]
+}
+{% endhighlight %}
+
 ### Transactions
 
+The trasactions list contains a set of query objects that change the status of the database.
+A commit is set in order to make all changes permanent only if all queries succeed.
+
+{% highlight json %}
+"transactions": [
+  {
+    "sql":"UPDATE unitasset SET ua_competentperson = :competentperson, ua_conditionsummary = :condition, ua_identifier = :plantcode, ua_description= :description, ua_comment = :comment WHERE ua_id=:unitassetid;",
+    "parameters":[
+      { "type":"string", "placeholder": ":competentperson", "postparameter": "competentperson" },
+      { "type":"string", "placeholder": ":condition", "postparameter": "condition" },
+      { "type":"string", "placeholder": ":plantcode", "postparameter": "plantcode" },
+      { "type":"string", "placeholder": ":description", "postparameter": "description" },
+      { "type":"string", "placeholder": ":comment", "postparameter": "comment" },
+      { "type":"long", "placeholder": ":unitassetid", "postparameter": "unitassetid" }
+    ]
+  },
+  {
+    "sql":"UPDATE asset SET ta_name = :name WHERE ta_id=:technicalassetid;",
+    "parameters":[
+      { "type":"string", "placeholder": ":name", "postparameter": "name" },
+      { "type":"long", "placeholder": ":technicalassetid", "postparameter": "technicalassetid" }
+    ]
+  }
+]
+{% endhighlight %}
+
 ### Notifications
+
+TODO
 
 ## Complete example
 
@@ -110,4 +192,3 @@ In case we need to send some data to the SQL query we can do that using GET data
 }
 {% endhighlight %}
 
-If you want to know about the [Validation](https://bitbucket.org/fabiomattei/esb/wiki/Validation) check the related page.

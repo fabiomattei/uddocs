@@ -3,7 +3,7 @@ layout: page
 name: Datatable
 ---
 
-#Description
+# Description
 
 A table is a structure that allows the developer to make a query and show to the user the results of the query.
 Eventually the table is going to contain links that allows to user to access to different specific features in the system linked to a specific entity shown in the table.
@@ -11,7 +11,7 @@ Eventually the table is going to contain links that allows to user to access to 
 How a table looks like:
 (image here)
 
-#The information needed in order to set up a table
+# The information needed in order to set up a table
 
 ### Get or Post parameters
 
@@ -19,27 +19,26 @@ Sometimes we need to pass to the query behind the table some parameter using a g
 
 Example: parentId = 2302
 
-```
-#!json
+{% highlight json %}
 "parameters": [
   { "type":"integer", "validation":"required|integer", "name":"parentId" }
 ]
-```
+{% endhighlight %}
+If you want to know about the [Validation](https://bitbucket.org/fabiomattei/esb/wiki/Validation) check out the related page.
 
 ### Query
 
 We need to make a query to the tabase in order to populate our table.
 The simplest thing to do is just to write the query in plain SQL and eventually connect the paratameters needed to the get or the post paramenters.
 
-```
-#!json
+{% highlight json %}
 "query": {
   "sql": "select id, typeid, name, description FROM mytable WHERE parentid = :parentid;",
   "parameters":[
     { "type":"long", "placeholder": ":parentid", "getparameter": "parentId" }
   ]
 }
-```
+{% endhighlight %}
 
 As you can see the SQL parameter is inserted in the query using a placeholder: *:parametername*
 The SQL parameter is connected to the GET parameter using: "getparameter": "parentid"
@@ -59,9 +58,7 @@ We describe a set of fields giving to each of them a name and a connection to th
 
 We describe a set of actions liked to each item of the table. To see a better description of the actions check out this page.
 
-
-```
-#!json
+{% highlight json %}
 "table": {
   "title": "My table",
   "topactions": [
@@ -76,7 +73,7 @@ We describe a set of actions liked to each item of the table. To see a better de
     { "label": "Edit", "resource": "editentityform", "parameters":[{"name": "id", "sqlfield": "id"}] }
   ]
 }
-```
+{% endhighlight %}
 
 # A complete example
 
