@@ -32,7 +32,6 @@ If you want to know about the <a href="{{site.baseurl}}/docs/validation">Validat
 {% highlight json %}
 "form": {
   "title": "",
-  "submitTitle": "Save",
   "fields": [
     { "type":"textarea", "name":"name", "label":"Name", "placeholder":"Name", "sqlfield":"name", "width":"6", "row":"1" },
     { "type":"currency", "name":"amount", "label":"Amount", "placeholder":"10.0", "sqlfield":"amount", "width":"6", "row":"1" },
@@ -54,10 +53,29 @@ If you want to know about the <a href="{{site.baseurl}}/docs/validation">Validat
       { "value": "5", "label":"5: Heavy contamination; Effects of extended duration; Potentially resulting in temporary or permanent shutdown" }
       ]
     },
-    { "type":"hidden", "name":"unitassetid", "getparameter":"assetid", "row":"4" }
+    { "type":"hidden", "name":"unitassetid", "getparameter":"assetid", "row":"4" },
+	{ "type":"submitbutton", "width":"2", "row":"4", "name": "Go", "constantparameter": "Go" },
   ]
 }
 {% endhighlight %}
+
+The properties of the **field** object are:
+
+* label: the descriptive text associated to the field the user can read
+* type: the type of the field [textfield, textarea, currency, date, dropdown, sqldropdown, hidden, submitbutton]
+* name: html name attrbute associated to the field
+* placeholder: html placeholder attrbute associated to the field
+* sqlfield: used in case we need to load data in a field that comes from a query
+* sessionparameter: used in case we need to load data in a field that comes from a session parameter
+* getparameter: used in case we need to load data in a field that comes from a getparameter parameter
+* postparameter: used in case we need to load data in a field that comes from a postparameter parameter
+* constantparameter: used in case we need to load data in a field that comes from a constantparameter parameter
+* width: the width of the field in bootstrap terms
+* row: the row number where the field is located in bootstrap terms
+* options: used in case of dropdown field a list of possible option objects Ex: { "value": "0", "label":"(Not set)" }
+* query: used by sqldropdown
+* valuesqlfield: used by sqldropdown
+* labelsqlfield: used by sqldropdown
 
 ## POST section
 

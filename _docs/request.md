@@ -17,6 +17,13 @@ In a web application it is possible to have two kinds of requests: GET or POST
 }
 {% endhighlight %}
 
+The parameter can be one of the following types:
+
+* integer or long
+* string
+
+If you want to know about the <a href="{{site.baseurl}}/docs/validation">Validation</a> check out the related page.
+
 ## POST
 
 {% highlight json %}
@@ -27,3 +34,10 @@ In a web application it is possible to have two kinds of requests: GET or POST
   ]
 }
 {% endhighlight %}
+
+The parameter can be one of the following types:
+
+* integer or long
+* string
+
+If you want to know about the <a href="{{site.baseurl}}/docs/validation">Validation</a> check out the related page.
