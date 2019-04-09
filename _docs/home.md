@@ -9,17 +9,17 @@ Here you can find some documentation for the framework behind the code
 
 ## Templates
 
-* [Chart js](https://bitbucket.org/fabiomattei/esb/wiki/Chartjs)
-* [Dashboard](https://bitbucket.org/fabiomattei/esb/wiki/Dashboard)
-* [Datatable](https://bitbucket.org/fabiomattei/esb/wiki/Datatable)
-* [Group](https://bitbucket.org/fabiomattei/esb/wiki/Group)
-* [Info](https://bitbucket.org/fabiomattei/esb/wiki/Info)
-* [Form](https://bitbucket.org/fabiomattei/esb/wiki/Form)
-* [Tabbed page](https://bitbucket.org/fabiomattei/esb/wiki/Tabbed%20page)
-* [Table Page](https://bitbucket.org/fabiomattei/esb/wiki/Table%20Page)
-* [Title bar](https://bitbucket.org/fabiomattei/esb/wiki/Title%20bar)
-* [Transaction](https://bitbucket.org/fabiomattei/esb/wiki/Transaction)
-* [Validation](https://bitbucket.org/fabiomattei/esb/wiki/Validation)
+* <a href="{{site.baseurl}}/docs/chartjs">Chart js</a>
+* <a href="{{site.baseurl}}/docs/dashboard">Dashboard</a>
+* <a href="{{site.baseurl}}/docs/datatable">Datatable</a>
+* <a href="{{site.baseurl}}/docs/group">Group</a>
+* <a href="{{site.baseurl}}/docs/info">Info</a>
+* <a href="{{site.baseurl}}/docs/form">Form</a>
+* <a href="{{site.baseurl}}/docs/tabbed-page">Tabbed page</a>
+* <a href="{{site.baseurl}}/docs/table-page">Table</a>
+* <a href="{{site.baseurl}}/docs/title-bar">Title</a>
+* <a href="{{site.baseurl}}/docs/transaction">Transaction</a>
+* <a href="{{site.baseurl}}/docs/validation">Validation</a>
 
 ## About the wiki
 
