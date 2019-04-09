@@ -117,6 +117,8 @@ We need to give a description of the post parameters and of the validation we ne
 }
 {% endhighlight %}
 
+If you want to know more about the <a href="{{site.baseurl}}/docs/validation">Validation</a> check out the related page.
+
 ### Transactions
 
 The trasactions list contains a set of query objects that change the status of the database.

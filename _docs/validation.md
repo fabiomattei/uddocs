@@ -5,7 +5,7 @@ name: Validation
 
 # Validation
 
-This class check the content of a set o fields to see if they contina what they are ment to, possible filters are:
+This class check the content of a set o fields to see if they contains what they are ment to, possible filters are:
 
 * boolean             can contain [true, false]
 * integer             can contain an integer number
@@ -24,9 +24,9 @@ This class check the content of a set o fields to see if they contina what they 
 
 Example of usages
 
-* "required|integer"                      the parameter is a required integer number
+* "required\|integer"                       the parameter is a required integer number
 
-* "required|alphanumerical|max_len250"     the parameter is required, alphanumerical and has a maximum allowed lenght of 250
+* "required\|alphanumerical\|max_len250"    the parameter is required, alphanumerical and has a maximum allowed lenght of 250
 
 
 
