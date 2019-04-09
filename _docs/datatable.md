@@ -44,7 +44,7 @@ As you can see the SQL parameter is inserted in the query using a placeholder: *
 The SQL parameter is connected to the GET parameter using: "getparameter": "parentid"
 We can insert as many paremeters as we need.
 
-If you want to know more about SQL paramenters check out the specific page.
+If you want to know more about SQL paramenters check out the <a href="{{site.baseurl}}/docs/query">Query</a> page.
 
 ### Table Structure
 
