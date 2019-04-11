@@ -6,7 +6,7 @@ name: Actions
 # Actions 
 
 Actions are links in un UD application.
-It is usually structured has un array of objects, each object is an action (or a link).
+It is usually structured as un array of objects, each object is an action (or a link).
 
 The properties of the action object are:
 
