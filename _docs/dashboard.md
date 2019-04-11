@@ -10,7 +10,7 @@ The page is designed using bootstrap framework and for each resource we need to 
 
 A dashboard contains an array of **panels**
 
-For each panel we need to spcify:
+For each panel we need to specify:
 
 * title: is going to be shown in the interface
 * resource: the identifier of the json resource in the system
