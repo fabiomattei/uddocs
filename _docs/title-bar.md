@@ -15,6 +15,8 @@ The title bar object contains two items:
 
 If you want to know more about the <a href="{{site.baseurl}}/docs/actions">Actions</a> check out the related page.
 
+### Complete example
+
 {% highlight json %}
 {
   "name": "unitlisttitlebar",
