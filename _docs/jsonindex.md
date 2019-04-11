@@ -30,9 +30,9 @@ Indexes are followed recoursively.
   "scripts": [
     { "path":"json/mytables/index.json", "type":"index" },
     { "path":"json/myform/index.json", "type":"index" },
-	{ "path":"json/globaldashboard.json", "type":"dashboard", "name":"globaldashboard" },
-	{ "path":"json/info/myinfopanel.json", "type":"info", "name":"myinfopanel" },
-	{ "path":"json/info/mytabbedpage.json", "type":"tabbedpage", "name":"mytabbedpage" }
+    { "path":"json/globaldashboard.json", "type":"dashboard", "name":"globaldashboard" },
+    { "path":"json/info/myinfopanel.json", "type":"info", "name":"myinfopanel" },
+    { "path":"json/info/mytabbedpage.json", "type":"tabbedpage", "name":"mytabbedpage" }
   ]
 }
 {% endhighlight %}
