@@ -1,6 +1,6 @@
 ---
 layout: page
-name: Actions
+name: Logics
 ---
 
 # Logics
