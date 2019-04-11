@@ -13,11 +13,11 @@ A dashboard contains an array of **panels**
 For each panel we need to spcify:
 
 * title: is going to be shown in the interface
-* resource: the identifyer of the json resource in the system
+* resource: the identifier of the json resource in the system
 * row: which row cotains the specific panel
 * width: how many columns we want the panel to extend
 
-We do not need to provide parameter to this specific resource as the GET parameters are calculated recoursively from the contained resources. We expect the action that link this dashboard to provide all parameters required by all resources contined in it
+We do not need to provide parameter to this specific resource as the GET parameters are calculated recoursively from the contained resources. We expect the action that link this dashboard to provide all parameters required by all resources contained in it
 
 ### Complete example
 
