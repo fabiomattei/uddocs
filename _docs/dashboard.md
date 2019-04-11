@@ -3,7 +3,23 @@ layout: page
 name: Dashboard
 ---
 
-# Structure
+# Dashboard
+
+A dashboard is a container of resources that allows the programmer to compose a page with more then one resource.
+The page is designed using bootstrap framework and for each resource we need to specify the row where we want to put it and how many columns we want the resource to take.
+
+A dashboard contains an array of **panels**
+
+For each panel we need to spcify:
+
+* title: is going to be shown in the interface
+* resource: the identifyer of the json resource in the system
+* row: which row cotains the specific panel
+* wodth: how many columns we want the panel to extend
+
+We do not need to provide parameter her, as the GET parameters are calculated recoursively from the contained resources. We expect the action that link this dashboard to provide all parameters required by all resources contined in it
+
+### Complete example
 
 
 {% highlight json %}
