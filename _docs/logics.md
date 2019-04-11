@@ -5,7 +5,7 @@ name: Logics
 
 # Logics
 
-Logics are script that allows the user to update the state of the system that include:
+Logics are script that allow the user to update the state of the system that include:
 
 * update database
 * update session variables
@@ -15,11 +15,11 @@ At the end of the script the user is redirected to another page or to a page pre
 
 The script is divided in two sections: GET and POST. The part of the script that refers to the request made to the server is executed.
 
-The contents of the two sections are the same
+The contents of the two sections have the same structure.
 
 ### Request
 
-In this section we describe the parameters expected by this script and the validation bounds they need to respect.
+We use this section in order to list all parameters expected by this script and to express the validation bounds they need to respect.
 Check out the <a href="{{site.baseurl}}/docs/validation">Validation</a> page in order to have a better description.
 
 ### Transactions
@@ -42,19 +42,19 @@ Check out the <a href="{{site.baseurl}}/docs/sessionupdates">Session Updates</a>
   "get": {
     "request": {
       "parameters": [
-        { "type":"long", "validation":"required|numeric", "name":"riskcenterid" }
+        { "type":"long", "validation":"required|numeric", "name":"bookid" }
       ]
     },
     "transactions": [
       {
-        "sql":"DELETE from requestv1 WHERE id=:id;",
+        "sql":"DELETE FROM mylibrary WHERE id=:id;",
         "parameters":[
-          { "placeholder": ":id", "getparameter": "id" }
+          { "placeholder": ":id", "getparameter": "bookid" }
         ]
       }
     ],
     "sessionupdates": [
-      { "type":"long", "sessionparameter":"siteid", "getparameter":"riskcenterid" }
+      { "type":"long", "sessionparameter":"lastbookdeletedid", "getparameter":"bookid" }
     ],
     "redirect": {
       "internal": { "type": "onepageback" }
@@ -63,19 +63,19 @@ Check out the <a href="{{site.baseurl}}/docs/sessionupdates">Session Updates</a>
   "post": {
     "request": {
       "postparameters": [
-        { "type":"long", "validation":"required|numeric", "name":"riskcenterid" }
+        { "type":"long", "validation":"required|numeric", "name":"bookid" }
       ]
     },
     "transactions": [
       {
-        "sql":"DELETE from requestv1 WHERE id=:id;",
+        "sql":"DELETE FROM mylibrary WHERE id=:id;",
         "parameters":[
-          { "placeholder": ":id", "getparameter": "id" }
+          { "placeholder": ":id", "postparameter": "bookid" }
         ]
       }
     ],
     "sessionupdates": [
-      { "type":"long", "sessionparameter":"siteid", "postparameter":"riskcenterid" }
+      { "type":"long", "sessionparameter":"lastbookdeletedid", "postparameter":"bookid" }
     ],
     "redirect": {
       "internal": { "type": "onepageback" }
