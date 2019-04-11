@@ -9,7 +9,7 @@ Logics are script that allows the user to update the state of the system that in
 
 * update database
 * update session variables
-* send upadtnig messages to other users
+* send updating messages to other users
 
 At the end of the script the user is redirected to another page or to a page previously open.
 
