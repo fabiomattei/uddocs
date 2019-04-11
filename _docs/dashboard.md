@@ -12,7 +12,7 @@ A dashboard contains an array of **panels**
 
 For each panel we need to specify:
 
-* title: is going to be shown in the interface
+* title: it is going to be shown in the interface
 * resource: the identifier of the json resource in the system
 * row: which row cotains the specific panel
 * width: how many columns we want the panel to extend
@@ -24,22 +24,22 @@ We do not need to provide parameter to this specific resource as the GET paramet
 
 {% highlight json %}
 {
-  "name": "centralheadofficedashboard",
+  "name": "teacherdashboard",
   "metadata": { "type":"dashboard", "version": "1" },
-  "allowedgroups": [ "centralheadofficegroup" ],
-  "title":"Manager dashboard",
+  "allowedgroups": [ "teachergroup" ],
+  "title":"Teacher dashboard",
   "get": {
     "request": {
       "parameters": []
     }
   },
   "panels":[
-    { "title":"My chart", "resource":"selectriskcenterform", "row":"1", "width":"12" },
-    { "title":"My chart", "resource":"top10risks", "row":"2", "width":"6" },
-    { "title":"My table", "resource":"top10risksbyriskrating", "row":"2", "width":"6" },
-    { "title":"My table", "resource":"top10rootcauses", "row":"3", "width":"6" },
-    { "title":"My table", "resource":"top10consequences", "row":"3", "width":"6" },
-    { "title":"My table", "resource":"unitheatmap", "row":"4", "width":"6" }
+    { "title":"My chart", "resource":"mylargesearchform", "row":"1", "width":"12" },
+    { "title":"My chart", "resource":"myfirstchart", "row":"2", "width":"6" },
+    { "title":"My table", "resource":"myinfobox", "row":"2", "width":"6" },
+    { "title":"My table", "resource":"mysecondchart", "row":"3", "width":"6" },
+    { "title":"My table", "resource":"myimageuploadform", "row":"3", "width":"6" },
+    { "title":"My table", "resource":"mythirdchart", "row":"4", "width":"6" }
   ]
 }
 {% endhighlight %}
