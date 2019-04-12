@@ -15,4 +15,4 @@ Using resources we describe the system piece by piece to UD.
 
 Designing a system, in UD terms means to create a set of json file or resources we provide to the system in order to describe the interface and the logics.
 
-Each reource is a json file with a unique name, a unique path and a specific type. It is listed in a <a href="{{site.baseurl}}/docs/jsonindex">Index</a> and contains all related information to describe part of the software system.
+Each reource is a json file with a unique name, a unique path and a specific type. It is listed in a <a href="{{site.baseurl}}/docs/jsonindex">index</a> and contains all related information to describe part of the software system.
