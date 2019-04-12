@@ -11,5 +11,3 @@ My docs index
 
 {% endfor %}
 
-ciao
-
