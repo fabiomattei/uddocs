@@ -5,7 +5,7 @@ name: Dashboard
 
 # Dashboard
 
-A dashboard is a container of resources that allows the programmer to compose a page with more then one resource.
+A dashboard is a container of <a href="{{site.baseurl}}/docs/resource">resources</a> that allows the programmer to compose a page.
 The page is designed using bootstrap framework and for each resource we need to specify the row where we want to put it and how many columns we want the resource to take.
 
 A dashboard contains an array of **panels**
