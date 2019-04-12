@@ -29,9 +29,9 @@ The answer was:
 
 1. I need to make a SQL query
 2. I need to define the structure of the table 
-3. I need to put the results of the query on the table. That's it.
+3. I need to put the results of the query in the table. 
 
-I need just this three things, nothig more than that.
+That's it. I need just this three things, nothig more than that.
 
 I put all this information in a json file and this came out:
 
