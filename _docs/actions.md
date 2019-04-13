@@ -10,6 +10,7 @@ It is usually structured as un array of objects, each object is an action (or a 
 
 The properties of the action object are:
 
+* type: "link" or "button"
 * label: the descriptive text associated to the link the user can read
 * resource: the linked resource
 * tooltip: the descriptive text associated to the link the user can read when the mouse pointer is over the link
@@ -38,7 +39,8 @@ One of the following parameters is mandatory:
 
 {% highlight json %}
 "actions": [
-    { "label": "Info", 
+    { "type": "link",
+	  "label": "Info", 
       "resource": "myinfopanel",
       "tooltip": "My tool tip text",
       "onclick": "My on click text",
@@ -50,8 +52,8 @@ One of the following parameters is mandatory:
         {"name": "thirdid", "getparameter": "mygetparameter"}
       ] 
     }
-    { "label": "Export", "resource": "myexport", "parameters":[] },
-    { "icon": "pencil", "resource": "myeditform", "parameters":[] }
+    { "type": "link", "label": "Export", "resource": "myexport", "parameters":[] },
+    { "type": "link", "icon": "pencil", "resource": "myeditform", "parameters":[] }
 ]
 {% endhighlight %}
 

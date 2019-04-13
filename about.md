@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-### The best code is the code you don't need to write
+### The best code is the code you don't need to write (and mantain)
 
 I wrote this code in order to avoid to write over and over again the same stuff.
 Do you really need a framework when the code you write looks always the same, with small almost not-existent changes?
