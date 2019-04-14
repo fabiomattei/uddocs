@@ -15,7 +15,7 @@ The properties of the action object are:
 * resource: the linked resource
 * tooltip: the descriptive text associated to the link the user can read when the mouse pointer is over the link
 * onclick: once the user clicks the link a window appear that contiains the onclick text, if user clicks ok the action go on otherwise the action stops and the user goes back to prevous page
-* buttoncolor: the color associated to the button. They come out of bootstrap classes, possible values are: 
+* buttoncolor: the color associated to the button. They come out of bootstrap classes, possible values are: [ gray, blue, pink, green, red, yellow ]
 * outline: if true the button is an outline button
 * parameters: parameters linked to the action
 
@@ -44,7 +44,7 @@ One of the following parameters is mandatory:
       "resource": "myinfopanel",
       "tooltip": "My tool tip text",
       "onclick": "My on click text",
-      "buttoncolor": "btn-success",
+      "buttoncolor": "greens",
       "outline": false,
       "parameters":[
         {"name": "id", "sqlfield": "id"},
