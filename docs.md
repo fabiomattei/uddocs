@@ -4,10 +4,10 @@ title: Docs
 permalink: /docs/
 ---
 
-My docs index
+### Docs index
 
+<ul>
 {% for doc in site.docs %}
-  <h2><a href="{{site.baseurl}}/docs/{{doc.slug}}">{{ doc.name }}</a></h2>
-
+  <li><a href="{{site.baseurl}}/docs/{{doc.slug}}">{{ doc.name }}</a></li>
 {% endfor %}
-
+</ul>
