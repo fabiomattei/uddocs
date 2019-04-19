@@ -23,8 +23,8 @@ For each group we need to define the default action, that is the action triggere
     {
       "label":"Articles", "icon":"asset",
       "submenu": [
-        { "label":"Articles", "resource":"articles" },
-        { "label":"New article", "resource":"newarticle" }
+        { "label":"Articles", "resource":"articlestable" },
+        { "label":"New article", "resource":"newarticleform" }
       ]
     }
   ]
@@ -64,8 +64,8 @@ For more information about the group file syntax please check out <a href="{{sit
         {"headline": "Date", "sqlfield": "created"}
       ],
       "actions": [
-        {"label": "Edit", "action": "articleform", "parameters":[{"name": "id", "sqlfield": "id"}] },
-        {"label": "Delete", "action": "articledelete", "parameters":[{"name": "id", "sqlfield": "id"}] }
+        {"label": "Edit", "action": "editarticleform", "parameters":[{"name": "id", "sqlfield": "id"}] },
+        {"label": "Delete", "action": "deletearticlelogic", "parameters":[{"name": "id", "sqlfield": "id"}] }
       ]
     }
   }
