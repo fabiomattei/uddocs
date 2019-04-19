@@ -74,7 +74,116 @@ For more information about the group file syntax please check out <a href="{{sit
 
 ### Create a form to insert a new article
 
+{% highlight json %}
+{
+  "name": "newarticleform",
+  "metadata": { "type":"form", "version": "1" },
+  "allowedgroups": [ "author" ],
+  "get": {
+    "form": {
+      "title": "My new article",
+      "fields": [
+        { "type":"textfield", "name":"title", "label":"Title", "placeholder":"title", "width":"12", "row":"1" },
+        { "type":"textarea", "name":"description", "label":"Description", "placeholder":"Description", "width":"12", "row":"2" },
+		{ "type": "submitbutton", "width":"2", "row":"3", "name": "Save", "constantparameter": "Save" },
+      ]
+    }
+  },
+  "post": {
+    "request": {
+      "postparameters": [
+        { "name":"title", "validation":"required|max_len,250" },
+        { "name":"description", "validation":"alpha_numeric" }
+      ]
+    },
+    "transactions": [
+      {
+        "sql":"INSERT INTO articles ( title, description, created ) VALUES ( :title, :description, NOW() );",
+        "parameters":[
+          { "type":"string", "placeholder": ":title", "postparameter": "title" },
+          { "type":"long", "placeholder": ":description", "postparameter": "description" }
+        ]
+      }
+    ]
+  }
+}
+{% endhighlight %}
+
 ### Create a form to update an article
+
+{% highlight json %}
+{
+  "name": "editarticleform",
+  "metadata": { "type":"form", "version": "1" },
+  "allowedgroups": [ "author" ],
+  "get": {
+    "request": {
+      "parameters": [
+        { "type":"long", "validation":"required|numeric", "name":"id" }
+      ]
+    },
+    "query": {
+      "sql": "SELECT title, description FROM articles WHERE id = :id;",
+      "parameters":[
+        { "type":"long", "placeholder": ":id", "getparameter": "id" }
+      ]
+    },
+    "form": {
+      "title": "Edit article",
+      "fields": [
+        { "type":"textfield", "name":"title", "label":"Title", "placeholder":"title", "width":"12", "row":"1" },
+        { "type":"textarea", "name":"description", "label":"Description", "placeholder":"Description", "width":"12", "row":"2" },
+		{ "type":"hidden", "name":"id", "sqlfield":"id", "row":"3" },
+		{ "type": "submitbutton", "width":"2", "row":"3", "name": "Save", "constantparameter": "Save" },
+      ]
+    }
+  },
+  "post": {
+    "request": {
+      "postparameters": [
+        { "name":"title", "validation":"required|max_len,250" },
+        { "name":"description", "validation":"alpha_numeric" },
+        { "name":"id", "validation":"required|integer" }
+      ]
+    },
+    "transactions": [
+      {
+        "sql":"UPDATE articles SET title = :title, description = :description WHERE id=:id;",
+        "parameters":[
+          { "type":"string", "placeholder": ":title", "postparameter": "title" },
+          { "type":"string", "placeholder": ":description", "postparameter": "description" },
+          { "type":"long", "placeholder": ":id", "postparameter": "id" }
+        ]
+      }
+    ],
+  }
+}
+{% endhighlight %}
 
 ### Create a logic to delete an article
 
+{% highlight json %}
+{
+  "name": "deletearticlelogic",
+  "metadata": { "type":"transaction", "version": "1" },
+  "allowedgroups": [ "author" ],
+  "get": {
+    "request": {
+      "parameters": [
+        { "type":"long", "validation":"required|numeric", "name":"id" }
+      ]
+    },
+    "transactions": [
+      {
+        "sql":"DELETE FROM article WHERE id=:id;",
+        "parameters":[
+          { "placeholder": ":id", "getparameter": "id" }
+        ]
+      }
+    ],
+    "redirect": {
+      "internal": { "type": "onepageback" }
+    }
+  }
+}
+{% endhighlight %}

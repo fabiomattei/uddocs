@@ -4,9 +4,8 @@ title: Tutorials
 permalink: /tutorials/
 ---
 
-My tutorials index
-
+<ul>
 {% for tut in site.tutorials %}
-  <h2><a href="{{site.baseurl}}/tutorials/{{tut.slug}}">{{ tut.name }}</a></h2>
-
+  <li><a href="{{site.baseurl}}/tutorials/{{tut.slug}}">{{ tut.name }}</a></li>
 {% endfor %}
+</ul>
