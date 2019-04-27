@@ -27,7 +27,7 @@ If you want to know about the <a href="{{site.baseurl}}/docs/validation">Validat
 
 ### Query
 
-We need to make a query to the tabase in order to populate our form.
+We need to make a query to the datase in order to populate our form.
 The simplest thing to do is just to write the query in plain SQL and eventually connect the paratameters needed to get paramenters.
 
 {% highlight json %}
@@ -42,6 +42,10 @@ The simplest thing to do is just to write the query in plain SQL and eventually 
 As you can see the SQL parameter is inserted in the query using a placeholder: *:parametername*
 The SQL parameter is connected to the GET parameter using: "getparameter": "parentid"
 We can insert as many paremeters as we need.
+
+It is possible to send to the query a session parameter using: "sessionparameter": "sessionparametername"
+
+It is possible to send to the query a constant parameter using: "constantparameter": "constantvalue"
 
 If you want to know more about SQL paramenters check out the <a href="{{site.baseurl}}/docs/query">Query</a> page.
 
@@ -146,6 +150,14 @@ A commit is set in order to make all changes permanent only if all queries succe
   }
 ]
 {% endhighlight %}
+
+As you can see the SQL parameter is inserted in the query using a placeholder: *:parametername*
+The SQL parameter is connected to the GET parameter using: "postparameter": "parentid"
+We can insert as many paremeters as we need.
+
+It is possible to send to the query a session parameter using: "sessionparameter": "sessionparametername"
+
+It is possible to send to the query a constant parameter using: "constantparameter": "constantvalue"
 
 ### Notifications
 

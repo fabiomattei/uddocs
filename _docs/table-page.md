@@ -28,7 +28,7 @@ If you want to know about the <a href="{{site.baseurl}}/docs/validation">Validat
 
 ### Query
 
-We need to make a query to the tabase in order to populate our table.
+We need to make a query to the datase in order to populate our table.
 The simplest thing to do is just to write the query in plain SQL and eventually connect the paratameters needed to the get or the post paramenters.
 
 {% highlight json %}
