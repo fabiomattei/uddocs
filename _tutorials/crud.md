@@ -92,6 +92,12 @@ Then a table is composed, having 4 columns:
 
 ### Create a form to insert a new article
 
+Between the **top actions** of the table and in the menu we defined a link to the resource **newarticleform** that allows the **authors** to type a new article in the system. This resource is a <a href="{{site.baseurl}}/docs/form">form</a>. Let's define that resource.
+
+In this case too, only the users that belongs to group **author** can access to this resource.
+
+This for has a **get** section, visualized in order to allow the user to input the data, and a **post** section, that contains the SQL queries that transfer that data in the database.
+
 {% highlight json %}
 {
   "name": "newarticleform",
@@ -103,7 +109,7 @@ Then a table is composed, having 4 columns:
       "fields": [
         { "type":"textfield", "name":"title", "label":"Title", "placeholder":"title", "width":"12", "row":"1" },
         { "type":"textarea", "name":"description", "label":"Description", "placeholder":"Description", "width":"12", "row":"2" },
-		{ "type": "submitbutton", "width":"2", "row":"3", "name": "Save", "constantparameter": "Save" },
+        { "type": "submitbutton", "width":"2", "row":"3", "name": "Save", "constantparameter": "Save" },
       ]
     }
   },
