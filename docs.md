@@ -4,9 +4,9 @@ title: Docs
 permalink: /docs/
 ---
 
-Using resources we describe the system piece by piece to UD.
+Using resources we describe to UD the system piece by piece.
 
-Designing an application, in UD terms, means to create a set of json files, or resources, we provide to the system in order to describe the interface and the behaviour of the application. Each resource is a json file with a unique name, a unique path and a specific type.
+Designing an application, in UD terms, means to create a set of json files, or <a href="{{site.baseurl}}/docs/resource">resources</a>, we provide to the system in order to describe the **interface** and the **behaviour** of the application. Each resource is a json file with a unique name, a unique path and a specific type.
 
 <ul>
 {% for doc in site.docs %}

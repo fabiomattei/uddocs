@@ -9,8 +9,11 @@ This tutorial is designed to help the user to make the first steps using UD
 
 ### Create a group of users
 
-The first thing we need to do is to create a group of users.
+The first thing we need to do is to create a <a href="{{site.baseurl}}/docs/group">group</a> of users.
 Each application has grups of users with different access level to the different features of the application. We need to define those groups.
+
+A <a href="{{site.baseurl}}/docs/group">group</a> is defined by a json file with type set to <a href="{{site.baseurl}}/docs/group">group</a>. Each group has a name, a default action and a menu.
+
 For each group we need to define the default action, that is the action triggered once we go trough the login process and the menu this specific group is going to use in order to navigate the application.
 
 {% highlight json %}
@@ -40,9 +43,24 @@ For more information about the group file syntax please check out <a href="{{sit
 
 ### Create a list of articles
 
+We need to give to the users that belongs to the authors group the possibility to see all articles previously saved in the database. In order to do that we need to define a <a href="{{site.baseurl}}/docs/table-page">table</a>.
+
+This resource is named: **articles**
+
+Only the users that belongs to group **author** can access to this resource.
+
+When a user access this resource, the system performs the SQL query: *SELECT id, title, description, created FROM articles;*
+
+Then a table is composed, having 4 columns:
+
+* Title: it shows the content of field **title**
+* Description: it shows the content of field **description**
+* Date: it shows the content of field **created** 
+* Actions: it show all action related to a specific article composing a link that contains the content of field id.
+
 {% highlight json %}
 {
-  "name": "articlestable",
+  "name": "articles",
   "metadata": { "type":"table", "version": "1" },
   "allowedgroups": [ "author" ],
   "get": {
@@ -50,7 +68,7 @@ For more information about the group file syntax please check out <a href="{{sit
       "parameters": []
     },
     "query": {
-      "sql": "SELECT * FROM articles;",
+      "sql": "SELECT id, title, description, created FROM articles;",
       "parameters":[]
     },
     "table": {
