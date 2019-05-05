@@ -92,11 +92,18 @@ Then a table is composed, having 4 columns:
 
 ### Create a form to insert a new article
 
-Between the **top actions** of the table and in the menu we defined a link to the resource **newarticleform** that allows the **authors** to type a new article in the system. This resource is a <a href="{{site.baseurl}}/docs/form">form</a>. Let's define that resource.
+Between the **top actions** of the table and in the menu we defined a link to the resource **newarticleform** that allows the **authors** to type a new article in the system. 
+
+This resource is a <a href="{{site.baseurl}}/docs/form">form</a>. Let's define that resource.
 
 In this case too, only the users that belongs to group **author** can access to this resource.
 
 This for has a **get** section, visualized in order to allow the user to input the data, and a **post** section, that contains the SQL queries that transfer that data in the database.
+
+In the get section we define the form fieds we need to visualize in order to allow the authors to input a new article. Those fields are title and description. 
+At the end there is the submit button with the **save** label.
+
+The post section receives the post parameters sent by the form (title and description) sets the validations rules for those parameters and performs a query in the database in order to save the data.
 
 {% highlight json %}
 {
