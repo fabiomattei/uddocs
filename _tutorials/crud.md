@@ -92,18 +92,37 @@ Then a table is composed, having 4 columns:
 
 ### Create a form to insert a new article
 
-Between the **top actions** of the table and in the menu we defined a link to the resource **newarticleform** that allows the **authors** to type a new article in the system. 
+The **top actions** of the table and the menu we defined for the **author group** contain a link to the resource **newarticleform**.
+This resource is a <a href="{{site.baseurl}}/docs/form">form</a> that allows the **authors** to type a new article and save it on the database.
 
-This resource is a <a href="{{site.baseurl}}/docs/form">form</a>. Let's define that resource.
+In this case too, only the users that belongs to group **author** can access to this resource, then we need to add to the **allowedgroups** array the group name **author**.
 
-In this case too, only the users that belongs to group **author** can access to this resource.
+This form is composed by a get section and a post section.
 
-This for has a **get** section, visualized in order to allow the user to input the data, and a **post** section, that contains the SQL queries that transfer that data in the database.
+The **get** section, is going to visualise the html form in order to allow the author to input the data, the **post** section is going to validate the received data and contains the SQL queries that transfer that data in the database.
 
-In the get section we define the form fieds we need to visualize in order to allow the authors to input a new article. Those fields are title and description. 
+The html form we are defined in the get section is composed by two fields: 
+
+* title: text field
+* description: textarea
+
 At the end there is the submit button with the **save** label.
 
 The post section receives the post parameters sent by the form (title and description) sets the validations rules for those parameters and performs a query in the database in order to save the data.
+
+Validation rules:
+
+* name: required|max_len,250
+* description: alpha_numeric
+
+Query: **INSERT INTO articles ( title, description, created ) VALUES ( :title, :description, NOW() );**
+
+Query parameters:
+
+* title: post parameter
+* description: post parameter
+
+A complete example
 
 {% highlight json %}
 {
@@ -141,6 +160,39 @@ The post section receives the post parameters sent by the form (title and descri
 {% endhighlight %}
 
 ### Create a form to update an article
+
+The table resource **articles** queries the database and shows to the **authors** a list of articles. For each of them it defines two actions.
+The first action refer to the resource **editarticleform**. This <a href="{{site.baseurl}}/docs/form">form</a> the authors to modify an article previously inputed.
+
+In this case too, only the users that belongs to group **author** can access to this resource, then we need to add to the **allowedgroups** array the group name **author**.
+
+This form is composed by a get section and a post section that are very similar to the get and post section defined in **newarticleform**.
+
+The html form we are defined in the get section is composed by three fields: 
+
+* title: text field
+* description: textarea
+* id: hidden
+
+At the end there is the submit button with the **save** label.
+
+The post section receives the post parameters sent by the form (title and description) sets the validations rules for those parameters and performs a query in the database in order to save the data.
+
+Validation rules:
+
+* name: required|max_len,250
+* description: alpha_numeric
+* id: required|integer
+
+Query: **UPDATE articles SET title = :title, description = :description WHERE id=:id;**
+
+Query parameters:
+
+* title: post parameter
+* description: post parameter
+* id: post parameter
+
+A complete example
 
 {% highlight json %}
 {
