@@ -112,7 +112,7 @@ The post section receives the post parameters sent by the form (title and descri
 
 Validation rules:
 
-* name: required|max_len,250
+* name: required max_len,250
 * description: alpha_numeric
 
 Query: **INSERT INTO articles ( title, description, created ) VALUES ( :title, :description, NOW() );**
@@ -180,9 +180,9 @@ The post section receives the post parameters sent by the form (title and descri
 
 Validation rules:
 
-* name: required|max_len,250
+* name: required max_len,250
 * description: alpha_numeric
-* id: required|integer
+* id: required integer
 
 Query: **UPDATE articles SET title = :title, description = :description WHERE id=:id;**
 
