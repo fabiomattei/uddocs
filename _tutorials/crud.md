@@ -162,7 +162,7 @@ A complete example
 ### Create a form to update an article
 
 The table resource **articles** queries the database and shows to the **authors** a list of articles. For each of them it defines two actions.
-The first action refer to the resource **editarticleform**. This <a href="{{site.baseurl}}/docs/form">form</a> the authors to modify an article previously inputed.
+The first action refers to the resource **editarticleform**. This <a href="{{site.baseurl}}/docs/form">form</a> allows the authors to modify an article previously inputed.
 
 In this case too, only the users that belongs to group **author** can access to this resource, then we need to add to the **allowedgroups** array the group name **author**.
 
@@ -175,6 +175,12 @@ The html form we are defined in the get section is composed by three fields:
 * id: hidden
 
 At the end there is the submit button with the **save** label.
+
+The get section this time is a little different from the one we created before. It contains a <a href="{{site.baseurl}}/docs/query">query</a> that loads the data from the database: **SELECT title, description FROM articles WHERE id = :id;**. 
+
+As you can see this query has a parameter id that comes from the get parameters sent to the page: **{ "type":"long", "placeholder": ":id", "getparameter": "id" }**.
+
+This parameter is linked to the request parameter: **{ "type":"long", "validation":"required|numeric", "name":"id" }**.
 
 The post section receives the post parameters sent by the form (title and description) sets the validations rules for those parameters and performs a query in the database in order to save the data.
 
@@ -243,7 +249,20 @@ A complete example
 }
 {% endhighlight %}
 
-### Create a logic to delete an article
+### Create a transaction to delete an article
+
+A transaction is a resource that change the status of the application without giving any interface. In this case we use it in order to add the **delete article** functionality to the application.
+
+The table resource **articles** queries the database and shows to the **authors** a list of articles. For each of them it defines two actions.
+The second action refers to the resource **deletearticlelogic**. This <a href="{{site.baseurl}}/docs/transaction">transaction</a> allows the authors to modify an article previously inputed.
+
+In this case too, only the users that belongs to group **author** can access to this resource, then we need to add to the **allowedgroups** array the group name **author**.
+
+The get section contains a trnasactions section that can contain one or more queries. In this case it contains: **DELETE FROM article WHERE id=:id;**. 
+
+As you can see this query has a parameter id that comes from the get parameters sent to the page: **{ "type":"long", "placeholder": ":id", "getparameter": "id" }**.
+
+This parameter is linked to the request parameter: **{ "type":"long", "validation":"required|numeric", "name":"id" }**.
 
 {% highlight json %}
 {
