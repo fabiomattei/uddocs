@@ -1,6 +1,6 @@
 ---
 layout: page
-name: Transaction
+name: Session updates
 ---
 
 # Session updates
