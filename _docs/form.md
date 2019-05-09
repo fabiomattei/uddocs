@@ -27,8 +27,9 @@ If you want to know about the <a href="{{site.baseurl}}/docs/validation">Validat
 
 ### Query
 
-We need to make a query to the datase in order to populate our form.
-The simplest thing to do is just to write the query in plain SQL and eventually connect the paratameters needed to get paramenters.
+Oftentimes we need to pre-feel the form with some data that comes from the database in order to allow the user to edit that data.
+In order to do that we need to write a query.
+We can write the query in plain SQL and eventually connect the paratameters needed to get paramenters.
 
 {% highlight json %}
 "query": {
