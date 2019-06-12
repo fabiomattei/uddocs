@@ -233,8 +233,22 @@ TODO
     ],
     "notifications": [
       {
-        "body":[ "name", "amount" ],
-        "type":"new Subscription to ski class",
+        "body":":name sbuscribed to sky class :group",
+        "type":"message",
+        "parameters":[
+          { "type":"string", "placeholder": ":name", "postparameter": "name" },
+          { "type":"string", "placeholder": ":group", "postparameter": "groupname" }
+        ],
+        "destinationgroups": [ "administrationgroup", "teachergroup", "managergroup" ],
+        "action": { "action":"documentinfo", "resource":"documentsubscriptionv1", "parameters":[{"name":"id", "value":"id"}] }
+      },
+	  {
+        "body":":name sbuscribed to sky class :group",
+        "type":"task",
+        "parameters":[
+          { "type":"string", "placeholder": ":name", "postparameter": "name" },
+          { "type":"string", "placeholder": ":group", "postparameter": "groupname" }
+        ],
         "destinationgroups": [ "administrationgroup", "teachergroup", "managergroup" ],
         "action": { "action":"documentinfo", "resource":"documentsubscriptionv1", "parameters":[{"name":"id", "value":"id"}] }
       }
