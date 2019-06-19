@@ -11,7 +11,7 @@ This tutorial is designed to help the user to make the first steps using UD. We 
 
 In order to set the system up, you need just to download a copy of UD from the <a href="https://github.com/fabiomattei/uglyduckling">project repository</a> and run the command 
 
-{% highlight %}
+{% highlight shell %}
 docker-compose up -d
 {% endhighlight %}
 
