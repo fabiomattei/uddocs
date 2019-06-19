@@ -27,11 +27,15 @@ You will be able to import the datamodel from yourlocalfolder/docker/apache/data
 
 ### First access to the system
 
-On your first install the systems defines two users:
+Point your browser to: http://localhost:18080
 
-* admin: this is the user that can create new users and activate or deactivare modules of the system
-* manager: this is just a user created in order to have some kind of access to the syste
+You will find a log-in page.
 
-We recommend to change usernames and password at your first login.
+On your first install the system defines two users (already part of datamodel.sql):
 
+* **user: _admin_ password: _admin_** this is the user that can create new users and activate or deactivare modules of the system
+* **user _manager_ password: _manager_** this is just a user created in order to have some kind of access to the system
 
+We recommend you to change usernames and password at your first login.
+
+Now you are ready to go.
