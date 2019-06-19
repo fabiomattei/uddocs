@@ -1,9 +1,9 @@
 ---
 layout: page
-name: CRUD operations
+name: Setting the system up
 ---
 
-# Setup of the system
+# Setting the system up
 
 UD has been designed in order to take advantage of docker so setting it up is relatively easy.
 
