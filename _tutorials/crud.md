@@ -17,6 +17,28 @@ docker-compose up -d
 
 You can have a better description of the process check out the page <a href="{{site.baseurl}}/tutorials/setup">Setting the system up</a>.
 
+#### Where are my resources located
+
+Designing an application, in UD terms, means to create a set of json files, or <a href="{{site.baseurl}}/docs/resource">resources</a>, we need to put in **src/Custom/Json/** folder. In order to be accessible from the system the specifyed resources need to be linked using an <a href="{{site.baseurl}}/docs/jsonindex">index</a> file.
+
+In this case my index file will be the following:
+
+{% highlight json %}
+{ 
+  "name": "index",
+  "metadata": { "type":"index", "version": "1" },
+  "scripts": [
+    { "path":"json/groups/author.json", "type":"group", "name":"author" },
+    { "path":"json/crud/articles.json", "type":"table", "name":"articles" },
+    { "path":"json/crud/newarticleform.json", "type":"form", "name":"newarticleform" },
+    { "path":"json/crud/editarticleform.json", "type":"form", "name":"editarticleform" },
+    { "path":"json/crud/deletearticlelogic.json", "type":"transaction", "name":"deletearticlelogic" }
+  ]
+}
+{% endhighlight %}
+
+The list of files you see here is the list of <a href="{{site.baseurl}}/docs/resource">resources</a> we are going to create in order to implement our system.
+
 ### Step 1: Create a group of users
 
 The first thing we need to do is to create a <a href="{{site.baseurl}}/docs/group">group</a> of users.

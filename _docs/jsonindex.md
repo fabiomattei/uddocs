@@ -6,7 +6,7 @@ name: Index
 # Index
 
 Json files are located in a tree of directories the programmer is free to compose.
-It is important for the programmer to show to UD how to locate the files with all resources that compose the system.
+It is important for the programmer to show to UD how to locate the <a href="{{site.baseurl}}/docs/resource">resources</a> files that compose the system.
 The **index.json** files does exactly that.
 
 Files are listed in a **scripts** array.
