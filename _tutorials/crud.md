@@ -28,11 +28,11 @@ In this case my index file will be the following:
   "name": "index",
   "metadata": { "type":"index", "version": "1" },
   "scripts": [
-    { "path":"json/groups/author.json", "type":"group", "name":"author" },
-    { "path":"json/crud/articles.json", "type":"table", "name":"articles" },
-    { "path":"json/crud/newarticleform.json", "type":"form", "name":"newarticleform" },
-    { "path":"json/crud/editarticleform.json", "type":"form", "name":"editarticleform" },
-    { "path":"json/crud/deletearticlelogic.json", "type":"transaction", "name":"deletearticlelogic" }
+    { "path":"./Custom/Json/groups/author.json", "type":"group", "name":"author" },
+    { "path":"./Custom/Json/articles/articlestable.json", "type":"table", "name":"articlestable" },
+    { "path":"./Custom/Json/articles/newarticleform.json", "type":"form", "name":"newarticleform" },
+    { "path":"./Custom/Json/articles/editarticleform.json", "type":"form", "name":"editarticleform" },
+    { "path":"./Custom/Json/articles/deletearticletransaction.json", "type":"transaction", "name":"deletearticletransaction" }
   ]
 }
 {% endhighlight %}
@@ -52,7 +52,7 @@ For each group we need to define the default action, that is the action triggere
 {
   "name": "author",
   "metadata": { "type":"group", "version": "1" },
-  "defaultaction": "articles",
+  "defaultaction": "articlestable",
   "home": { "label":"My app", "action":"#" },
   "menu": [
     {
@@ -92,7 +92,7 @@ Then a table is composed, having 4 columns:
 
 {% highlight json %}
 {
-  "name": "articles",
+  "name": "articlestable",
   "metadata": { "type":"table", "version": "1" },
   "allowedgroups": [ "author" ],
   "get": {
@@ -106,8 +106,8 @@ Then a table is composed, having 4 columns:
     "table": {
       "title": "My articles",
       "topactions": [
-        { "label": "New", "resource": "newarticle"] }
-      ]
+        { "label": "New", "resource": "newarticle" }
+      ],
       "fields": [
         {"headline": "Title", "sqlfield": "title"},
         {"headline": "Description", "sqlfield": "description"},
@@ -167,7 +167,7 @@ A complete example
       "fields": [
         { "type":"textfield", "name":"title", "label":"Title", "placeholder":"title", "width":"12", "row":"1" },
         { "type":"textarea", "name":"description", "label":"Description", "placeholder":"Description", "width":"12", "row":"2" },
-        { "type": "submitbutton", "width":"2", "row":"3", "name": "Save", "constantparameter": "Save" },
+        { "type": "submitbutton", "width":"2", "row":"3", "name": "Save", "constantparameter": "Save" }
       ]
     }
   },
@@ -282,7 +282,7 @@ A complete example
           { "type":"long", "placeholder": ":id", "postparameter": "id" }
         ]
       }
-    ],
+    ]
   }
 }
 {% endhighlight %}
@@ -304,7 +304,7 @@ This parameter is linked to the request parameter: **{ "type":"long", "validatio
 
 {% highlight json %}
 {
-  "name": "deletearticlelogic",
+  "name": "deletearticletransaction",
   "metadata": { "type":"transaction", "version": "1" },
   "allowedgroups": [ "author" ],
   "get": {
