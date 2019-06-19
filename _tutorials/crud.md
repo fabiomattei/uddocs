@@ -15,6 +15,8 @@ In order to set the system up, you need just to download a copy of UD from the <
 docker-compose up -d
 {% endhighlight %}
 
+You can have a better description of the process check out the page <a href="{{site.baseurl}}/tutorials/setup">Setting the system up</a>.
+
 ### Step 1: Create a group of users
 
 The first thing we need to do is to create a <a href="{{site.baseurl}}/docs/group">group</a> of users.
