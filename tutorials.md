@@ -4,8 +4,10 @@ title: Tutorials
 permalink: /tutorials/
 ---
 
+Few tutorials in order to understand how the system is organised:
+
 <ul>
-{% for tut in site.tutorials %}
-  <li><a href="{{site.baseurl}}/tutorials/{{tut.slug}}">{{ tut.name }}</a></li>
-{% endfor %}
+  <li><a href="{{site.baseurl}}/tutorials/setup">Setup</a></li>
+  <li><a href="{{site.baseurl}}/tutorials/crud">CRUD</a></li>
+  <li><a href="{{site.baseurl}}/tutorials/pushingthingsalittlefurther">Pushing things a little further</a></li>
 </ul>
