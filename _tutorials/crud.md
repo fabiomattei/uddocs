@@ -5,9 +5,17 @@ name: CRUD operations
 
 # CRUD operations
 
-This tutorial is designed to help the user to make the first steps using UD
+This tutorial is designed to help the user to make the first steps using UD. We want to go trough the whole process of creating a simple but working application using UD.
 
-### Create a group of users
+### Step 0: Setting the system up
+
+In order to set the system up, you need just to download a copy of UD from the <a href="https://github.com/fabiomattei/uglyduckling">project repository</a> and run the command 
+
+{% highlight %}
+docker-compose up -d
+{% endhighlight %}
+
+### Step 1: Create a group of users
 
 The first thing we need to do is to create a <a href="{{site.baseurl}}/docs/group">group</a> of users.
 Each application has grups of users with different access level to the different features of the application. We need to define those groups.
