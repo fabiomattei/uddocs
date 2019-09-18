@@ -9,7 +9,8 @@ This tutorial is designed to help the users to make the first steps using UD. We
 
 ### Step 0: Setting the system up
 
-In order to set the system up, you need just to download a copy of UD from the <a href="https://github.com/fabiomattei/uglyduckling">project repository</a> and run the command 
+The tutorial has been designed in order to take advantage of docker so setting it up is relatively easy.
+In order to set the system up, you need just to download a copy of UD from the <a href="https://github.com/fabiomattei/uglyduckling">project repository</a> and run the command: 
 
 {% highlight shell %}
 docker-compose up -d

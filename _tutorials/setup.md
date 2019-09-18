@@ -5,13 +5,46 @@ name: Setting the system up
 
 # Setting the system up
 
-UD has been designed in order to take advantage of docker so setting it up is relatively easy.
+UD is a PHP library you can use simply importing it in your project using composer.
+This is the *composer* file that allows you to taka advantage of the library. 
+
+{% highlight json %}
+{
+    "name": "mycomposername/myprojectname",
+    "description": "My description",
+    "keywords": ["my keywords"],
+    "type": "project",
+    "license": "My license",
+    "authors": [
+        {
+            "name": "My name",
+            "email": "myemailaddress@example.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "fabiomattei/uglyduckling": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "MyPath\\": "src/"
+        }
+    }
+}
+{% endhighlight %}
+
+Once you have done that you need to type:
+
+{% highlight shell %}
+composer update
+{% endhighlight %}
 
 ### Download and startup
 
-If you just donwload the master folder from the <a href="https://github.com/fabiomattei/uglyduckling">project repository</a> and you type:
+A quick way to start is to clone the demo project from <a href="https://github.com/fabiomattei/uglyduckling">the github project repository</a> and type:
 
 {% highlight shell %}
+docker-compose build
 docker-compose up -d
 {% endhighlight %}
 
