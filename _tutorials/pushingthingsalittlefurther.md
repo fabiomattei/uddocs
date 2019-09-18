@@ -24,8 +24,8 @@ Our dashboard is going to be made by 6 panels:
   "allowedgroups": [ "author" ],
   "title":"Manager dashboard",
   "panels":[
-  	{ "title":"My chart", "resource":"articleschartv1", "row":"1", "width":"6" },
-  	{ "title":"Last five articles", "resource":"smallarticlestable", "row":"1", "width":"6" },
+    { "title":"My chart", "resource":"articleschartv1", "row":"1", "width":"6" },
+    { "title":"Last five articles", "resource":"smallarticlestable", "row":"1", "width":"6" },
     { "title":"Last article inserted", "resource":"lastarticleinfov1", "row":"2", "width":"6" },
     { "title":"New article", "resource":"newarticleform", "row":"2", "width":"6" },
     { "title":"Search an article", "resource":"articlesearchv1", "row":"3", "width":"6" },
