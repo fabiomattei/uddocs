@@ -5,7 +5,7 @@ name: CRUD operations
 
 # CRUD operations
 
-This tutorial is designed to help the user to make the first steps using UD. We want to go trough the whole process of creating a simple but working application using UD.
+This tutorial is designed to help the users to make the first steps using UD. We want to go trough the whole process of creating a simple but working application using UD.
 
 ### Step 0: Setting the system up
 
