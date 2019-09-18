@@ -3,7 +3,7 @@ layout: page
 name: Setting the system up
 ---
 
-# Setting the system up
+# Setting up a new project
 
 UD is a PHP library you can use simply importing it in your project using composer.
 This is the *composer* file that allows you to taka advantage of the library. 
@@ -41,9 +41,10 @@ composer update
 
 ### Download and startup
 
-A quick way to start is to clone the demo project from <a href="https://github.com/fabiomattei/uglyduckling">the github project repository</a> and type:
+A quick way to start is to clone the demo project from <a href="https://github.com/fabiomattei/ud-demo">the github project repository</a> and type:
 
 {% highlight shell %}
+composer update
 docker-compose build
 docker-compose up -d
 {% endhighlight %}
