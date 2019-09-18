@@ -45,7 +45,8 @@ Io order to achieve that all we need to do is to create a <a href="{{site.baseur
 }
 {% endhighlight %}
 
-## Written articles per day chart
+## Chart: written articles per day 
+
 
 
 
