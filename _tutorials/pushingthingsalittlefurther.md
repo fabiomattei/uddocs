@@ -15,7 +15,7 @@ Our dashboard is going to be made by 6 panels:
 * a search panel for artciles
 * an export to pdf panel for articles
 
-![Dashboard](tutorials/images/tutorial03-dashboard.png)
+![Dashboard](images/tutorial03-dashboard.png)
 
 {% highlight json %}
 { 
