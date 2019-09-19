@@ -4,3 +4,6 @@
 
 layout: home
 ---
+
+# The templating system for applications
+
