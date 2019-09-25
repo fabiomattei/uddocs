@@ -4,7 +4,9 @@ title: Tutorials
 permalink: /tutorials/
 ---
 
-Few tutorials in order to understand how the system is organised:
+# Welcome to the tutorials page
+
+Here you can find some documentation about how to use this library
 
 <ul>
   <li><a href="{{site.baseurl}}/tutorials/setup">Setup</a></li>
