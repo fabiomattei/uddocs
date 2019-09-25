@@ -1,8 +1,8 @@
 ---
 layout: page
-name: Home
+title: Case studies
+permalink: /casestudies/
 ---
 
-# Case studies
-
+Experiences of designing web applications using UD.
 
