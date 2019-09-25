@@ -5,7 +5,5 @@
 layout: home
 ---
 
-# The templating system for applications
-
 Implement web applications editing just json files
 
