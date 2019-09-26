@@ -16,10 +16,10 @@
 title: ugly duckling docs
 # email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Ugly duckling is a framework that helps the developers to be focused on the problem
-  they are solving and not on the technology. Based on the idea of templating the application
-  using json files UD helps the developers to speed up considerably the software design and 
-  implementation process.
+  Ugly duckling helps the developers to be focused on the problem
+  they are solving. Based on the idea of templating the application logic
+  and interface using json files UD speeds up significantly software 
+  design and software implementation.
 # baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://www.uddocs.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: fabiomattei
