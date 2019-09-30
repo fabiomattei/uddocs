@@ -18,7 +18,7 @@ title: ugly duckling docs
 description: >- # this means to ignore newlines until "baseurl:"
   Ugly duckling helps the developers to be focused on the problem
   they are solving. Based on the idea of templating the application logic
-  and interface using json files UD speeds up significantly software 
+  and interface using json files, UD speeds up significantly software 
   design and software implementation.
 # baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://www.uddocs.com" # the base hostname & protocol for your site, e.g. http://example.com
