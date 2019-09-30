@@ -4,8 +4,6 @@ title: Pushing things a little further
 orderfield: 3
 ---
 
-# Pushing things a little further
-
 ## Dashboard
 
 Let's create a dashboard in order to help our administrator to work with articles in a smarter and quicker way.

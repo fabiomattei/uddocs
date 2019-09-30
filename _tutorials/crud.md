@@ -4,8 +4,6 @@ title: CRUD operations
 orderfield: 2
 ---
 
-# CRUD operations
-
 This tutorial is designed to help the users to make the first steps using UD. We want to go trough the whole process of creating a simple but working application using UD.
 
 ### Step 0: Setting the system up

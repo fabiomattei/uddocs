@@ -1,10 +1,8 @@
 ---
 layout: page
-title: Setting the system up
+title: Setting up a new project
 orderfield: 1
 ---
-
-# Setting up a new project
 
 UD is a PHP library you can use simply importing it in your project using composer.
 This is the *composer* file that allows you to taka advantage of the library. 
