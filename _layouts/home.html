@@ -11,6 +11,28 @@ layout: default
   
   <div class="home-page-posts">
 	  <div class="home-posts">
+		  <h3>What you type:</h3>
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
+  </span><span class="s2">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"sql"</span><span class="p">:</span><span class="w"> </span><span class="s2">"select name, amount, duedate FROM requests;"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="s2">"table"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My table"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="s2">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Name"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sqlfield"</span><span class="p">:</span><span class="w"> </span><span class="s2">"name"</span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="s2">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Amount"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sqlfield"</span><span class="p">:</span><span class="w"> </span><span class="s2">"amount"</span><span class="p">},</span><span class="w">
+      </span><span class="p">{</span><span class="s2">"headline"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Due date"</span><span class="p">,</span><span class="w"> </span><span class="s2">"sqlfield"</span><span class="p">:</span><span class="w"> </span><span class="s2">"duedate"</span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span></code></pre></figure>
+	  </div>
+	  <div class="home-tutorials">
+		  What you get
+      </div>
+  </div>
+  
+  <div class="home-page-posts">
+	  <div class="home-posts">
 		  {%- if site.posts.size > 0 -%}
 		    <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
 		    <ul class="post-list">
