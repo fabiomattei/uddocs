@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Pushing things a little further
+orderfield: 3
 ---
 
 # Pushing things a little further

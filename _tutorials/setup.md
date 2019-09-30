@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Setting the system up
+orderfield: 1
 ---
 
 # Setting up a new project

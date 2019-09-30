@@ -41,7 +41,8 @@ layout: default
 		  {%- if site.tutorials.size > 0 -%}
 		    <h2 class="post-list-heading">{{ page.list_title | default: "Tutorials" }}</h2>
 		    <ul class="post-list">
-		      {%- for post in site.tutorials -%}
+			  {% assign items = site.tutorials | sort: 'orderfield' %}
+		      {%- for post in items -%}
 		      <li>
 		        <h3>
 		          <a class="post-link" href="{{ post.url | relative_url }}">
