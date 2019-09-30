@@ -13,7 +13,7 @@ layout: default
   
   <div class="home-page-posts">
 	  <div class="home-posts">
-		  <h2 class="post-list-heading">What you type:</h2>
+		  <h2 class="post-list-heading">What you type</h2>
 <figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">{</span><span class="w">
   </span><span class="s2">"query"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="s2">"sql"</span><span class="p">:</span><span class="w"> </span><span class="s2">"select name, amount, duedate FROM requests;"</span><span class="w">
@@ -53,12 +53,6 @@ layout: default
 		      </li>
 		      {%- endfor -%}
 		    </ul>
-
-		    <p class="feed-subscribe">
-		      <a href="{{ 'feed.xml' | relative_url }}">
-		        <svg class="svg-icon orange"><use xlink:href="{{ 'assets/minima-social-icons.svg#rss' | relative_url }}"></use></svg><span>Subscribe</span>
-		      </a>
-		    </p>
 		  {%- endif -%}
 	  </div>
 	  <div class="home-tutorials">
