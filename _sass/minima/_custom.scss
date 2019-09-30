@@ -3,7 +3,7 @@
     display: grid;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 749px) {
   .home-page-posts {
     grid-template-columns: auto;
 	grid-template-rows: 1fr 1fr;
@@ -13,7 +13,7 @@
   }
 }
 
-@media (min-width: 577px) {
+@media (min-width: 750px) {
   .home-page-posts {
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: auto;
