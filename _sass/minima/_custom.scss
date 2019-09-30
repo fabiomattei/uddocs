@@ -1,9 +1,25 @@
 
 .home-page-posts {
     display: grid;
+}
+
+@media (max-width: 576px) {
+  .home-page-posts {
+    grid-template-columns: auto;
+	grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+	    "leftcol"
+		"rightcol";
+  }
+}
+
+@media (min-width: 577px) {
+  .home-page-posts {
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: auto;
-	grid-template-areas: "leftcol rightcol";
+    grid-template-areas: 
+	    "leftcol rightcol";
+  }
 }
 
 .home-posts {
