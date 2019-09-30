@@ -9,8 +9,8 @@ layout: default
 
   {{ content }}
   
-  <div id="home-page-posts">
-	  <div id="home-posts">
+  <div class="home-page-posts">
+	  <div class="home-posts">
 		  {%- if site.posts.size > 0 -%}
 		    <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
 		    <ul class="post-list">
@@ -37,14 +37,12 @@ layout: default
 		    </p>
 		  {%- endif -%}
 	  </div>
-	  <div id="home-tutorials">
+	  <div class="home-tutorials">
 		  {%- if site.tutorials.size > 0 -%}
 		    <h2 class="post-list-heading">{{ page.list_title | default: "Tutorials" }}</h2>
 		    <ul class="post-list">
 		      {%- for post in site.tutorials -%}
 		      <li>
-		        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-		        <span class="post-meta">{{ post.date | date: date_format }}</span>
 		        <h3>
 		          <a class="post-link" href="{{ post.url | relative_url }}">
 		            {{ post.title | escape }}

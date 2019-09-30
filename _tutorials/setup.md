@@ -1,6 +1,6 @@
 ---
 layout: page
-name: Setting the system up
+title: Setting the system up
 ---
 
 # Setting up a new project

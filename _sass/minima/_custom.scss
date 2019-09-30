@@ -1,13 +1,15 @@
 
 .home-page-posts {
     display: grid;
-	grid-template-columns: [home-left] 1fr [home-right] 1fr;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto;
+	grid-template-areas: "leftcol rightcol";
 }
 
 .home-posts {
-	grid-area: home-left;
+	grid-area: leftcol;
 }
 
 .home-tutorials {
-	grid-area: home-right;	
+	grid-area: rightcol;	
 }

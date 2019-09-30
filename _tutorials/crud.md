@@ -1,6 +1,6 @@
 ---
 layout: page
-name: CRUD operations
+title: CRUD operations
 ---
 
 # CRUD operations
