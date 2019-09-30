@@ -1,4 +1,13 @@
 
-.miostile {
-	color: red;
+.home-page-posts {
+    display: grid;
+	grid-template-rows: [home-left] 1fr [home-right] 1fr;
+}
+
+.home-posts {
+	grid-area: home-left;
+}
+
+.home-tutorials {
+	grid-area: home-right;	
 }
