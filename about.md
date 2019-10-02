@@ -38,7 +38,7 @@ I put all this information in a json file and this came out:
 {% highlight json %}
 {
   "query": {
-    "sql": "select id, name, amount, duedate FROM requestv1;"
+    "sql": "select id, name, amount, duedate FROM requests;"
   },
   "table": {
     "title": "My table",
