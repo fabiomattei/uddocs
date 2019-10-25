@@ -318,7 +318,11 @@ In this case too, only the users that belongs to group **author** can access to 
 
 The get section contains a transaction section that can contain one or more queries. In this case it contains: **DELETE FROM article WHERE id=:id;**. 
 
-As you can see this query has a parameter id that comes from the get parameters sent to the page: **{ "type":"long", "placeholder": ":id", "getparameter": "id" }**.
+As you can see this query has a parameter id that comes from the get parameters sent to the page: 
+
+{% highlight json %}
+{ "type":"long", "placeholder": ":id", "getparameter": "id" }
+{% endhighlight %}
 
 This parameter is linked to the request parameter: **{ "type":"long", "validation":"required|numeric", "name":"id" }**.
 
