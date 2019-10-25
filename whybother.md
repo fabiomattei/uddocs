@@ -19,6 +19,14 @@ I am not distracted because all the code that composes a page is contained in ju
 
 ### Because I keep my application tested whitout writing things twice
 
+As developer we work for long houres. When we are tired we tend to make small mistakes, like typos, we are quickly able to solve but that lower our productivity. 
+Sometimes those mistakes are more insidious.
+If we miss-type a parameter name in a link, and we do not check that link, an annoing error can be shipped to the quality control or worse to the client. It is nothing particurally hard to fix but It can really make us look bad as professional. UD had an internal system that checks this annoying things and it does not require for you to write things twice. Writing the code you automatically are provinding what UD needs in order to double check problems like that.
+
 ### Because I have my software documented automatically
 
+
+
 ### Because I have my code measured automatically
+
+
