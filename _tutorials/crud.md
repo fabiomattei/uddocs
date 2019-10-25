@@ -206,9 +206,17 @@ This form is composed by a get section and a post section that are very similar 
 
 The get section contains a query that allows the system to load the data the author can edit in to the form. The query is: **SELECT title, description FROM articles WHERE id = :id;**. 
 
-As you can see this query has a parameter **id** that comes from get parameters sent to the page: **{ "type":"long", "placeholder": ":id", "getparameter": "id" }**.
+As you can see this query has a parameter **id** that comes from get parameters sent to the page: 
 
-This parameter is linked to the request parameter: **{ "type":"long", "validation":"required|numeric", "name":"id" }**.
+{% highlight json %}
+{ "type":"long", "placeholder": ":id", "getparameter": "id" }
+{% endhighlight %}
+
+This parameter is linked to the request parameter: 
+
+{% highlight json %}
+{ "type":"long", "validation":"required|numeric", "name":"id" }
+{% endhighlight %}
 
 The html form we are defined in the get section is composed by three fields: 
 
