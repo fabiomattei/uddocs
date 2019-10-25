@@ -75,6 +75,8 @@ For more information about the group file syntax please check out <a href="{{sit
 
 ### Create a list of articles
 
+![List](images/tut01-table.png)
+
 We need to give to the users that belongs to the authors group the possibility to see all articles previously saved in the database. In order to do that we need to define a <a href="{{site.baseurl}}/docs/table-page">table</a>.
 
 This resource is named: **articles**
@@ -123,6 +125,8 @@ Then a table is composed, having 4 columns:
 {% endhighlight %}
 
 ### Create a form to insert a new article
+
+![Form](images/tut02-form.png)
 
 The **top actions** of the table and the menu we defined for the **author group** contain a link to the resource **newarticleform**.
 This resource is a <a href="{{site.baseurl}}/docs/form">form</a> that allows the **authors** to type a new article and save it on the database.
