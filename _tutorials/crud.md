@@ -126,6 +126,8 @@ Then a table is composed, having 4 columns:
 
 ### Create a form to insert a new article
 
+![Form new article](images/tut03-form-new.png)
+
 The **top actions** of the table and the menu we defined for the **author group** contain a link to the resource **newarticleform**.
 This resource is a <a href="{{site.baseurl}}/docs/form">form</a> that allows the **authors** to type a new article and save it on the database.
 
