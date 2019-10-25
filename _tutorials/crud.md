@@ -126,8 +126,6 @@ Then a table is composed, having 4 columns:
 
 ### Create a form to insert a new article
 
-![Form](images/tut02-form.png)
-
 The **top actions** of the table and the menu we defined for the **author group** contain a link to the resource **newarticleform**.
 This resource is a <a href="{{site.baseurl}}/docs/form">form</a> that allows the **authors** to type a new article and save it on the database.
 
@@ -197,6 +195,8 @@ A complete example
 
 ### Create a form to update an article
 
+![Form](images/tut02-form.png)
+
 The table resource **articles** queries the database and shows to the **authors** a list of articles. For each of them it defines two actions.
 The first action refers to the resource **editarticleform**. This <a href="{{site.baseurl}}/docs/form">form</a> allows the authors to modify an article previously inputed.
 
@@ -206,7 +206,7 @@ This form is composed by a get section and a post section that are very similar 
 
 The get section contains a query that allows the system to load the data the author can edit in to the form. The query is: **SELECT title, description FROM articles WHERE id = :id;**. 
 
-As you can see this query has a parameter id that comes from the get parameters sent to the page: **{ "type":"long", "placeholder": ":id", "getparameter": "id" }**.
+As you can see this query has a parameter **id** that comes from get parameters sent to the page: **{ "type":"long", "placeholder": ":id", "getparameter": "id" }**.
 
 This parameter is linked to the request parameter: **{ "type":"long", "validation":"required|numeric", "name":"id" }**.
 
@@ -220,9 +220,17 @@ At the end there is the submit button with the **save** label.
 
 The get section this time is a little different from the one we created before. It contains a <a href="{{site.baseurl}}/docs/query">query</a> that loads the data from the database: **SELECT title, description FROM articles WHERE id = :id;**. Those data are going to pre-populate the form
 
-As you can see this query has a parameter **id** that comes from the get parameters sent to the page: **{ "type":"long", "placeholder": ":id", "getparameter": "id" }**.
+As you can see this query has a parameter **id** that comes from the get parameters sent to the page: 
 
-This parameter is linked to the request parameter: **{ "type":"long", "validation":"required|numeric", "name":"id" }**.
+{% highlight json %}
+{ "type":"long", "placeholder": ":id", "getparameter": "id" }
+{% endhighlight %}
+
+This parameter is linked to the request parameter: 
+
+{% highlight json %}
+{ "type":"long", "validation":"required|numeric", "name":"id" }
+{% endhighlight %}
 
 The post section receives the post parameters sent by the form (title and description) sets the validations rules for those parameters and performs a query in the database in order to save the data.
 
