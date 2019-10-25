@@ -324,7 +324,13 @@ As you can see this query has a parameter id that comes from the get parameters 
 { "type":"long", "placeholder": ":id", "getparameter": "id" }
 {% endhighlight %}
 
-This parameter is linked to the request parameter: **{ "type":"long", "validation":"required|numeric", "name":"id" }**.
+This parameter is linked to the request parameter: 
+
+{% highlight json %}
+{ "type":"long", "validation":"required|numeric", "name":"id" }**.
+{% endhighlight %}
+
+The complete code example:
 
 {% highlight json %}
 {
@@ -354,6 +360,6 @@ This parameter is linked to the request parameter: **{ "type":"long", "validatio
 
 ### Second part of the tutorial
 
-Keep reading a read the second part of this tutorial: <a href="{{site.baseurl}}/tutorials/pushingthingsalittlefurther">Pushing things a little further</a>
+IF you are interested you can keep reading: <a href="{{site.baseurl}}/tutorials/pushingthingsalittlefurther">Pushing things a little further</a>
 
 
