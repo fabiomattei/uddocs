@@ -75,7 +75,7 @@ For more information about the group file syntax please check out <a href="{{sit
 
 ### Create a list of articles
 
-![List](images/tut01-table.png)
+![List](images/tut01-table.png){:class="aside-image"}
 
 We need to give to the users that belongs to the authors group the possibility to see all articles previously saved in the database. In order to do that we need to define a <a href="{{site.baseurl}}/docs/table-page">table</a>.
 
@@ -126,7 +126,7 @@ Then a table is composed, having 4 columns:
 
 ### Create a form to insert a new article
 
-![Form new article](images/tut03-form-new.png)
+![Form new article](images/tut03-form-new.png){:class="aside-image"}
 
 The **top actions** of the table and the menu we defined for the **author group** contain a link to the resource **newarticleform**.
 This resource is a <a href="{{site.baseurl}}/docs/form">form</a> that allows the **authors** to type a new article and save it on the database.
@@ -197,7 +197,7 @@ A complete example
 
 ### Create a form to update an article
 
-![Form](images/tut02-form.png)
+![Form](images/tut02-form.png){:class="aside-image"}
 
 The table resource **articles** queries the database and shows to the **authors** a list of articles. For each of them it defines two actions.
 The first action refers to the resource **editarticleform**. This <a href="{{site.baseurl}}/docs/form">form</a> allows the authors to modify an article previously inputed.

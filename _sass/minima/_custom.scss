@@ -29,3 +29,10 @@
 .home-tutorials {
 	grid-area: rightcol;	
 }
+
+@media (max-width: 749px) {
+    .aside-image {
+        float: right;
+	    max-width:50%;	
+    }
+}
