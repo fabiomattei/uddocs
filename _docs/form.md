@@ -3,7 +3,9 @@ layout: page
 name: Form
 ---
 
-# Structure
+![Form](images/tut02-form.png){:class="aside-image"}
+
+## Structure
 
 A form resource allows the programmer to insert a form in an application. 
 A form is a complex structure. A form often need to be filled in advance with data coming from the database.
