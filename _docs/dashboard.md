@@ -3,26 +3,25 @@ layout: page
 name: Dashboard
 ---
 
-# Dashboard
-
 ![Dashboard](images/tutorial03-dashboard.png){:class="aside-image"}
 
-A dashboard is a container of <a href="{{site.baseurl}}/docs/resource">resources</a> that allows the programmer to compose a page.
-The page is designed using bootstrap framework and for each resource we need to specify the row where we want to put it and how many columns we want the resource to take.
+A dashboard is a container of <a href="{{site.baseurl}}/docs/resource">resources</a> that allows the programmer to compose a page using different panels described in different <a href="{{site.baseurl}}/docs/resource">resources</a>.
+The page is designed using bootstrap framework and for each resource we need to specify the row where we want to put it and how many columns we want the resource to take. We need to specify that using the **row** and **width** attributes.
 
-A dashboard contains an array of **panels**
+A dashboard contains a json list of **panels**.
 
 For each panel we need to specify:
 
 * title: it is going to be shown in the interface
 * resource: the identifier of the json resource in the system
-* row: which row cotains the specific panel
+* row: which row contains the specific panel
 * width: how many columns we want the panel to extend
 
-We do not need to provide parameter to this specific resource as the GET parameters are calculated recoursively from the contained resources. We expect the action that link this dashboard to provide all parameters required by all resources contained in it
+We do not need to provide parameter to this specific resource as the GET parameters are calculated recoursively from the contained resources. We expect the action that link this dashboard to provide all parameters required by all resources contained in it.
+
+If you put a resource that defines a POST section, like a form or a search panel, they will work perfectly even inside the dashboard.
 
 ### Complete example
-
 
 {% highlight json %}
 { 
