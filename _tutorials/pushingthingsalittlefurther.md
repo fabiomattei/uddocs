@@ -6,7 +6,7 @@ orderfield: 3
 
 ## Dashboard
 
-Let's create a dashboard in order to help our administrator to work with articles in a smarter and quicker way.
+Let's create a <a href="{{site.baseurl}}/docs/dashboard">dashboard</a> in order to help our administrator to work with articles in a smarter and quicker way.
 Our dashboard is going to be made by 6 panels:
 
 ![Dashboard](images/tutorial03-dashboard.png){:class="aside-image"}
@@ -26,6 +26,8 @@ Io order to achieve that all we need to do is to create a <a href="{{site.baseur
 * newarticleform
 * articlesearchv1
 * articleexportv1
+
+Each resource describe a panel that is going to be part of the <a href="{{site.baseurl}}/docs/dashboard">dashboard</a>. Each panel is located in a precise position we specfy in the dashboard using the row and width attributes.
 
 {% highlight json %}
 { 
