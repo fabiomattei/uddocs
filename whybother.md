@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Why bother
+title: Why bother?
 ---
 
 ### Because I stay focused on my client problem
