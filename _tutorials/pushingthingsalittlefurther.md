@@ -9,14 +9,14 @@ orderfield: 3
 Let's create a dashboard in order to help our administrator to work with articles in a smarter and quicker way.
 Our dashboard is going to be made by 6 panels:
 
+![Dashboard](images/tutorial03-dashboard.png){:class="aside-image"}
+
 * a chart that shows the articles written per day, in the last 5 days
 * a table containing the last 5 written articles
 * an info panel that shows the last inserted article
 * a form to insert a new article
 * a search panel for artciles
 * an export to pdf panel for articles
-
-![Dashboard](images/tutorial03-dashboard.png)
 
 Io order to achieve that all we need to do is to create a <a href="{{site.baseurl}}/docs/dashboard">dashboard</a> resource adding the a resource for each panel:
 
