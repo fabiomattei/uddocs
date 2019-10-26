@@ -37,8 +37,14 @@
     }
 }
 
+@media (max-width: 749px) {
+    .aside-image {
+	    max-width: 96%;
+    }
+}
+
 .aside-image {
-    padding: 10px;
-    margin: 10px;
+    padding: 2%;
+    margin: 2%;
     border: 1px dashed $grey-color-dark;
 }
