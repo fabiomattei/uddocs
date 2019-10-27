@@ -19,7 +19,9 @@ For each panel we need to specify:
 
 We do not need to provide parameter to this specific resource as the GET parameters are calculated recoursively from the contained resources. We expect the action that link this dashboard to provide all parameters required by all resources contained in it.
 
-If you put a resource that defines a POST section, like a form or a search panel, they will work perfectly even inside the dashboard.
+If you put a resource that defines a POST section, like a form or a search panel, that resource will work perfectly even inside the dashboard. As you can see there is a form titled "New article" in this dashboard, **The user can fill the form** and when he clicks the save button the trasnsaction, that is part of the post section, is executed, the article is inserted in the database and the dashboard is called again with a GET redirection.
+
+You can use a dashboard in order to oraganize a page that is composed by many resources. 
 
 ### Complete example
 
