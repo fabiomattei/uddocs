@@ -86,34 +86,34 @@ Combining all the described information in a unique file we obtain something lik
 
 {% highlight json %}
 {
-  "name": "mytableresourcename",
+  "name": "articlestable",
   "metadata": { "type":"table", "version": "1" },
-  "allowedgroups": [ "administrationgroup", "teachergroup", "managergroup" ],
+  "allowedgroups": [ "author" ],
   "get": {
     "request": {
-	  "parameters": [
-	    { "type":"integer", "validation":"required|integer", "name":"parentId" }
-	  ]
+      "parameters": []
     },
-    "sql": "select id, typeid, name, description FROM mytable WHERE parentid = :parentid;",
-    "parameters":[
-      { "type":"long", "placeholder": ":parentid", "getparameter": "parentId" }
-    ],
+    "query": {
+      "sql": "SELECT id, title, description, created FROM articles;",
+      "parameters":[]
+    },
     "table": {
-      "title": "My table",
+      "title": "My articles",
       "topactions": [
-        { "label": "New", "resource": "newentityform"] }
-      ]
+        { "label": "New", "resource": "newarticle" }
+      ],
       "fields": [
-        {"headline": "Name", "sqlfield": "rcu_name"},
-        {"headline": "Description", "sqlfield": "rcu_description"}
+        {"headline": "Title", "sqlfield": "title"},
+        {"headline": "Description", "sqlfield": "description"},
+        {"headline": "Date", "sqlfield": "created"}
       ],
       "actions": [
-        {"icon":"level-down", "label": "Info", "action": "entityinfo", "resource": "inforequestv1", "parameters":[{"name": "id", "sqlfield": "rcu_id"}] },
-        {"label": "Edit", "action": "entityform", "resource": "formrequestv1", "parameters":[{"name": "id", "sqlfield": "rcu_id"}] }
+        {"label": "Edit", "resource": "editarticleform", "parameters":[{"name": "id", "sqlfield": "id"}] },
+        {"label": "Delete", "resource": "deletearticletransaction", "parameters":[{"name": "id", "sqlfield": "id"}] }
       ]
     }
   }
 }
 {% endhighlight %}
 
+This table script is taken from <a href="{{site.baseurl}}/tutorials/crud">the CRUD tutorial</a>. It is possible to <a href="https://github.com/fabiomattei/ud-demo">download a copy of the complete example from the GitHub repository</a>.

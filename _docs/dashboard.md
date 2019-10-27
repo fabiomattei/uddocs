@@ -42,4 +42,4 @@ You can use a dashboard in order to oraganize a page that is composed by more th
 }
 {% endhighlight %}
 
-This dashboard script is taken from <a href="{{site.baseurl}}/tutorials/crud">the CRUD tutorial</a>. It is possible to <a href="https://github.com/fabiomattei/ud-demo">download a copy of the complete excample from the GitHub repository</a>.
+This dashboard script is taken from <a href="{{site.baseurl}}/tutorials/crud">the CRUD tutorial</a>. It is possible to <a href="https://github.com/fabiomattei/ud-demo">download a copy of the complete example from the GitHub repository</a>.
