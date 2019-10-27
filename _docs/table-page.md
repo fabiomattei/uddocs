@@ -10,17 +10,23 @@ name: Table
 A table is a structure that allows the developer to make a query and show to the user the results.
 Eventually the table is going to contain links that allows the user to access to different specific features in the system linked to a specific entity shown in the table.
 
-## The information needed in order to set up a table
+## Information needed in order to set up a table
 
-### Get or Post parameters
+### Get parameters
 
-Sometimes we need to pass to the query behind the table some parameter using a get or a post request
+Sometimes we need to pass to the query behind the table some parameter using a get request. 
 
-Example: parentId = 2302
+Example: www.example.com/mytable?parentid=2302
+
+In order to catch that get parameter you need to add an object in the parameters section. That object has tree properties:
+
+* type: the type (long, string, etc..) expected the parameter to take after validation
+* validation: the rules the parameter has to follow
+* name: the parameter name in the URL
 
 {% highlight json %}
 "parameters": [
-  { "type":"integer", "validation":"required|integer", "name":"parentId" }
+  { "type":"integer", "validation":"required|integer", "name":"parentid" }
 ]
 {% endhighlight %}
 If you want to know about the <a href="{{site.baseurl}}/docs/validation">Validation</a> check out the related page.
