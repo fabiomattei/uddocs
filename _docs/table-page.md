@@ -35,13 +35,13 @@ If you want to know about the <a href="{{site.baseurl}}/docs/validation">Validat
 ### Query
 
 We need to make a query to the datase in order to populate our table.
-The simplest thing to do is just to write the query in plain SQL and eventually connect the paratameters needed to the get or the post paramenters.
+The simplest thing to do is just to write the query in plain SQL and eventually connect the parameters needed from the GET section.
 
 {% highlight json %}
 "query": {
   "sql": "select id, typeid, name, description FROM mytable WHERE parentid = :parentid;",
   "parameters":[
-    { "type":"long", "placeholder": ":parentid", "getparameter": "parentId" }
+    { "type":"long", "placeholder": ":parentid", "getparameter": "parentid" }
   ]
 }
 {% endhighlight %}
