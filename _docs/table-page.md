@@ -1,17 +1,16 @@
 ---
 layout: page
-name: Table page
+name: Table
 ---
 
-# Description
+## Description
 
-A table is a structure that allows the developer to make a query and show to the user the results of the query.
-Eventually the table is going to contain links that allows to user to access to different specific features in the system linked to a specific entity shown in the table.
+![List](images/tut01-table.png){:class="aside-image"}
 
-How a table looks like:
-(image here)
+A table is a structure that allows the developer to make a query and show to the user the results.
+Eventually the table is going to contain links that allows the user to access to different specific features in the system linked to a specific entity shown in the table.
 
-# The information needed in order to set up a table
+## The information needed in order to set up a table
 
 ### Get or Post parameters
 
@@ -75,7 +74,7 @@ We describe a set of actions liked to each item of the table. To see a better de
 }
 {% endhighlight %}
 
-# A complete example
+## A complete example
 
 Combining all the described information in a unique file we obtain something like this:
 
