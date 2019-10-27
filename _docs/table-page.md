@@ -62,7 +62,7 @@ We describe a set of buttons, at the top of the table linked to specific actions
 
 We describe a set of fields giving to each of them a name and a connection to the SQL query: *{"headline": "Name", "sqlfield": "name"}*
 
-We describe a set of actions liked to each item of the table. To see a better description of the actions check out this page.
+We describe a set of <a href="{{site.baseurl}}/docs/actions">actions</a> liked to each item of the table.
 
 {% highlight json %}
 "table": {
