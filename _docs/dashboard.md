@@ -21,7 +21,7 @@ We do not need to provide parameter to this specific resource as the GET paramet
 
 If you put a resource that defines a POST section, like a form or a search panel, that resource will work perfectly even inside the dashboard. As you can see there is a form titled "New article" in this dashboard, **The user can fill the form** and when he clicks the save button the trasnsaction, that is part of the post section, is executed, the article is inserted in the database and the dashboard is called again with a GET redirection.
 
-You can use a dashboard in order to oraganize a page that is composed by many resources. 
+You can use a dashboard in order to oraganize a page that is composed by more than a resource. 
 
 ### Complete example
 
@@ -41,3 +41,5 @@ You can use a dashboard in order to oraganize a page that is composed by many re
   ]
 }
 {% endhighlight %}
+
+This dashboard script is taken from <a href="{{site.baseurl}}/tutorials/crud">the CRUD tutorial</a>. It is possible to <a href="https://github.com/fabiomattei/ud-demo">download a copy of the complete excample from the GitHub repository</a>.
