@@ -1,6 +1,7 @@
 ---
 layout: page
 name: Table
+title: Table
 ---
 
 ## Description
