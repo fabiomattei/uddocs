@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Managin UD
+title: Managing UD
 orderfield: 4
 ---
 
@@ -8,7 +8,7 @@ UD comes with a control panel that allows the DEVOP to have under control the wh
 
 ![Control Panel: Dashboard](images/controlpanel-dashboard.png)
 
-You can access this panel pointing your browser to the login page and unsing 
+You can access this panel pointing your browser to the login page and using 
 
 * user: _admin_ 
 * password: _admin_
