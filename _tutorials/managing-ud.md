@@ -20,3 +20,4 @@ The adminitrator panel helps the software administrato to:
 * manage users
 * generate metrics for the defined resources (experimental)
 * generate documentation for the defined resources (experimental)
+
