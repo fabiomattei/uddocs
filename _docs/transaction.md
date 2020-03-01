@@ -40,4 +40,5 @@ One of the following parameters is mandatory:
 * constantparameter: a constant parameter
 * getparameter: the name of the get parameter the value is taken from
 * postparemeter: the name of the post parameter the value is taken from
+* sessionparameter: the nome of a session variable
 
