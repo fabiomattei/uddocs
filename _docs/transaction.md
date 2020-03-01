@@ -3,9 +3,7 @@ layout: page
 name: Transaction
 ---
 
-# Transactions
-
-Transactions are queries that make changes to the database. They can be *insert*, *update* or *delete*.
+Transactions are SQL statments that make changes to the database. They can be *insert*, *update* or *delete*.
 
 An example of the transaction is the following json object:
 
@@ -18,16 +16,17 @@ An example of the transaction is the following json object:
 }
 {% endhighlight %}
 
-As you can see we need to define a SQL query and an array of parameters we need to pass to the query.
+As you can see we need to define a SQL statment and an array of parameters we need to pass to it.
 
 A transaction is defined:
 
-* sql: query in plain SQL, mandatory
+* label: a string that allows referrals to this statment from other following SQL statments, optional
+* sql: SQL statment in plain SQL, mandatory
 * paramters: array of parameter objects, optional
 
 # SQL parameters
 
-Each query can have one or many parameters.
+Each SQL statment can have one or many parameters.
 A parameter is a json object that contains two properties
 
 The name property is mandatory:
@@ -45,7 +44,8 @@ One of the following parameters is mandatory:
 
 # Transactions with dependent parameters
 
-Sometimes we have two queries in one transaction. It is easy to implement that as the transaction array can host more than one query. Sometimes we need to create references between different queries, for example when we are storing an id. In the following esample we are insertin a book in a database and an author having a FK key to the book entity. As you can see the label of the first SQL statment is used for reference in the second SQL statment.
+Sometimes we have two SQL statments in one transaction. 
+It is easy to implement that as the transaction array can host more than one SQL statment. If we need to create references between different SQL statments, for example when we are storing an id coming from a previous statment. In the following esample we are insertin a book in a database and an author having a FK key to the book entity. As you can see the label of the first SQL statment is used for reference in the second SQL statment.
 
 {% highlight json %}
 {
