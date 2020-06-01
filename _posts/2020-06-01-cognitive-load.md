@@ -15,9 +15,11 @@ You forget the problem you are solving.
 
 The first thing I experienced when I stated to work with UD was a great relief for my mind.
 I was able to think about all interfaces and queries I felt completly free.
-No more MVC, no more tree file open to change a feature, everithign was close to my hand.
+No more MVC, no more tree file open to change a feature, everything was close to hand.
 Yes I know, SQL was still there and json syntax too. But it was so much less to handle with my brain.
 
-So I was able to think more about the client, the problem, and I was so quick.
+I was able to think more about the (human) client, the problem, and I was so quick.
 I was able to redesign the application in a matter of days.
+
+This is what I think is the main point of using a structure like UD, it helps you the focus and think about the problem you are solving for your client.
 
