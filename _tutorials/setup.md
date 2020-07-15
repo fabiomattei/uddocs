@@ -5,7 +5,7 @@ orderfield: 1
 ---
 
 UD is a PHP library you can use simply importing it in your project using composer.
-This is the *composer* file that allows you to taka advantage of the library. 
+This is the *composer* file that allows you to take advantage of the library. 
 
 {% highlight json %}
 {
@@ -67,7 +67,7 @@ You will find a log-in page.
 On your first install the system defines two users (already part of datamodel.sql):
 
 * **user: _admin_ password: _admin_** this is the user that can create new users and activate or deactivare modules of the system
-* **user _manager_ password: _manager_** this is just a user created in order to have some kind of access to the system
+* **user: _manager_ password: _manager_** this is just a user created in order to have some kind of access to the system
 
 We recommend you to change usernames and password at your first login.
 
