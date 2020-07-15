@@ -52,7 +52,7 @@ You will have a working installation of UD.
 
 ### Setting up the database
 
-Once you have done that you can point your browser to http://localhost:9000.
+Once you have done that you can point your browser to http://localhost:8183.
 
 You are going to find an instance of <a href="https://www.phpmyadmin.net/">phpMyAdmin</a> already pointing to your database.
 
