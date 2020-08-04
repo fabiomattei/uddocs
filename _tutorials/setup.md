@@ -4,6 +4,8 @@ title: Setting up a new project
 orderfield: 1
 ---
 
+### Before we start
+
 UD is a PHP library you can use simply importing it in your project using composer.
 This is the *composer* file that allows you to take advantage of the library. 
 
@@ -38,11 +40,23 @@ Once you have done that you need to type:
 composer update
 {% endhighlight %}
 
+## Starting a demo app
+
 ### Download and startup
 
-A quick way to start is to clone the demo project from <a href="https://github.com/fabiomattei/ud-demo">the github project repository</a> and type:
+Before we start you need to be sure you have **composer** and **docker** properly installed on your system. Ulgy Duckling requires **PHP 7.3 or newer** installed on your system but if that is not the case we can take advantage of docker in order to solve the issue.
+
+A quick way to start is to clone the demo project from <a href="https://github.com/fabiomattei/ud-demo">the github project repository</a> 
+
 
 {% highlight shell %}
+git clone https://github.com/fabiomattei/ud-demo
+{% endhighlight %}
+
+Now you can type:
+
+{% highlight shell %}
+cd ud-demo
 composer update
 docker-compose build
 docker-compose up -d
@@ -50,13 +64,21 @@ docker-compose up -d
 
 You will have a working installation of UD.
 
+If you do not have PHP 7.3 or 7.4 installed on your system you can just *use docker to run composer*. 
+Instead of writing *composer update* you are going to type:
+
+{% highlight shell %}
+sudo docker run --rm --interactive --tty --volume $PWD:/app composer update
+{% endhighlight %}
+This command is going to run composer using a docker container.
+
 ### Setting up the database
 
-Once you have done that you can point your browser to http://localhost:8183.
+The demo app uses **PHPMyAdmin** to work with the database. 
 
-You are going to find an instance of <a href="https://www.phpmyadmin.net/">phpMyAdmin</a> already pointing to your database.
+If you point your browser to **http://localhost:8183**, you are going to find an instance of <a href="https://www.phpmyadmin.net/">phpMyAdmin</a> already pointing to your database.
 
-You will be able to import the datamodel from yourlocalfolder/docker/apache/datamodel.sql
+Now is time di import the data schema located in ud-demo/docker/apache/datamodel.sql
 
 ### First access to the system
 
