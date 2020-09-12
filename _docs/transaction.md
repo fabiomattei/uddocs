@@ -68,5 +68,40 @@ It is easy to implement that as the transaction array can host more than one SQL
 }
 {% endhighlight %}
 
+# Session updates
+
+{% highlight json %}
+"sessionupdates": [
+  { "type":"long", "sessionparameter":"siteid", "postparameter":"riskcenterid" }
+]
+{% endhighlight %}
+
+# Redirect
+
+Possible redirect:
+
+{% highlight json %}
+"redirect": {
+  "internal": { "type": "onepageback" }
+}
+{% endhighlight %}
+
+
+
+{% highlight json %}
+"redirect": {
+  "internal": { "type": "twopagesback" }
+}
+{% endhighlight %}
+
+
+
+
+{% highlight json %}
+"redirect": {
+  "action": { "resource": "myresourcetogetbackto" }
+}
+{% endhighlight %}
+
 
 
