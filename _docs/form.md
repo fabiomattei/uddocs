@@ -196,7 +196,8 @@ TODO
         { "type":"textfield", "name":"competentperson", "label":"Competent person", "placeholder":"Competent person", "sqlfield":"ua_competentperson", "width":"6", "row":"3" },
         { "type":"textarea", "name":"comment", "label":"Comment", "placeholder":"Comment", "sqlfield":"ua_comment", "width":"12", "row":"4" },
         { "type":"hidden", "name":"unitassetid", "sqlfield":"ua_id", "row":"4" },
-        { "type":"hidden", "name":"technicalassetid", "sqlfield":"ta_id", "row":"4" }
+        { "type":"hidden", "name":"technicalassetid", "sqlfield":"ta_id", "row":"4" },
+		{ "type": "submitbutton", "width":"2", "row":"5", "name": "Save", "constantparameter": "Save" }
       ]
     }
   },
@@ -254,7 +255,10 @@ TODO
         "destinationgroups": [ "administrationgroup", "teachergroup", "managergroup" ],
         "action": { "action":"documentinfo", "resource":"documentsubscriptionv1", "parameters":[{"name":"id", "value":"id"}] }
       }
-    ]
+    ],
+	"redirect": {
+	    "action": { "resource": "finantialdashboard" }
+	}
   }
 }
 {% endhighlight %}
