@@ -256,9 +256,9 @@ TODO
         "action": { "action":"documentinfo", "resource":"documentsubscriptionv1", "parameters":[{"name":"id", "value":"id"}] }
       }
     ],
-	"redirect": {
-	    "action": { "resource": "finantialdashboard" }
-	}
+    "redirect": {
+      "action": { "resource": "finantialdashboard" }
+    }
   }
 }
 {% endhighlight %}
