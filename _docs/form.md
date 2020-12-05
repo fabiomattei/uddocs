@@ -189,7 +189,7 @@ TODO
       "title": "",
       "submitTitle": "Save",
       "fields": [
-        { "type":"textfield", "name":"name", "label":"Name", "placeholder":"Name", "sqlfield":"ta_name", "width":"6", "row":"1" },
+        { "type":"textfield", "name":"name", "label":"Name", "placeholder":"Name", "readonly":"readonly", "sqlfield":"ta_name", "width":"6", "row":"1" },
         { "type":"textfield", "name":"plantcode", "label":"Plant Code", "placeholder":"Plant Code", "sqlfield":"ua_identifier", "width":"6", "row":"1" },
         { "type":"textarea", "name":"description", "label":"Description", "placeholder":"Description", "sqlfield":"ua_description", "width":"12", "row":"2" },
         { "type":"textfield", "name":"condition", "label":"Condition", "placeholder":"Condition", "sqlfield":"ua_conditionsummary", "width":"6", "row":"3" },
