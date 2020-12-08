@@ -95,7 +95,7 @@ Combining all the described information in a unique file we obtain something lik
       "parameters": []
     },
     "query": {
-      "sql": "SELECT id, title, description, created FROM articles;",
+      "sql": "SELECT id, title, description, tag, directory created FROM articles;",
       "parameters":[]
     },
     "table": {
@@ -106,7 +106,11 @@ Combining all the described information in a unique file we obtain something lik
       "fields": [
         {"headline": "Title", "sqlfield": "title"},
         {"headline": "Description", "sqlfield": "description"},
-        {"headline": "Date", "sqlfield": "created"}
+        {"headline": "Date", "sqlfield": "created"},
+		{"headline": "Ctegorization", "composite":"${tag} ${directory}", "parameters": [
+          { "name":"${tag}", "sqlfield": "tag"  },
+          { "name":"${directory}", "sqlfield": "directory"  }
+		] },
       ],
       "actions": [
         {"label": "Edit", "resource": "editarticleform", "parameters":[{"name": "id", "sqlfield": "id"}] },
