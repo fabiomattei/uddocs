@@ -107,10 +107,10 @@ Combining all the described information in a unique file we obtain something lik
         {"headline": "Title", "sqlfield": "title"},
         {"headline": "Description", "sqlfield": "description"},
         {"headline": "Date", "sqlfield": "created"},
-		{"headline": "Ctegorization", "composite":"${tag} ${directory}", "parameters": [
+        {"headline": "Ctegorization", "composite":"${tag} ${directory}", "parameters": [
           { "name":"${tag}", "sqlfield": "tag"  },
           { "name":"${directory}", "sqlfield": "directory"  }
-		] },
+        ] },
       ],
       "actions": [
         {"label": "Edit", "resource": "editarticleform", "parameters":[{"name": "id", "sqlfield": "id"}] },
