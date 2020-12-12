@@ -186,8 +186,9 @@ TODO
       ]
     },
     "form": {
-      "title": "",
-      "submitTitle": "Save",
+      "title": "My new article",
+      "action": { "resource":"sampleform" },
+      "method": "POST",
       "fields": [
         { "type":"textfield", "name":"name", "label":"Name", "placeholder":"Name", "readonly":"readonly", "sqlfield":"ta_name", "width":"6", "row":"1" },
         { "type":"textfield", "name":"plantcode", "label":"Plant Code", "placeholder":"Plant Code", "sqlfield":"ua_identifier", "width":"6", "row":"1" },
