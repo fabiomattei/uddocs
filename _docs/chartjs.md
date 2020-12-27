@@ -118,12 +118,23 @@ The SQL query is the following:
 select count(id) counted, created FROM articles GROUP BY created;
 {% endhighlight %}
 
+Basically this wants to count the article created per day and group them by creation date.
+Visualizing this data in a chart means to set a set of labels (the dates) and values (the number of articles per day).
+
 {% highlight json %}
 "chartdataglue":[
   { "type":"string", "placeholder":"#labels", "sqlfield":"created" },
   { "type":"long", "placeholder":"#amounts", "sqlfield":"counted" }
 ]
 {% endhighlight %}
+
+The **chartdataglue** creates two json lists the first one is created from the results coming from the query from field named **created**.
+
+UD will care of sobstituting the **#labels** placeholder with the list created from the content of the result of the query.
+
+The same is happening to the **#amounts** placeholder and the field **counted**.
+
+This meas that where in the structure there is **#labels** placeholder will be inserted a list containing **["31/12/2020", "01/01/2021", "01/01/2021"]** and where there is the **#amounts** placeholder will be inserted a list containing **[3, 2, 4]**,
 
 # Complete example
 
