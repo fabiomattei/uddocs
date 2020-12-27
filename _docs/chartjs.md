@@ -128,13 +128,13 @@ Visualizing this data in a chart means to set a set of labels (the dates) and va
 ]
 {% endhighlight %}
 
-The **chartdataglue** creates two json lists the first one is created from the results coming from the query from field named **created**.
+The **chartdataglue** creates two json lists, the first one is created from the results coming from the query from field named **created**.
 
-UD will care of sobstituting the **#labels** placeholder with the list created from the content of the result of the query.
+UD will care of sobstituing the **#labels** placeholder with the list created from content coming from the results of the query.
 
 The same is happening to the **#amounts** placeholder and the field **counted**.
 
-This meas that where in the structure there is **#labels** placeholder will be inserted a list containing **["31/12/2020", "01/01/2021", "01/01/2021"]** and where there is the **#amounts** placeholder will be inserted a list containing **[3, 2, 4]**,
+This meas that where in the structure there is **#labels** placeholder will be inserted a list containing **["31/12/2020", "01/01/2021", "01/01/2021"]** and where there is the **#amounts** placeholder will be inserted a list containing **[3, 2, 4]**.
 
 # Complete example
 
