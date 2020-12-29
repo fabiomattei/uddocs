@@ -23,7 +23,7 @@ As you can see we need to define a SQL query and an array of parameters we need 
 A query is defined:
 
 * sql: query in plain SQL, mandatory
-* paramters: array of parameter objects, optional
+* parameters: array of parameter objects, optional
 
 # SQL parameters
 
@@ -40,4 +40,5 @@ One of the following parameters is mandatory:
 * constantparameter: a constant parameter
 * getparameter: the name of the get parameter the value is taken from
 * postparemeter: the name of the post parameter the value is taken from
+* sessionparameter: the name of the session paramenter the value is taken from
 
