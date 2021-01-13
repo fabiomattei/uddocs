@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Decluttering a develper mind"
+title:  "Decluttering a developer mind"
 date:   2021-01-13 05:24:00 +0100
 categories: develper-mental-sanity
 ---
