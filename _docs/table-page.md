@@ -27,7 +27,7 @@ In order to catch that get parameter you need to add an object in the parameters
 
 {% highlight json %}
 "parameters": [
-  { "type":"integer", "validation":"required|integer", "name":"parentid" }
+  { "type":"long", "validation":"required|numeric", "name":"parentid" }
 ]
 {% endhighlight %}
 If you want to know about the <a href="{{site.baseurl}}/docs/validation">Validation</a> check out the related page.
