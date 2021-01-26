@@ -81,6 +81,37 @@ We describe a set of <a href="{{site.baseurl}}/docs/actions">actions</a> liked t
 }
 {% endhighlight %}
 
+## Fields 
+The properties of the **field** object are:
+
+* headline: the headline of the table column
+* type: the type of the field [editable, noneditable]
+* sqlfield: used in case we need to load data in a field that comes from a query
+* sessionparameter: used in case we need to load data in a field that comes from a session parameter
+* getparameter: used in case we need to load data in a field that comes from a getparameter parameter
+* postparameter: used in case we need to load data in a field that comes from a postparameter parameter
+* constantparameter: used in case we need to load data in a field that comes from a constantparameter parameter
+* composite: used in in a column we want to put more than one field
+
+{% highlight json %}
+{"headline": "Name", "composite":"${placeholder1} ${placeholder2}", "parameters": [
+      { "name":"${placeholder1}", "sqlfield": "name"  },
+      { "name":"${placeholder2}", "sqlfield": "surname"  }
+    ] 
+}
+{% endhighlight %}
+
+## Value
+In case there are many possible values for a column content it is possible to use the **value** property
+
+{% highlight json %}
+"value": [
+  { "type":"long", "sqlfield":"name", "filter":"substr,0,1" },
+  { "type":"long", "constant":"0" }
+]
+{% endhighlight %}
+
+
 ## A complete example
 
 Combining all the described information in a unique file we obtain something like this:
