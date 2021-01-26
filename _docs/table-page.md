@@ -81,7 +81,7 @@ We describe a set of <a href="{{site.baseurl}}/docs/actions">actions</a> liked t
 }
 {% endhighlight %}
 
-## Fields 
+### Fields 
 The properties of the **field** object are:
 
 * headline: the headline of the table column
@@ -90,8 +90,9 @@ The properties of the **field** object are:
 * sessionparameter: used in case we need to load data in a field that comes from a session parameter
 * getparameter: used in case we need to load data in a field that comes from a getparameter parameter
 * postparameter: used in case we need to load data in a field that comes from a postparameter parameter
-* constantparameter: used in case we need to load data in a field that comes from a constantparameter parameter
+* constant: used in case we need to load data in a field that comes from a constantparameter parameter
 * composite: used in in a column we want to put more than one field
+* filter: the filter functions to apply to the field.
 
 {% highlight json %}
 {"headline": "Name", "composite":"${placeholder1} ${placeholder2}", "parameters": [
@@ -101,15 +102,18 @@ The properties of the **field** object are:
 }
 {% endhighlight %}
 
-## Value
-In case there are many possible values for a column content it is possible to use the **value** property
+### Value
+A field can have a value property. This property allows the software developer to specify different sources for information. The sources
+are evaluated on by one and the first not null result becomes the value of the field. A filter can be applyed to the not-null result of a value.
 
 {% highlight json %}
-"value": [
-  { "type":"long", "sqlfield":"name", "filter":"substr,0,1" },
-  { "type":"long", "constant":"0" }
-]
+{"headline": "First letter", "value": [
+  { "type":"string", "sqlfield":"name", "filter":"substr,0,1" },
+  { "type":"string", "constant":"" }
+] }
 {% endhighlight %}
+
+In this example this column is filled with the information stored in the "name" sql field, result of a query. If that information is not null the filter substr is applyed. In case that information is null the second element in the list is evaluated, in this case it is the constant empty string.
 
 
 ## A complete example
