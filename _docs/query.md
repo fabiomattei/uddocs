@@ -23,7 +23,8 @@ As you can see we need to define a SQL query and an array of parameters we need 
 A query is defined:
 
 * sql: query in plain SQL, mandatory
-* parameters: array of parameter objects, optional
+* parameters: optional, array of parameter objects
+* debug: optional, shows information about the queries 
 
 # SQL parameters
 
@@ -41,3 +42,22 @@ One of the following parameters is mandatory:
 * getparameter: the name of the get parameter the value is taken from
 * postparemeter: the name of the post parameter the value is taken from
 * sessionparameter: the name of the session paramenter the value is taken from
+
+# Debug
+
+Sometimes we need help to fix queries.
+
+{% highlight json %}
+"query": {
+  "sql": "select id, typeid, name, description FROM mytable WHERE parentid = :parentid;",
+  "parameters":[
+    { "type":"long", "placeholder": ":parentid", "getparameter": "parentId" }
+  ],
+  "debug":"on"
+}
+{% endhighlight %}
+
+The debug parameter print on the page the query interpolated with all paramenters and shows the output of the command [PDOStatement::debugDumpParams](https://www.php.net/manual/en/pdostatement.debugdumpparams.php).
+ 
+
+
