@@ -29,11 +29,24 @@ A query is defined:
 # SQL parameters
 
 Each query can have one or many parameters.
-A parameter is a json object that contains two properties
+A parameter is a json object that contains three properties
 
-The name property is mandatory:
+### type
 
-* name: the parameter name
+It specifies the type of the parameter during the binding process. 
+
+* long, int: PDO::PARAM_INT
+* string, str: PDO::PARAM_STR
+* bool, boolean: PDO::PARAM_BOOL
+* float, decimal: PDO::PARAM_STR
+
+### placeholder
+
+Each parameter correspond to a placeholder in the query.
+
+* placeholder: the placeholder name
+
+### data
 
 One of the following parameters is mandatory:
 
