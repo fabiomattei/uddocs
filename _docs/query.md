@@ -3,8 +3,6 @@ layout: page
 name: Query
 ---
 
-# Query
-
 Queries are a way to get from the database the information we need. They are mostly *select* statment
 
 An example of a query is the following json object:
