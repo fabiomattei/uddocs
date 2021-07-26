@@ -87,7 +87,7 @@ If you want to know more about SQL paramenters check out the <a href="{{site.bas
 The properties of the **field** object are:
 
 * label: the descriptive text associated to the field the user can read
-* type: the type of the field [textfield, textarea, currency, date, dropdown, sqldropdown, hidden, submitbutton]
+* type: the type of the field [textfield, numeric, textarea, currency, date, dropdown, sqldropdown, hidden, submitbutton]
 * name: html name attrbute associated to the field
 * placeholder: html placeholder attrbute associated to the field
 * sqlfield: used in case we need to load data in a field that comes from a query
