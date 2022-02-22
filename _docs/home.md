@@ -22,3 +22,13 @@ Here you can find some documentation for the framework behind the code
 * <a href="{{site.baseurl}}/docs/validation">Validation</a>
 * <a href="{{site.baseurl}}/docs/jsonindex">Index</a>
 
+## Extending the system
+
+You do not need to limit your UD-programming to the ready to go solutions, you can create your own. 
+You can create custom controllers, custom json templates and custom HTML Blocks. 
+Each of the the following sections is going to drive you to extend your software using the path you like
+the most.
+
+* <a href="{{site.baseurl}}/docs/controller">Custom Controller</a>
+* <a href="{{site.baseurl}}/docs/jsontemplate">Custom Json template</a>
+* <a href="{{site.baseurl}}/docs/htmlblock">Custom HTML Block</a>
