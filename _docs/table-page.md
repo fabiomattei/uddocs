@@ -68,7 +68,7 @@ We describe a set of <a href="{{site.baseurl}}/docs/actions">actions</a> liked t
 "table": {
   "title": "My table",
   "topactions": [
-    { "label": "New", "resource": "newentityform"] }
+    { "label": "New", "resource": "newentityform" }
   ]
   "fields": [
     {"headline": "Name", "sqlfield": "name"},
