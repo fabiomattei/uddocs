@@ -157,3 +157,69 @@ Combining all the described information in a unique file we obtain something lik
 {% endhighlight %}
 
 This table script is taken from <a href="{{site.baseurl}}/tutorials/crud">the CRUD tutorial</a>. It is possible to <a href="https://github.com/fabiomattei/ud-demo">download a copy of the complete example from the GitHub repository</a>.
+
+## Dynamic table title 
+
+It is possible to have a table title built with data returned by a query.
+
+Let's see a complete example:
+
+{% highlight json %}
+{
+  "name": "articlestable",
+  "metadata": { "type":"table", "version": "1" },
+  "allowedgroups": [ "author" ],
+  "get": {
+    "request": {
+      "parameters": []
+    },
+    "query": {
+      "sql": "SELECT id, title, description, tag, directory created FROM articles;",
+      "parameters":[]
+    },
+	"titlequery":{
+      "sql": "SELECT name FROM authors LIMIT 1;",
+      "parameters" :[]
+    },
+    "table": {
+      "title": { "composite":"Articles written by: '${name}'",
+        "parameters": [ { "name":"${name}", "sqlfield": "name"  } ]
+      },
+      "topactions": [
+        { "label": "New", "resource": "newarticle" }
+      ],
+      "fields": [
+        {"headline": "Title", "sqlfield": "title"},
+        {"headline": "Description", "sqlfield": "description"},
+        {"headline": "Date", "sqlfield": "created"},
+        {"headline": "Ctegorization", "composite":"${tag} ${directory}", "parameters": [
+          { "name":"${tag}", "sqlfield": "tag"  },
+          { "name":"${directory}", "sqlfield": "directory"  }
+        ] },
+      ],
+      "actions": [
+        {"label": "Edit", "resource": "editarticleform", "parameters":[{"name": "id", "sqlfield": "id"}] },
+        {"label": "Delete", "resource": "deletearticletransaction", "parameters":[{"name": "id", "sqlfield": "id"}] }
+      ]
+    }
+  }
+}
+{% endhighlight %}
+
+This table has a table query that get from database the data to show in the title. 
+{% highlight json %}
+{
+	"titlequery":{
+      "sql": "SELECT name FROM authors LIMIT 1;",
+      "parameters" :[]
+    }
+{% endhighlight %}
+
+The data loaded are used in a title that is a composite structure where placeholders are replaced with data.
+
+{% highlight json %}
+{
+    "title": { "composite":"Articles written by: '${name}'",
+      "parameters": [ { "name":"${name}", "sqlfield": "name"  } ]
+    }
+{% endhighlight %}
