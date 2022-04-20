@@ -177,7 +177,7 @@ Let's see a complete example:
       "sql": "SELECT id, title, description, tag, directory created FROM articles;",
       "parameters":[]
     },
-	"titlequery":{
+    "titlequery":{
       "sql": "SELECT name FROM authors LIMIT 1;",
       "parameters" :[]
     },
@@ -208,8 +208,7 @@ Let's see a complete example:
 
 This table has a table query that get from database the data to show in the title. 
 {% highlight json %}
-{
-	"titlequery":{
+    "titlequery":{
       "sql": "SELECT name FROM authors LIMIT 1;",
       "parameters" :[]
     }
@@ -218,7 +217,6 @@ This table has a table query that get from database the data to show in the titl
 The data loaded are used in a title that is a composite structure where placeholders are replaced with data.
 
 {% highlight json %}
-{
     "title": { "composite":"Articles written by: '${name}'",
       "parameters": [ { "name":"${name}", "sqlfield": "name"  } ]
     }
