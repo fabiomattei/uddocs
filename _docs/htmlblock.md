@@ -30,8 +30,8 @@ class HTMLBlockExample extends BaseHTMLBlock {
 
 In order to define an HTML Block you need tow things:
 
-* define a HTML_BLOCK_NAME constat that is unique for this type of block in the codebase;
-* define a getHTML method that returns the HTML code eventually loaded with content coming from a database.
+* define a **HTML_BLOCK_NAME** constat that is unique for this type of block in the codebase;
+* define a **getHTML method** that returns the HTML code eventually loaded with content coming from a database.
 
 We know that in modern web design a HTML block is not enough by itself. We need to add css rules or javascript files.
 Overriding the methods:
