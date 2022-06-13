@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Let's create a new JSON resource type
-orderfield: 6
+orderfield: 7
 ---
 
 ## The desired outcome
@@ -27,8 +27,7 @@ The json resource should look like:
   "get": {
     "sql": "select name, surname, birthyear, deathyear FROM authors;",
     "list": {
-      "title": "Authors",
-      "fields": [
+      "rowfields": [
         { "sqlfield": "name" },
         { "sqlfield": "surname" },
 		{ "sqlfield": "birthyear" },
@@ -43,6 +42,44 @@ Obviosly in the future we will be able to write as many **mylist** resources as 
 
 We need now an HTML Block in order to implent this list. It could look like the following:
 
+{% highlight php %}
+use Fabiom\UglyDuckling\Common\Blocks\BaseHTMLBlock;
 
+class HTMLBlockList extends BaseHTMLBlock {
+	
+    const HTML_BLOCK_NAME = 'basehtmlblocklist';	
+    private string $listbody;
+	
+    function addLi(string $litext) {
+        $this->listbody += '<li>'.litext.'</li>';
+    }
+
+    function getHTML(): string {
+        return '<ul>.'$this->listbody'.</ul>';
+    }
+
+}
+{% endhighlight %}
+
+Now we need a Json template in order to orchestrate everything:
+
+{% highlight php %}
+<?php
+use Fabiom\UglyDuckling\Common\Json\JsonTemplates\JsonTemplate;
+use Fabiom\UglyDuckling\Custom\HTMLBlocks\HTMLBlockExample;
+
+class JsonTemplateExample extends JsonTemplate {
+
+    const blocktype = 'templatebuilderexample';
+
+    /**
+     * @return \Fabiom\UglyDuckling\Common\Blocks\EmptyHTMLBlock|HTMLBlockExample
+     */
+    public function createHTMLBlock() {
+        return new HTMLBlockExample;
+    }
+
+}
+{% endhighlight %}
 
 
