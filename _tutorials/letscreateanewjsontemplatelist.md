@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Let's create a new JSON resource type
+title: Lets create a new JSON resource type
 orderfield: 7
 ---
 
@@ -70,13 +70,31 @@ use Fabiom\UglyDuckling\Custom\HTMLBlocks\HTMLBlockExample;
 
 class JsonTemplateExample extends JsonTemplate {
 
-    const blocktype = 'templatebuilderexample';
+    const blocktype = 'mylist';
 
     /**
      * @return \Fabiom\UglyDuckling\Common\Blocks\EmptyHTMLBlock|HTMLBlockExample
      */
     public function createHTMLBlock() {
-        return new HTMLBlockExample;
+        $out = new HTMLBlockList;
+		
+		$queryExecutor = $this->pageStatus->getQueryExecutor();
+		$queryExecutor->setQueryStructure( $this->resource->get->query );
+		$entities = $queryExecutor->executeSql();
+		
+		foreach ($entities as $entity) {
+		    $this->pageStatus->setLastEntity($entity);
+
+		    if ( $this->pageStatus->getValue($table->thresholdfield) != $last_thresholdfield ) {
+
+		        $tables_titles[$this->pageStatus->getValue($table->thresholdfield)] = $entity->{$table->thresholdtitlefield->sqlfield};
+		        $last_thresholdfield = $this->pageStatus->getValue($table->thresholdfield);
+		    }
+
+		    $table_entities[] = $entity;
+		}
+		
+		return $out;
     }
 
 }
