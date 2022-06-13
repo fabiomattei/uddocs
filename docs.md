@@ -17,7 +17,7 @@ Designing an application, in UD terms, means to create a set of json files, or <
 ### Resources:
 
 <ul>
-{% for doc in site.resources %}
+{% for resource in site.resources %}
   <li><a href="{{site.baseurl}}/resources/{{resource.slug}}">{{ resource.name }}</a></li>
 {% endfor %}
 </ul>
