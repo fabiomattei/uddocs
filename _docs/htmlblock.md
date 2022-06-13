@@ -19,7 +19,7 @@ use Fabiom\UglyDuckling\Common\Blocks\BaseHTMLBlock;
 
 class HTMLBlockExample extends BaseHTMLBlock {
 	
-	const HTML_BLOCK_NAME = 'basehtmlblockexample';
+    const HTML_BLOCK_NAME = 'basehtmlblockexample';
 
     function getHTML(): string {
         return '<p>Paragraph example</p>';
@@ -33,4 +33,42 @@ In order to define an HTML Block you need tow things:
 * define a HTML_BLOCK_NAME constat that is unique for this type of block in the codebase;
 * define a getHTML method that returns the HTML code eventually loaded with content coming from a database.
 
+We know that in modern web design a HTML block is not enough by itself. We need to add css rules or javascript files.
+Overriding the methods:
+
+* addToHead: the code added here will be put in the HEAD section of the page.
+* addToFoot: the code added here will be put in the BODY section of the page just before to close the BODY tag.
+
+{% highlight php %}
+    /**
+     * Overwrite this method with the content you want to put in your html header
+     * It is called for every instance of a class.
+     * It can be useful if you need to load a css or a javascript file for this block
+     * to work properly.
+     */
+    function addToHead(): string {
+        return '';
+    }
+	
+    /**
+     * Overwrite this method with the content you want to put at the very bottom of your page
+     * It can be useful if you need to load a javascript file for this block
+     * It is called for every instance of a class.
+     */
+    function addToFoot(): string {
+        return '';
+    }
+{% endhighlight %}
+
+En example could be:
+
+{% highlight php %}
+    function addToHead(): string {
+        return '<link rel="stylesheet" href="mystyle.css">';
+    }
+	
+    function addToFoot(): string {
+        return '<script>// some javascript code here</script>';
+    }
+{% endhighlight %}
 
