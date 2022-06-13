@@ -30,8 +30,8 @@ The json resource should look like:
       "rowfields": [
         { "sqlfield": "name" },
         { "sqlfield": "surname" },
-		{ "sqlfield": "birthyear" },
-		{ "sqlfield": "deathyear" }
+        { "sqlfield": "birthyear" },
+        { "sqlfield": "deathyear" }
       ]
     }
   }
