@@ -26,6 +26,9 @@ twitter_username: fabiomattei
 github_username:  fabiomattei
 
 collections:
+  resources:
+    output: true
+    permalink: /resources/:path
   docs:
     output: true
     permalink: /docs/:path
