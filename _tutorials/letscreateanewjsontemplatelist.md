@@ -71,33 +71,32 @@ use Fabiom\UglyDuckling\Custom\HTMLBlocks\HTMLBlockExample;
 class JsonTemplateExample extends JsonTemplate {
 
     const blocktype = 'mylist';
-
+    
     /**
      * @return \Fabiom\UglyDuckling\Common\Blocks\EmptyHTMLBlock|HTMLBlockExample
      */
     public function createHTMLBlock() {
         $out = new HTMLBlockList;
-		
-		$queryExecutor = $this->pageStatus->getQueryExecutor();
-		$queryExecutor->setQueryStructure( $this->resource->get->query );
-		$entities = $queryExecutor->executeSql();
-		
-		foreach ($entities as $entity) {
-		    $this->pageStatus->setLastEntity($entity);
-
-		    if ( $this->pageStatus->getValue($table->thresholdfield) != $last_thresholdfield ) {
-
-		        $tables_titles[$this->pageStatus->getValue($table->thresholdfield)] = $entity->{$table->thresholdtitlefield->sqlfield};
-		        $last_thresholdfield = $this->pageStatus->getValue($table->thresholdfield);
-		    }
-
-		    $table_entities[] = $entity;
-		}
-		
-		return $out;
+        
+        $queryExecutor = $this->pageStatus->getQueryExecutor();
+        $queryExecutor->setQueryStructure( $this->resource->get->query );
+        $entities = $queryExecutor->executeSql();
+        
+        foreach ($entities as $entity) {
+            $this->pageStatus->setLastEntity($entity);
+            
+            $litext = '';
+            foreach ( $this->resource->get->list->rowfields as $rowfield ) {
+                $litext += $this->pageStatus->getValue( $rowfield );
+            }
+            $out->addLi($litext);
+        }
+        
+        return $out;
     }
 
 }
 {% endhighlight %}
 
+And this close the circle. Now we are able to add to our software all the lists we need and all we need to do is to add a json resource to the code base where we are free to change the query and the showed fields.
 
