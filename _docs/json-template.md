@@ -33,5 +33,17 @@ class JsonTemplateExample extends JsonTemplate {
 }
 {% endhighlight %}
 
+The constructor of the base <a href="https://github.com/fabiomattei/uglyduckling/blob/master/src/Common/Json/JsonTemplates/JsonTemplate.php">JsonTemplate class</a> requires two parameters: 
 
+* ApplicationBuilder $applicationBuilder;
+* PageStatus $pageStatus;
+
+{% highlight php %}
+public function __construct( $applicationBuilder, $pageStatus ) {
+    $this->applicationBuilder = $applicationBuilder;
+    $this->pageStatus = $pageStatus;
+}
+{% endhighlight %}
+
+These are the bridge between the JsonTemplate class and the rest of the application.
 
