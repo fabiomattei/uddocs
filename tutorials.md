@@ -14,4 +14,5 @@ Here you can find some documentation about how to use this library
   <li><a href="{{site.baseurl}}/tutorials/pushingthingsalittlefurther">Pushing things a little further</a></li>
   <li><a href="{{site.baseurl}}/tutorials/managing-ud">Managing UD</a></li>
   <li><a href="{{site.baseurl}}/tutorials/mockup-application">Moking up an application (whitout the need of a database)</a></li>
+  <li><a href="{{site.baseurl}}/tutorials/letscreateanewjsontemplatelist">Let's create a new JSON resource type</a></li>
 </ul>

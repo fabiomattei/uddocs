@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Lets create a new JSON resource type
+title: Let's create a new JSON resource type
 orderfield: 7
 ---
 
@@ -98,5 +98,5 @@ class JsonTemplateExample extends JsonTemplate {
 }
 {% endhighlight %}
 
-And this close the circle. Now we are able to add to our software all the lists we need and all we need to do is to add a json resource to the code base where we are free to change the query and the showed fields.
+And this closes the circle. Now we are able to add to our software all the lists we need and all we need to do is to add a json resource to the code base where we are free to change the query and the showed fields.
 
