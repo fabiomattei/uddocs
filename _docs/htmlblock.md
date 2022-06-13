@@ -60,7 +60,7 @@ Overriding the methods:
     }
 {% endhighlight %}
 
-En example could be:
+An example could be:
 
 {% highlight php %}
     function addToHead(): string {
@@ -72,3 +72,25 @@ En example could be:
     }
 {% endhighlight %}
 
+And if you want to see a complete example:
+
+{% highlight php %}
+use Fabiom\UglyDuckling\Common\Blocks\BaseHTMLBlock;
+
+class HTMLBlockExample extends BaseHTMLBlock {
+	
+    const HTML_BLOCK_NAME = 'basehtmlblockexample';
+
+    function getHTML(): string {
+        return '<p>Paragraph example</p>';
+    }
+
+    function addToHead(): string {
+        return '<link rel="stylesheet" href="mystyle.css">';
+    }
+	
+    function addToFoot(): string {
+        return '<script>// some javascript code here</script>';
+    }
+}
+{% endhighlight %}
