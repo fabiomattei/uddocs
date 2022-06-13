@@ -3,13 +3,19 @@ layout: page
 name: Json Templates
 ---
 
+Json Templates are the back bone of UD. Their job is to read a json resource, and set ad HTMLBlock to give back to the page builder.
+
 UD defines few default templates you can start from but it is possible to create your personal templates.
+
+In order to do that you need to extend the <a href="https://github.com/fabiomattei/uglyduckling/blob/master/src/Common/Json/JsonTemplates/JsonTemplate.php">JsonTemplate class</a> and define at least two things:
+
+* **const blocktype** is the block type json resource will be referring to
+* **function createHTMLBlock** that returns the block well setted from the JsonTemplate
+
+This is an essential script.
 
 {% highlight php %}
 <?php
-
-namespace Fabiom\UDDemo\JsonTemplates;
-
 use Fabiom\UglyDuckling\Common\Json\JsonTemplates\JsonTemplate;
 use Fabiom\UglyDuckling\Custom\HTMLBlocks\HTMLBlockExample;
 
@@ -26,3 +32,6 @@ class JsonTemplateExample extends JsonTemplate {
 
 }
 {% endhighlight %}
+
+
+
