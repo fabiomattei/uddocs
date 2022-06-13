@@ -51,7 +51,7 @@ class HTMLBlockList extends BaseHTMLBlock {
     private string $listbody;
 	
     function addLi(string $litext) {
-        $this->listbody += '<li>'.litext.'</li>';
+        $this->listbody += '<li>'.$litext.'</li>';
     }
 
     function getHTML(): string {
