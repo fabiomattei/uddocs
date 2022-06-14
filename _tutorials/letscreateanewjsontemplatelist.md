@@ -46,7 +46,7 @@ Obviosly in the future we will be able to write as many **mylist** resources as 
 
 ### The HTMLBlock
 
-We need now an HTML Block in order to implent this list. It could look like the following:
+We need now an HTML Block in order to implent this list. An HTMLBlock is a PHP class that cares about building a section of a page creating the needed HTML code. Eventually an HTML Block can load a css file or add Javascript code. In this case the HTML Block will be pretty strait forward:
 
 {% highlight php %}
 use Fabiom\UglyDuckling\Common\Blocks\BaseHTMLBlock;
