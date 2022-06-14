@@ -69,7 +69,10 @@ class HTMLBlockList extends BaseHTMLBlock {
 
 ### The json template file
 
-Now we need a Json template in order to orchestrate everything:
+Now we need a Json template in order to orchestrate everything. 
+When **the type field in the metadata section** of a json resource corresponds to the **blocktype** of a Json Template file the specific Json Template file will be called in order to manage the situation.
+The job of the JsonTemplate class is to build the HTMLBlock following the specifics of the json file and to load the necessary data from the database.
+Sometimes, the JsonTemplate class cares about saving the data in the database, about update an eventual session variable and run a specific user story.
 
 {% highlight php %}
 <?php
