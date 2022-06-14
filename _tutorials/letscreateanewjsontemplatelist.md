@@ -6,7 +6,7 @@ orderfield: 7
 
 ### The desired outcome
 
-Let's say that we want to create a new json resource type.
+Let's say that we want to create a new json <a href="{{site.baseurl}}/resources/resource">resource</a> type.
 
 We want to be able to write something like that:
 
@@ -46,7 +46,7 @@ Obviosly in the future we will be able to write as many **mylist** resources as 
 
 ### The HTMLBlock
 
-We need now an HTML Block in order to implent this list. An HTMLBlock is a PHP class that cares about building a section of a page creating the needed HTML code. Eventually an HTML Block can load a css file or add Javascript code. In this case the HTML Block will be pretty strait forward:
+We need now an HTML Block in order to implent this list. An <a href="{{site.baseurl}}/docs/htmlblock">HTMLBlock</a> is a PHP class that cares about building a section of a page creating the needed HTML code. Eventually an HTML Block can load a css file or add some Javascript code. In this case the <a href="{{site.baseurl}}/docs/htmlblock">HTMLBlock</a> will be pretty strait forward:
 
 {% highlight php %}
 use Fabiom\UglyDuckling\Common\Blocks\BaseHTMLBlock;
@@ -69,10 +69,10 @@ class HTMLBlockList extends BaseHTMLBlock {
 
 ### The json template file
 
-Now we need a Json template in order to orchestrate everything. 
-When **the type field in the metadata section** of a json resource corresponds to the **blocktype** of a Json Template file the specific Json Template file will be called in order to manage the situation.
-The job of the JsonTemplate class is to build the HTMLBlock following the specifics of the json file and to load the necessary data from the database.
-Sometimes, the JsonTemplate class cares about saving the data in the database, about update an eventual session variable and run a specific user story.
+Now we need a <a href="{{site.baseurl}}/docs/json-template">Json template</a> in order to orchestrate everything. 
+When **the type field in the metadata section** of a json resource corresponds to the **blocktype** of a <a href="{{site.baseurl}}/docs/json-template">Json template</a> file the specific Json Template file will be called in order to manage the situation.
+The job of the <a href="{{site.baseurl}}/docs/json-template">Json template</a> class is to build the HTMLBlock following the specifics of the json file and to load the necessary data from the database.
+Sometimes, the <a href="{{site.baseurl}}/docs/json-template">Json template</a> class cares about saving the data in the database, about update an eventual session variable and run a specific user story.
 
 {% highlight php %}
 <?php
@@ -113,7 +113,7 @@ And this closes the circle. Now we are able to add to our software all the lists
 
 ### What now?
 
-Now I am able to create another resource for a new list to add to another page and I do not need to create again HTMLBlock and Json template file.
+Now I am able to create another <a href="{{site.baseurl}}/resources/resource">resource</a> for a new list to add to another page and I do not need to create again HTMLBlock and Json template file.
 
 Let's say I want to create another list maybe listing the books of a given author. The author id will be passed as GET parameter will be validated and eventually used in the following query in order to filter data.
 
