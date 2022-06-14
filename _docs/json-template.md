@@ -47,3 +47,5 @@ public function __construct( $applicationBuilder, $pageStatus ) {
 
 These are the bridge between the JsonTemplate class and the rest of the application.
 
+
+
