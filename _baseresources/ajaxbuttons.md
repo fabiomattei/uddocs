@@ -127,6 +127,8 @@ In this example we have two ajax actions to implement.
 * the first one is a delete action an it means that we need to delete whatever is the DOM element having id addProactiveBarrierFormContainer.
 * the second one is an append action and it means that we need to append the content, defined in the body section, in the destination: practivebarriers. The content of the body could be a simple string but, as we need to create a pattern containing two post parameters, we are using a <a href="{{site.baseurl}}/baseresources/value">value</a> object.
 
+It is possible to use <a href="{{site.baseurl}}/baseresources/value">value</a> objects also for the **destination** section as you can see in the following example.
+
 {% highlight json %}
 "ajax" : [
   { 
@@ -145,11 +147,11 @@ In this example we have two ajax actions to implement.
 	  "parameters": [ { "name":"${tid}", "postparameter": "tid"  } ] 
     },
     "body": { 
-      "composite": "<tr id=\"btmbrow${btmb_bid}\"><td class=\"editable ecl-table__cell\" data-type=\"select\" data-url=\"bowtiejinplaceendpoint.html?field=proactivebarrier&amp;id=${btmb_bid}\" data-loadurl=\"bowtiejinplacefillingendpoint.html?field=proactivebarriers\">${name}</td><td><button data-udiddestination=\"btmbrow${btmb_bid}\" data-udurl=\"bowtieudbuttonsendpoint.html?field=proactivebarrierremove&amp;mid=${btmb_bid}&amp;tid=0\" class=\"udbuttonremove\" data-udmethod=\"GET\" data-activated=\"activated\">Del</button></td></tr>",
+      "composite": "<tr><td>${name}</td><td>${surname}</td></tr>",
       "parameters": [ 
-        { "name":"${btmb_bid}", "returnedid": "firstinsert" },
+        { "name":"${surname}", "postparameter": "surname" },
         { "name":"${name}", "postparameter": "name" }  
-      ] 
+      ]
     }
   }
 ]
