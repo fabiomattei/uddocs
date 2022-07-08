@@ -40,7 +40,7 @@ The resource we need to make the request to is specified in the **dataurl** side
 The **dataudiddestination** specifies the DOM element that we want to delete from the interface. 
 
 
-## Load and  delete button
+## Load and overwrite button
 
 This button, if clicked, makes a request (GET or POST) to a resource and **replace the respource loaded in the section of the DOM** pointed from **dataudiddestination**.
 
@@ -48,7 +48,7 @@ This button, if clicked, makes a request (GET or POST) to a resource and **repla
 {
   "type": "ajaxbutton",
   "label": "Create new barrier",
-  "cssclass": "udbuttonload",
+  "cssclass": "udbuttonoverwrite",
   "dataudurl": {
     "controller": "partial",
     "resource":"bowtie-partial-add-proactive-barrier-form",
@@ -61,7 +61,7 @@ This button, if clicked, makes a request (GET or POST) to a resource and **repla
 }
 {% endhighlight %}
 
-As we can see the type of the button is always ajaxbutton but now we are linking a different class to this specific button: udbuttonload.
+As we can see the type of the button is always ajaxbutton but now we are linking a different class to this specific button: udbuttonoverwrite.
 This class allows UD to activate the javascript section of the button.
 
 We can specify the method: GET or POST.
