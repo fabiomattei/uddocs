@@ -42,9 +42,11 @@ The **dataudiddestination** specifies the DOM element that we want to delete fro
 
 ## Load and  delete button
 
+This button, if clicked, makes a request (GET or POST) to a resource and **replace the respource loaded in the section of the DOM** pointed from **dataudiddestination**.
+
 {% highlight json %}
 {
-  "type": "button",
+  "type": "ajaxbutton",
   "label": "Create new barrier",
   "cssclass": "udbuttonload",
   "dataudurl": {
@@ -59,7 +61,16 @@ The **dataudiddestination** specifies the DOM element that we want to delete fro
 }
 {% endhighlight %}
 
+As we can see the type of the button is always ajaxbutton but now we are linking a different class to this specific button: udbuttonload.
+This class allows UD to activate the javascript section of the button.
+
+We can specify the method: GET or POST.
+
+The resource we need to make the request to is specified in the **dataurl** object property. This is an <a href="{{site.baseurl}}/baseresources/action">action</a> and has the usual action properties. It is important the controller is **partial**. Partial stays for *partial interface* it means that the reousource linked will be loaded without the template of the interface. We do not need a whole HTML page here, we need only a section to load in the DOM.
+
 ## Load and append  button
+
+Same as above, the only difference it that this button append the loaded resource to the DOM specifyed element.
 
 {% highlight json %}
 { 
