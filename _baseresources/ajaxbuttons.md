@@ -1,6 +1,6 @@
 ---
 layout: page
-name: Actions
+name: Ajax buttons
 ---
 
 # Ajax buttons
@@ -85,9 +85,17 @@ The **dataudiddestination** specifies the DOM element that we want to delete fro
     "composite":  "#addProactiveBarrierFormContainer${tid}", "parameters": [ { "name":"${tid}", "postparameter": "tid"  } ] }
   },
   { "type": "add",
-    "destination": { "composite": "#practivebarriers${tid}", "parameters": [ { "name":"${tid}", "postparameter": "tid"  } ] },
-    "body": { "composite": "<tr id=\"btmbrow${btmb_bid}\"><td class=\"editable ecl-table__cell\" data-type=\"select\" data-url=\"bowtiejinplaceendpoint.html?field=proactivebarrier&amp;id=${btmb_bid}\" data-loadurl=\"bowtiejinplacefillingendpoint.html?field=proactivebarriers\">${name}</td><td><button data-udiddestination=\"btmbrow${btmb_bid}\" data-udurl=\"bowtieudbuttonsendpoint.html?field=proactivebarrierremove&amp;mid=${btmb_bid}&amp;tid=0\" class=\"udbuttonremove\" data-udmethod=\"GET\" data-activated=\"activated\">Del</button></td></tr>",
-      "parameters": [ { "name":"${btmb_bid}", "returnedid": "firstinsert" },{ "name":"${name}", "postparameter": "name" }  ] }
+    "destination": { 
+      "composite": "#practivebarriers${tid}", 
+	  "parameters": [ { "name":"${tid}", "postparameter": "tid"  } ] 
+    },
+    "body": { 
+	  "composite": "<tr id=\"btmbrow${btmb_bid}\"><td class=\"editable ecl-table__cell\" data-type=\"select\" data-url=\"bowtiejinplaceendpoint.html?field=proactivebarrier&amp;id=${btmb_bid}\" data-loadurl=\"bowtiejinplacefillingendpoint.html?field=proactivebarriers\">${name}</td><td><button data-udiddestination=\"btmbrow${btmb_bid}\" data-udurl=\"bowtieudbuttonsendpoint.html?field=proactivebarrierremove&amp;mid=${btmb_bid}&amp;tid=0\" class=\"udbuttonremove\" data-udmethod=\"GET\" data-activated=\"activated\">Del</button></td></tr>",
+      "parameters": [ 
+        { "name":"${btmb_bid}", "returnedid": "firstinsert" },
+        { "name":"${name}", "postparameter": "name" }  
+      ] 
+	}
   }
 ]
 {% endhighlight %}
