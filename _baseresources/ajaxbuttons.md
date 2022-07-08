@@ -74,7 +74,7 @@ Same as above, the only difference it that this button append the loaded resourc
 
 {% highlight json %}
 { 
-  "type": "button", 
+  "type": "ajaxbutton", 
   "label": "Link barrier", 
   "cssclass": "udbuttonappend",
   "dataudurl": { 
@@ -85,6 +85,45 @@ Same as above, the only difference it that this button append the loaded resourc
     ]
   },
   "dataudiddestination": "practivebarriers"
+}
+{% endhighlight %}
+
+## Button for ajax request
+
+{% highlight json %}
+{
+  "type": "ajaxbutton",
+  "label": "Add this proactive barrier to this threat and to database",
+  "cssclass": "udbuttonajaxrequest",
+  "method": "POST",
+  "dataudurl": {
+    "controller": "partial",
+    "resource":"bowtie-partial-add-proactive-barrier-form",
+    "parameters": [
+      {"name": "field", "constantparameter": "proactivebarriers"},
+      {"name": "btmid", "getparameter": "btmid"}
+    ]
+  }
+}
+{% endhighlight %}
+
+The button can link a form, in this case all form fields are sent with the request.
+
+{% highlight json %}
+{
+  "type": "ajaxbutton",
+  "label": "Add this proactive barrier to this threat and to database",
+  "cssclass": "udbuttonajaxrequest",
+  "method": "POST",
+  "dataudformid": "bowtie-partial-add-proactive-barrier-form",
+  "dataudurl": {
+    "controller": "partial",
+    "resource":"bowtie-partial-add-proactive-barrier-form",
+    "parameters": [
+      {"name": "field", "constantparameter": "proactivebarriers"},
+      {"name": "btmid", "getparameter": "btmid"}
+    ]
+  }
 }
 {% endhighlight %}
 
