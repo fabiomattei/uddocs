@@ -213,7 +213,7 @@ It is possible to use <a href="{{site.baseurl}}/baseresources/value">value</a> o
     "type": "append",
     "destination": { 
       "composite": "#practivebarriers${tid}", 
-	  "parameters": [ { "name":"${tid}", "postparameter": "tid"  } ] 
+      "parameters": [ { "name":"${tid}", "postparameter": "tid"  } ] 
     },
     "body": { 
       "composite": "<tr><td>${name}</td><td>${surname}</td></tr>",
