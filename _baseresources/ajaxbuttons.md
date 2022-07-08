@@ -90,6 +90,12 @@ Same as above, the only difference it that this button append the loaded resourc
 
 ## Button for ajax request
 
+All buttons seen above allow the user to perform a single specific action. Sometimes we need to perform many different changes in the interface when a button is clicked. Then we need the button ajax request and the ajax reponse.
+
+A button for an ajax request is not much different from the buttons defined previously.
+
+It need a css class named **udbuttonajaxrequest** in oder to be activated by the framework and need a **dataurl** field to call. The resource linked in the **dataurl** field will contain the **Ajax response** object that is going to give a list of actions to perform.
+
 {% highlight json %}
 {
   "type": "ajaxbutton",
@@ -107,7 +113,7 @@ Same as above, the only difference it that this button append the loaded resourc
 }
 {% endhighlight %}
 
-The button can link a form, in this case all form fields are sent with the request.
+The button can **link a form**, using the property *dataudformid*, in this case all form fields are sent with the request.
 
 {% highlight json %}
 {
