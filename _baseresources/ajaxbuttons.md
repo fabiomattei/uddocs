@@ -21,8 +21,8 @@ This button, if clicked, makes a request (GET or POST) to a resource and removes
   "method": "GET",
   "dataudurl": {
     "controller": "partial", 
-	"resource": "bowtie-delete-model-threat-barrier-ajax", 
-	"parameters": [
+    "resource": "bowtie-delete-model-threat-barrier-ajax", 
+    "parameters": [
       {"name": "field", "constantparameter": "proactivebarriers"},
       {"name": "mid", "getparameter": "btmid"}
     ]
