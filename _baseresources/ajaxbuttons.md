@@ -113,7 +113,7 @@ Same as above, the only difference it that this button append the loaded resourc
         { "name":"${btmb_bid}", "returnedid": "firstinsert" },
         { "name":"${name}", "postparameter": "name" }  
       ] 
-	}
+    }
   }
 ]
 {% endhighlight %}
