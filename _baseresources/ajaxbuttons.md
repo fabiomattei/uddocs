@@ -182,7 +182,7 @@ Let's see another example:
     "url": { 
       "controller": "partial", 
       "resource": "user-tables", 
-	  "method": "GET"
+      "method": "GET"
       "parameters": [
         { "name": "usergroup", "constantparameter": "ajaxexperts" },
         { "name": "cityid", "postparameter": "cityid" }
