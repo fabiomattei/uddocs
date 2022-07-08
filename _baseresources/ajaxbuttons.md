@@ -103,7 +103,7 @@ We can have 5 types of responses:
 Let's see a quick example:
 
 {% highlight json %}
-"ajax" : [
+"ajaxreponses" : [
   { 
     "type": "delete", 
     "destination": "#addProactiveBarrierFormContainer"
@@ -124,13 +124,37 @@ Let's see a quick example:
 
 In this example we have two ajax actions to implement.
 
-* the first one is a delete action an it means that we need to delete whatever is the DOM element having id addProactiveBarrierFormContainer.
-* the second one is an append action and it means that we need to append the content, defined in the body section, in the destination: practivebarriers. The content of the body could be a simple string but, as we need to create a pattern containing two post parameters, we are using a <a href="{{site.baseurl}}/baseresources/value">value</a> object.
+* the first one is a **delete action** and it means that we need to delete whatever is the DOM element having id addProactiveBarrierFormContainer.
+* the second one is an **append action** and it means that we need to append the content, defined in the body section, in the destination: practivebarriers. The content of the body could be a simple string but, as we need to create a pattern containing two post parameters, we are using a <a href="{{site.baseurl}}/baseresources/value">value</a> object.
+
+Let's see another example:
+
+{% highlight json %}
+"ajaxreponses" : [
+  { 
+    "type": "appendurl",
+    "destination": "#myexperts",
+    "url": { 
+      "controller": "partial", 
+      "resource": "user-tables", 
+	  "method": "GET"
+      "parameters": [
+        { "name": "usergroup", "constantparameter": "ajaxexperts" },
+        { "name": "cityid", "postparameter": "cityid" }
+      ] 
+    }
+  }
+]
+{% endhighlight %}
+
+In this exaample the **ajaxreponses** contains an **appendurl action**. What is going to happen is that the framework is goning to make a GET call to the controller **partial** asking for the resource **user-tables** passing as parameters the usergroup named *ajaxexperts* and the city id that comes from the post parameter *cityid*. Once the HTML will be returned from the framework this will be added in append in the DOM element having id *myexperts*.
+
+The **overwriteurl** ajax response is used in the same way.
 
 It is possible to use <a href="{{site.baseurl}}/baseresources/value">value</a> objects also for the **destination** section as you can see in the following example.
 
 {% highlight json %}
-"ajax" : [
+"ajaxreponses" : [
   { 
     "type": "delete", 
     "destination": {
