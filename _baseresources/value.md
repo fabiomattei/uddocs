@@ -48,3 +48,12 @@ This value object get the content of the get parameter **userid**.
 
 This value object get the fields **name** and **surname** from the results of a query and creates a concatenation overwriting ${placeholder1} with the value stored in the field **name** and ${placeholder2} with the value stored in the field **surname**.
 
+{% highlight json %}
+{
+    "sqlfield":"birthdate",
+    "filter": "mysqltohumandate"
+}
+{% endhighlight %}
+
+This value object get what is the field **birthdate**, result of a query, and appplies the filter **mysqltohumandate**.
+
