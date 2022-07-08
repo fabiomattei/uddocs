@@ -35,7 +35,7 @@ As we can see this button needs a type (ajax button) and a css class. The class 
 
 We can specify the method: GET or POST.
 
-The resource we need to make the request to is specified in the **dataurl** side of the object. This is an <a href="{{site.baseurl}}/baseresources/action">action</a> and has the  usual action properties. You can specify the controller (usually is partial) the resource that contains the things to implement and so on.
+The resource we need to make the request to is specified in the **dataurl** side of the object. This is an <a href="{{site.baseurl}}/baseresources/actions">action</a> and has the  usual action properties. You can specify the controller (usually is partial) the resource that contains the things to implement and so on.
 
 The **dataudiddestination** specifies the DOM element that we want to delete from the interface. 
 
