@@ -179,6 +179,7 @@ Let's see another example:
   { 
     "type": "appendurl",
     "destination": "#myexperts",
+	"position": "beforeend",
     "url": { 
       "controller": "partial", 
       "resource": "user-tables", 
@@ -193,6 +194,13 @@ Let's see another example:
 {% endhighlight %}
 
 In this exaample the **ajaxreponses** contains an **appendurl action**. What is going to happen is that the framework is goning to make a GET call to the controller **partial** asking for the resource **user-tables** passing as parameters the usergroup named *ajaxexperts* and the city id that comes from the post parameter *cityid*. Once the HTML will be returned from the framework this will be added in append in the DOM element having id *myexperts*.
+
+The position attribute allows the programmer to specify where in the dom element put the new content: 
+
+* beforebegin: Before the element;
+* afterbegin: Inside the element, before its first child;
+* beforeend: Inside the element, after its last child;
+* afterend: After the element.
 
 The **overwriteurl** ajax response is used in the same way.
 
