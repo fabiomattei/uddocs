@@ -27,7 +27,7 @@ This button, if clicked, makes a request (GET or POST) to a resource and removes
       {"name": "mid", "getparameter": "btmid"}
     ]
   },
-  "dataudiddestination": "threatstablecontainer"
+  "dataudiddestination": "#mycontainer"
 }
 {% endhighlight %}
 
@@ -37,8 +37,7 @@ We can specify the method: GET or POST.
 
 The resource we need to make the request to is specified in the **dataurl** side of the object. This is an <a href="{{site.baseurl}}/baseresources/actions">action</a> and has the  usual action properties. You can specify the controller (usually is partial) the resource that contains the things to implement and so on.
 
-The **dataudiddestination** specifies the DOM element that we want to delete from the interface. 
-
+The **dataudiddestination** specifies the DOM element that we want to delete from the interface. The element is specified using a css selector, in this example, once the request return with success the DOM element having the HTML id property  set as mycontainer will be deleted
 
 ## Load and overwrite button
 
@@ -57,7 +56,7 @@ This button, if clicked, makes a request (GET or POST) to a resource and **repla
       {"name": "btmid", "getparameter": "btmid"}
     ]
   },
-  "dataudiddestination": "addProactiveBarrierFormContainer"
+  "dataudiddestination": "#addProactiveBarrierFormContainer"
 }
 {% endhighlight %}
 
@@ -84,7 +83,7 @@ Same as above, the only difference it that this button append the loaded resourc
       {"name": "mid", "getparameter": "btmid"}
     ]
   },
-  "dataudiddestination": "practivebarriers"
+  "dataudiddestination": "#practivebarriers"
 }
 {% endhighlight %}
 
