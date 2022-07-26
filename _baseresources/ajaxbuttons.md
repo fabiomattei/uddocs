@@ -46,15 +46,15 @@ This button, if clicked, makes a request (GET or POST) to a resource and removes
 {% highlight json %}
 {
   "type": "ajaxbutton", 
-  "label": "Del Threat", 
-  "cssclass": "udbuttonremove", 
+  "label": "Empty Threat", 
+  "cssclass": "udbuttonempty", 
   "method": "GET",
   "dataudurl": {
     "controller": "partial", 
-    "resource": "bowtie-delete-model-threat-barrier-ajax", 
+    "resource": empty-model-ajax", 
     "parameters": [
-      {"name": "field", "constantparameter": "proactivebarriers"},
-      {"name": "mid", "getparameter": "btmid"}
+      { "name": "field", "constant": "barriers"},
+      { "name": "mid", "getparameter": "btmid", "description": "model id"}
     ]
   },
   "dataudiddestination": "#mycontainer"
