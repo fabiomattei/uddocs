@@ -3,16 +3,18 @@ layout: page
 name: Use Case
 ---
 
-Sometimes the result of a POST call is not just the execution of a bounch of SQL Queries we can put in the <a href="{{site.baseurl}}/docs/transaction">transactions</a> section of a json resource. Sometimes we need to implement some logic and iin those cases we need the power and the freedom given by a programming language.
+Sometimes the desired result of a POST call is not just the execution of a bounch of SQL queries we can put in the <a href="{{site.baseurl}}/docs/transaction">transactions</a> section of a json resource. Sometimes we need to implement some logic and in those cases we need the power and the freedom given by a programming language.
 
-In order to do that we need to subclass *BaseUseCase* and implement our logic in the *performAction* method.
+In order to give this opportunity have created what I call a use case. A use case is a class containing a method that takes paramters as input, perform operations and gives back output.
+
+A *use case* class is a subclass of *BaseUseCase* and implement the needed logic in the *performAction* method.
+
+The base for implementation looks like the following code.
 
 {% highlight php %}
-namespace myproject;
-
 class MyUseCase extends BaseUseCase {
     function performAction() {
-        // Load all parameters sent with the json structure
+        // Load all parameters sent using the json structure
         $this->loadParameters();
 
         // assign database handler and logger to local variables in order to use it later
@@ -37,7 +39,7 @@ class MyUseCase extends BaseUseCase {
 }
 {% endhighlight %}
 
-In order to have the application to execute the use case you can add this to the post section of a json resource.
+In order to link th use case class to application we need to add this to the post section of a json resource.
 
 {% highlight json %}
 "usecases" : [
