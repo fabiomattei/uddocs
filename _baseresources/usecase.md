@@ -1,6 +1,7 @@
 ---
 layout: page
 name: Use Case
+title: Use Case
 ---
 
 Sometimes the desired result of a POST call is not just the execution of a bounch of SQL queries we can put in the <a href="{{site.baseurl}}/docs/transaction">transactions</a> section of a json resource. Sometimes we need to implement some logic and in those cases we need the power and the freedom given by a programming language.
