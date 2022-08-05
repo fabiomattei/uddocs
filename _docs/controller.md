@@ -8,6 +8,16 @@ name: Controller
 UD allows the developer to save time. 90% of times json resources are enought to develop the most of the application.
 Sometimes we need to implement some logic that is particulary complicated. In that case we can implement a controller.
 
+A controller in UD has the same functionalities of a controller in a MVC framework.
+
+A controller can implement the methods *getRequest* and *postRequest*. As you can imagine the *getRequest* method is called when the system receives a get request. :-)
+
+For each controller we need to define the constant *CONTROLLER_NAME*. This consant sets the Router to sent calls to the specific controller. For example if *CONTROLLER_NAME* is set to *mycontroller*, each call to www.myapplication.com/mycontroller.html will be redirected to this controller.
+
+The properties *get_validation_rules*, *get_filter_rules*, *post_validation_rules*, and *post_filter_rules* allow the user to set the falidation and flter rules for a GET or a POST request. As for a resource <a href="{{site.baseurl}}/docs/validation">validation</a> seection these rules are set in ordet to call the <a href="https://github.com/Wixel/GUMP">GUMP library</a>.
+
+It is possible to overryde methods *check_authorization_get_request* and *check_authorization_post_request* in order to check if user is allowed to call this specific controller or not.
+
 ### Controller skeleton
 
 {% highlight php %}
