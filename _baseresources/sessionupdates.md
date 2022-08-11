@@ -1,43 +1,62 @@
 ---
 layout: page
 name: Session updates
+title: Session updates
 ---
 
-# Session updates
+Session variables are important in a web application because they allow us to save some user data we can use later on.
+UD allows us to define a json structure in order to set or update a session variable.
 
-This array contains instructions in order to update the session variables.
+### Sintax
 
-### Sintax of a single object contained in the array
+A sessionupdates json structure is a json object having two fields:
+
+* queryset: allows us to define one or more queries;
+* sessionvars: allows us to define the session vars.
 
 {% highlight json %}
-{ 
-  "type":"long", 
-  "sessionparameter":"siteid", 
-  "getparameter":"riskcenterid"
+"sessionupdates": {
+  "queryset": [
+    {
+      "label": "query1",
+      "sql": "SELECT usr_siteid FROM user where usr_id = :usrid ;",
+      "parameters":[
+        { "type":"long", "placeholder": ":usrid", "sessionparameter": "user_id" }
+      ]
+    }
+  ],
+  "sessionvars": [
+      { "name":"user_id", "system":"ud" },
+      { "name":"username", "system":"ud" },
+      { "name":"group", "system":"ud" },
+      { "name":"logged_in", "system":"ud" },
+      { "name":"ip", "system":"ud" },
+      { "name":"last_login", "system":"ud" },
+      { "name":"siteid", "sqlfield":"usr_siteid", "querylabel":"query1" },
+      { "name":"tryaconstantparameter", "constantparamenter":"4" }
+  ]
 }
 {% endhighlight %}
 
-* type: it is the type of variable is expected to update the session variable
-* sessionparameter: the name of the session variable to update
-* getparameter: the name of the get parameter we can get the value from in order to update to the session parameter
-* postparameter: the name of the post parameter we can get the value from in order to update to the session parameter
+### queryset
 
-### Example in a GET request
+* label (optional if there is only one query): allows us to identify the query
+* sql: sql statement
+* parameters (optional): eventual sql parameter to pass to query
 
-{% highlight json %}
-"sessionupdates": [
-  { "type":"long", "sessionparameter":"siteid", "getparameter":"riskcenterid" }
-]
-{% endhighlight %}
+### sessionvars
 
+Each session variable we are going to define has a name. The varible can be set using information returned by a query and in this case we are going to spcify the *querylabel* and the *sqlfield*. The variable can be set using a getparameter, a postparameter (it exists if in the POST section), a constant or a composite field.
 
+A filter can be applied when we define a session.
 
-### Example in a POST request
-
-{% highlight json %}
-"sessionupdates": [
-  { "type":"long", "sessionparameter":"siteid", "postparameter":"riskcenterid" }
-]
-{% endhighlight %}
+* name: the name of the session variable to update
+* querylabel: refeerence to the label field defined in the query set
+* sqlfield: used in case we need a value stored in a field that comes from a query
+* getparameter: used in case we need a value stored in a getparameter parameter
+* postparameter: used in case we need a value stored in a postparameter parameter
+* constant: used in case we need define a costant
+* composite: if we need to build a value as concatenation of different values
+* filter: if we need to apply a filter of some sort to a value before to give it back
 
 
