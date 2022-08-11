@@ -26,14 +26,8 @@ A sessionupdates json structure is a json object having two fields:
     }
   ],
   "sessionvars": [
-      { "name":"user_id", "system":"ud" },
-      { "name":"username", "system":"ud" },
-      { "name":"group", "system":"ud" },
-      { "name":"logged_in", "system":"ud" },
-      { "name":"ip", "system":"ud" },
-      { "name":"last_login", "system":"ud" },
-      { "name":"siteid", "sqlfield":"usr_siteid", "querylabel":"query1" },
-      { "name":"tryaconstantparameter", "constantparamenter":"4" }
+    { "name":"siteid", "sqlfield":"usr_siteid", "querylabel":"query1" },
+    { "name":"tryaconstantparameter", "constantparamenter":"4" }
   ]
 }
 {% endhighlight %}
@@ -46,7 +40,7 @@ A sessionupdates json structure is a json object having two fields:
 
 ### sessionvars
 
-Each session variable we are going to define has a name. The varible can be set using information returned by a query and in this case we are going to spcify the *querylabel* and the *sqlfield*. The variable can be set using a getparameter, a postparameter (it exists if in the POST section), a constant or a composite field.
+Each session variable we are going to define has a name. The varible can be set using information returned by a query, in this case we are going to spcify the *querylabel* and the *sqlfield*. The variable can be set using a getparameter, a postparameter (it defined if in a POST section), a constant or a composite field.
 
 A filter can be applied when we define a session.
 
