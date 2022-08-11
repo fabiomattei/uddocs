@@ -7,7 +7,7 @@ title: Session updates
 Session variables are important in a web application because they allow us to save some user data we can use later on.
 UD allows us to define a json structure in order to set or update a session variable.
 
-### Sintax
+## Syntax
 
 A sessionupdates json structure is a json object having two fields:
 
@@ -53,4 +53,37 @@ A filter can be applied when we define a session.
 * *composite*: if we need to build a value as concatenation of different values
 * *filter*: if we need to apply a filter of some sort to a value before to give it back
 
+## Login
 
+When user login to the system is automatically loaded and executed the file named **session.json**.
+
+This file defines the session variables we need to set once the logni process has successfully ended.
+It contains basically a sessionupdates object in order to define the needed session variables.
+
+{% highlight json %}
+{
+  "name": "setup",
+  "metadata": { "type":"setup", "version": "1" },
+  "queryset": [
+    {
+      "label": "query1",
+      "sql": "SELECT usr_defaultgroup FROM ud_users where usr_id = :usrid ;",
+      "parameters":[
+        { "type":"long", "placeholder": ":usrid", "sessionparameter": "user_id" }
+      ]
+    }
+  ],
+  "sessionvars": [
+    { "name":"user_id", "system":"ud" },
+    { "name":"username", "system":"ud" },
+    { "name":"group", "system":"ud" },
+    { "name":"logged_in", "system":"ud" },
+    { "name":"ip", "system":"ud" },
+    { "name":"last_login", "system":"ud" },
+    { "name":"usr_type", "sqlfield":"usr_defaultgroup", "querylabel":"query1" }
+  ]
+}
+{% endhighlight %}
+
+A few session variable are defined by the system and are needed for UD to work. 
+You shold not change those variables name, they are addressed as **"system"** variables.
