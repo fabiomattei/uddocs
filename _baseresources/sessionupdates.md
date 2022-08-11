@@ -11,8 +11,8 @@ UD allows us to define a json structure in order to set or update a session vari
 
 A sessionupdates json structure is a json object having two fields:
 
-* queryset: allows us to define one or more queries;
-* sessionvars: allows us to define the session vars.
+* *queryset*: allows us to define one or more queries;
+* *sessionvars*: allows us to define the session vars.
 
 {% highlight json %}
 "sessionupdates": {
@@ -34,9 +34,9 @@ A sessionupdates json structure is a json object having two fields:
 
 ### queryset
 
-* label (optional if there is only one query): allows us to identify the query
-* sql: sql statement
-* parameters (optional): eventual sql parameter to pass to query
+* *label* (optional if there is only one query): allows us to identify the query
+* *sql*: sql statement
+* *parameters* (optional): eventual sql parameter to pass to query
 
 ### sessionvars
 
@@ -44,13 +44,13 @@ Each session variable we are going to define has a name. The varible can be set 
 
 A filter can be applied when we define a session.
 
-* name: the name of the session variable to update
-* querylabel: refeerence to the label field defined in the query set
-* sqlfield: used in case we need a value stored in a field that comes from a query
-* getparameter: used in case we need a value stored in a getparameter parameter
-* postparameter: used in case we need a value stored in a postparameter parameter
-* constant: used in case we need define a costant
-* composite: if we need to build a value as concatenation of different values
-* filter: if we need to apply a filter of some sort to a value before to give it back
+* *name*: the name of the session variable to update
+* *querylabel*: refeerence to the label field defined in the query set
+* *sqlfield*: used in case we need a value stored in a field that comes from a query
+* *getparameter*: used in case we need a value stored in a getparameter parameter
+* *postparameter*: used in case we need a value stored in a postparameter parameter
+* *constant*: used in case we need define a costant
+* *composite*: if we need to build a value as concatenation of different values
+* *filter*: if we need to apply a filter of some sort to a value before to give it back
 
 
