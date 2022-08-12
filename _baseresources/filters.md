@@ -155,7 +155,7 @@ class CustomPageStatus extends PageStatus {
 {% endhighlight %}
 
 Basically each call to a filter translates in an array named $filtercall where the first item is the filter name and the following items are the filter parameter.
-If I use the filter "substr,2,5" this will be translated in $filtercall = [ 'substr', 2, 5 ] and then applyed as substr( $value, $filtercall[1], $filtercall[2] ).
+If I use the filter "substr,2,5" this will be translated in $filtercall = [ 'substr', 2, 5 ] and then applyed as substr( $value, 3, 5 ).
 
 This allows maximum flexibility.
 
