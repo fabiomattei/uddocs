@@ -116,3 +116,46 @@ Then I can use both the euro filter and the eurocolor filter using this notation
 
 ## We can pass parameters to filters
 
+In the previous example we hardcoded the number we need in order to hilight the prices in the code. But we know that magic numbers are an ugly ugly solution to a problem. 
+
+UD allows us to use parameter separated by commas like this:
+
+{% highlight json %}
+{"headline": "Price", "sqlfield": "price", "filter":"euro|eurocolor,100"}
+{% endhighlight %}
+
+The first filter called is **euro** and then the output of this filter is sent to the filter **eurocolor** followed by the parameter that allows us to determine what is the number treshold.
+
+In order to implement this we need to do a little change in the **applyFilter** function:
+
+{% highlight php %}
+class CustomPageStatus extends PageStatus {
+
+    /**
+     * This method can be overridden for each project implementation.
+     *
+     * @param array $filtercall: contains the function call and the parameters to call
+     * @param string $value: contains the value we need to apply the filter to
+     *
+     * Ex: substr: $filtercall = [ 'substr', 2, 5 ]    =>    $value = substr($value, 2, 5)
+     *     substr: $filtercall = [ 'substr', 7 ]       =>    $value = substr($value, 7)
+     *
+     * This function can be overridden and customized
+     */
+    function applyFilter(array $filtercall, string $value): string {
+        if ( $filtercall[0] == 'substr' AND count( $filtercall ) == 3 ) return substr( $value, $filtercall[1], $filtercall[2] );
+        if ( $filtercall[0] == 'substr' AND count( $filtercall ) == 2 ) return substr( $value, $filtercall[1] );
+        if ( $filtercall[0] == 'mysqltohumandate' ) return date ('d/m/Y', strtotime( $value ) );
+        if ( $filtercall[0] == 'euro' ) return number_format($value, 0, ".", ",");
+		if ( $filtercall[0] == 'eurocolor' ) return ( $value > $filtercall[1] ? '<b>'.$value.'</b>' : $value );
+
+        return $value;
+    }
+}
+{% endhighlight %}
+
+Basically each call to a filter translates in an array named $filtercall where the first item is the filter name and the following items are the filter parameter.
+If I use the filter "substr,2,5" this will be translated in $filtercall = [ 'substr', 2, 5 ] and then applyed as substr( $value, $filtercall[1], $filtercall[2] ).
+
+This allows maximum flexibility.
+
