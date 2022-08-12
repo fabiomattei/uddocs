@@ -101,7 +101,7 @@ class CustomPageStatus extends PageStatus {
         if ( $filtercall[0] == 'substr' AND count( $filtercall ) == 2 ) return substr( $value, $filtercall[1] );
         if ( $filtercall[0] == 'mysqltohumandate' ) return date ('d/m/Y', strtotime( $value ) );
         if ( $filtercall[0] == 'euro' ) return number_format($value, 0, ".", ",");
-		if ( $filtercall[0] == 'eurocolor' ) return ( $value > 100 ? '<b>'.$value.'</b>' : $value );
+        if ( $filtercall[0] == 'eurocolor' ) return ( $value > 100 ? '<b>'.$value.'</b>' : $value );
 
         return $value;
     }
@@ -147,7 +147,7 @@ class CustomPageStatus extends PageStatus {
         if ( $filtercall[0] == 'substr' AND count( $filtercall ) == 2 ) return substr( $value, $filtercall[1] );
         if ( $filtercall[0] == 'mysqltohumandate' ) return date ('d/m/Y', strtotime( $value ) );
         if ( $filtercall[0] == 'euro' ) return number_format($value, 0, ".", ",");
-		if ( $filtercall[0] == 'eurocolor' ) return ( $value > $filtercall[1] ? '<b>'.$value.'</b>' : $value );
+        if ( $filtercall[0] == 'eurocolor' ) return ( $value > $filtercall[1] ? '<b>'.$value.'</b>' : $value );
 
         return $value;
     }
