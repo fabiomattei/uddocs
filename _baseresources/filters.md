@@ -5,7 +5,7 @@ name: Filters
 
 ## Basic idea
 
-A filter is a structure that allows the developer to filter and modify an output of a database query, or of a get parameter or of a value o any type in order to to some change before to show it to the user. This basically means that for each filter we call for a specific value, a function is called and appied to the value itself. The value returned by the filter will be used in the process later on.
+A filter is a structure that allows the developer to filter and modify an output of a database query, or of a get parameter or of a value of any type in order to to some change before to show it to the user. This basically means that for each filter we call for a specific value, a function is called and appied to the value itself. The value returned by the filter will be used in the process later on.
 
 Let's say that I have a table and I need to write a list of purchases having product name, quantity, price in euro and date and I want to show the euro simbol close to the price. All this information comes from a mysql table and I need to work a litle with it before to show it to the user. The date has to change from MySql format YYYY-MM-DD to human format d/m/Y and, as I am based in Europe, in the price filed we need exchange the dot for the comma. 
 
@@ -76,7 +76,7 @@ class CustomPageStatus extends PageStatus {
 
 ## We can pipe filters
 
-It is possible to apply to a value a sequence of filters where the output of a filter becomes the input of the following one. In order to achieve that we need to use the pipe symbol: |.
+It is possible to apply to a value a sequence of filters where the output of a filter becomes the input of the following one. In order to achieve that we need to use the pipe symbol.
 
 Let's say that we want to color the prices in a way that each price over 100 euros is bold.
 
