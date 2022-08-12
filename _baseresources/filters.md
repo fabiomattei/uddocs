@@ -27,7 +27,7 @@ Let's say that I have a table and I need to write a list of purchases having pro
       "fields": [
         {"headline": "Name", "sqlfield": "name"},
         {"headline": "Quantity", "sqlfield": "quantity"},
-		{"headline": "Price", "sqlfield": "price", "filter":"euro"},
+        {"headline": "Price", "sqlfield": "price", "filter":"euro"},
         {"headline": "Date", "sqlfield": "mydate", "filter":"mysqltohumandate"}
       ]
     }
@@ -40,10 +40,14 @@ As you can see the database field are filtered using filters:
 * euro
 * mysqltohumandate
 
-
 ## What's happening behind the scenes
 
-In order to implement a filter it is needed to define a function having the same name. That function is going to be called when the filter is activated.
+When UD finds a filter call it calls the function **applyFilter** in **PageStatus**. applyFilter checks what to do with the filter call and in this case it calls the function number_format when it finds the filter euro and it calls date('d/m/Y', strtotime( $value ) ) when it finds the filter mysqltohumandate:
+
+* euro: number_format($value, 0, ".", ",")
+* mysqltohumandate: date('d/m/Y', strtotime( $value ) )
+
+You can see the complete code here.
 
 {% highlight php %}
 class CustomPageStatus extends PageStatus {
