@@ -76,7 +76,43 @@ class CustomPageStatus extends PageStatus {
 
 ## We can pipe filters
 
-It is possible 
+It is possible to apply to a value a sequence of filters where the output of a filter becomes the input of the following one. In order to achieve that we need to use the pipe symbol: |.
+
+Let's say that we want to color the prices in a way that each price over 100 euros is bold.
+
+I need to extend the custom page status like this:
+
+{% highlight php %}
+class CustomPageStatus extends PageStatus {
+
+    /**
+     * This method can be overridden for each project implementation.
+     *
+     * @param array $filtercall: contains the function call and the parameters to call
+     * @param string $value: contains the value we need to apply the filter to
+     *
+     * Ex: substr: $filtercall = [ 'substr', 2, 5 ]    =>    $value = substr($value, 2, 5)
+     *     substr: $filtercall = [ 'substr', 7 ]       =>    $value = substr($value, 7)
+     *
+     * This function can be overridden and customized
+     */
+    function applyFilter(array $filtercall, string $value): string {
+        if ( $filtercall[0] == 'substr' AND count( $filtercall ) == 3 ) return substr( $value, $filtercall[1], $filtercall[2] );
+        if ( $filtercall[0] == 'substr' AND count( $filtercall ) == 2 ) return substr( $value, $filtercall[1] );
+        if ( $filtercall[0] == 'mysqltohumandate' ) return date ('d/m/Y', strtotime( $value ) );
+        if ( $filtercall[0] == 'euro' ) return number_format($value, 0, ".", ",");
+		if ( $filtercall[0] == 'eurocolor' ) return ( $value > 100 ? '<b>'.$value.'</b>' : $value );
+
+        return $value;
+    }
+}
+{% endhighlight %}
+
+Then I can use both the euro filter and the eurocolor filter using this notation:
+
+{% highlight json %}
+{"headline": "Price", "sqlfield": "price", "filter":"euro|eurocolor"}
+{% endhighlight %}
 
 ## We can pass parameters to filters
 
