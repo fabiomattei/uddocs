@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Cartographer"
+title:  "The cartographer"
 date:   2024-08-04 05:24:00 +0100
 categories: develper-mental-sanity
 ---
