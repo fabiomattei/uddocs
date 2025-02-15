@@ -52,6 +52,24 @@ We can insert as many paremeters as we need.
 
 If you want to know more about SQL paramenters check out the <a href="{{site.baseurl}}/docs/query">Query</a> page.
 
+### Dummy data
+
+Sometimes we need to design an interface not being sure yet about the shape of the database. 
+In this case it is possible to replace the query section of the resource with a *dummydata* section.
+This will allow you to design all the interface and start to build a mockup of the application without the need to start
+to shape the database on the first day when ideas are still unclear.
+
+{% highlight json %}
+"dummydata": [
+   { "name": "Name for row 1", "description": "description for row 1" },
+   { "name": "Name for row 2", "description": "description for row 2" },
+   { "name": "Name for row 3", "description": "description for row 3" },
+   { "name": "Name for row 4", "description": "description for row 4" },
+]
+{% endhighlight %}
+
+The dummy data will simulate a set of rows returned from the database and will populate the *table structure* fillng the *sqlfild* section in the *table section* of the resource.
+
 ### Table Structure
 
 The table structure is pretty easy.

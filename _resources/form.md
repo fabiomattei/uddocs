@@ -52,6 +52,25 @@ It is possible to send to the query a constant parameter using: "constantparamet
 
 If you want to know more about SQL paramenters check out the <a href="{{site.baseurl}}/docs/query">Query</a> page.
 
+### Dummy data
+
+Sometimes we need to design an interface not being sure yet about the shape of the database. 
+In this case it is possible to replace the query section of the resource with a *dummydata* section.
+This will allow you to design all the interface and start to build a mockup of the application without the need to start
+to shape the database on the first day when ideas are still unclear.
+
+{% highlight json %}
+"dummydata": {
+  "id": "1",
+  "typeid": "2"
+  "name": "My dummy data name"
+  "description": "My dummy data description"
+}
+{% endhighlight %}
+
+The dummy data will simulate a row returned from the database and will populate the form fillng the *sqlfild* section in the
+form section of the resource.
+
 ### Form
 
 {% highlight json %}
