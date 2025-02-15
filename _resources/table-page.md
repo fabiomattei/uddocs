@@ -68,7 +68,7 @@ to shape the database on the first day when ideas are still unclear.
 ]
 {% endhighlight %}
 
-The dummy data will simulate a set of rows returned from the database and will populate the *table structure* fillng the *sqlfild* section in the *table section* of the resource.
+The dummy data will simulate a set of rows returned from the database and will populate the *table structure* fillng the *sqlfield* section in the *table section* of the resource.
 
 ### Table Structure
 
