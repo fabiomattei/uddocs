@@ -62,8 +62,8 @@ to shape the database on the first day when ideas are still unclear.
 {% highlight json %}
 "dummydata": {
   "id": "1",
-  "typeid": "2"
-  "name": "My dummy data name"
+  "typeid": "2",
+  "name": "My dummy data name",
   "description": "My dummy data description"
 }
 {% endhighlight %}
