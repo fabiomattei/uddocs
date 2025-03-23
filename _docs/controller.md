@@ -25,6 +25,18 @@ class MyController extends BaseController {
 
     const CONTROLLER_NAME = 'mycontroller';
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->classCompleteName = __CLASS__;
+        $this->className = 'MyController';
+        $this->chapter = 'Website';
+        $this->templateFile = 'websitetemplate';
+        $this->viewFile = 'src/Chapters/Website/Views/MyController';
+        $this->controllerPointer = $this;
+        $this->appTitle = 'My website title';
+    }
+
     public function check_authorization_get_request() {
         // implement checks in order to allow user to see this pagee
         return true;
@@ -38,9 +50,6 @@ class MyController extends BaseController {
      * Executed when GET Request arrives
      */
     public function getRequest() {
-        $this->applicationBuilder->getJsonloader()->loadIndex();
-        $dbh = $this->pageStatus->getDbconnection()->getDBH();
-        $logger = $this->applicationBuilder->getLogger();
         $this->templateFile = 'application';
 
         $menuresource = $this->applicationBuilder->getJsonloader()->loadResource( $this->pageStatus->getSessionWrapper()->getSessionGroup() );
@@ -49,9 +58,9 @@ class MyController extends BaseController {
 
         // loading data from database using DAO objeects
         $bookDao  = new BookDao;
-        $bookDao->setDBH($dbh);
-        $bookDao->setLogger( $logger );
-        $books = $bookDao->getByFields( array( 'authorid' => $this->getParameters['authorid'] ) );
+        $bookDao->setDBH($this->dbconnection->getDBH());
+        $bookDao->setLogger($this->logger);
+        $books = $bookDao->getByFields( [ 'authorid' => $this->getParameters['authorid'] ] );
 
         $this->menucontainer          = array( $this->menubuilder->createMenu() );
         $this->centralcontainer = array( new BookList( $books ) );
@@ -71,4 +80,6 @@ class MyController extends BaseController {
 }
 {% endhighlight %}
 
-A controller need to extend *Controller* class. It need to define *CONTROLLER_NAME* constant and it need to overwrite *getRequest* method.
+A controller need to extend **BaseController** class. 
+It need to define **CONTROLLER_NAME** constant and it need to overwrite **getRequest** method.
+
