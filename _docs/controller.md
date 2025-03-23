@@ -21,7 +21,7 @@ It is possible to overryde methods *check_authorization_get_request* and *check_
 ### Controller skeleton
 
 {% highlight php %}
-class MyController extends Controller {
+class MyController extends BaseController {
 
     const CONTROLLER_NAME = 'mycontroller';
 
@@ -31,8 +31,8 @@ class MyController extends Controller {
     }
 
     // get patameters 
-    public $get_validation_rules = array( 'authorid' => 'required|numeric' );
-    public $get_filter_rules     = array( 'authorid' => 'trim' );
+    public $get_validation_rules = [ 'authorid' => 'required|numeric' ];
+    public $get_filter_rules     = [ 'authorid' => 'trim' ];
 
     /**
      * Executed when GET Request arrives
@@ -58,8 +58,8 @@ class MyController extends Controller {
     }
 	
     // POST patameters 
-    public $post_validation_rules = array( 'asid' => 'required|numeric' );
-    public $post_filter_rules     = array( 'asid' => 'trim' );
+    public $post_validation_rules = [ 'asid' => 'required|numeric' ];
+    public $post_filter_rules     = [ 'asid' => 'trim' ];
 
     /**
      * Executed when POST Request arrives
