@@ -76,10 +76,24 @@ $bookDao->setLogger($this->logger);
 #### getAll
 Return all rows contained in a table. It return those as list of stdClass following the PDO::FETCH_OBJ directive
 
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$mybooks = $bookDao->getAll();
+{% endhighlight %}
+
 #### getById($id)
 It Get the row with the selected id
 if no corresponding row is found it gives the empty object
 calling the getEmpty method (null object).
+
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$mybooks = $bookDao->getById(5);
+{% endhighlight %}
 
 #### insert($fields, $debug = false)
 Insert a row in the database.
@@ -91,15 +105,29 @@ the field content.
 
 EX. [ 'field1' => 'content field 1', 'field2', 'content field 2' ];
 
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$myNewId = $bookDao->insert([ 'title' => 'The Tragedy of Macbeth', 'author', 'William Shakespeare' ]);
+{% endhighlight %}
+
 #### insertWithUUID($fields, $debug = false)
-Insert a row in the database and automaticalli calls UUID for the table primary key.
-Set the updated and created fields to current date and time
+Insert a row in the database and automaticalli creates a UUID for the table primary key.
+Set the updated and created fields to current date and time.
 It accepts an array containing as key the field name and as value
 the field content.
 
 @param $fields :: array of fields to insert
 
 EX. [ 'field1' => 'content field 1', 'field2', 'content field 2' ];
+
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$myNewUUID = $bookDao->insertWithUUID([ 'title' => 'The Tragedy of Macbeth', 'author', 'William Shakespeare' ]);
+{% endhighlight %}
 
 #### update($id, $fields, $debug = false)
 
@@ -112,6 +140,13 @@ It uptades the row haveing id = $id
 
 Ex. array( 'field1' => 'value1', 'field2' => 'value2' )
 
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$bookDao->update(5, [ 'title' => 'The Tragedy of Macbeth', 'author', 'William Shakespeare' ]);
+{% endhighlight %}
+
 #### updateNoDate($id, $fields, $debug = false)
 
 This function updates a single row of the delared table.
@@ -122,6 +157,13 @@ It uptades the row haveing id = $id
 @param $fields :: array of fields to update
 
 Ex. array( 'field1' => 'value1', 'field2' => 'value2' )
+
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$bookDao->updateNoDate(5, [ 'title' => 'The Tragedy of Macbeth', 'author', 'William Shakespeare' ]);
+{% endhighlight %}
 
 #### updateByFields($conditionsfields, $fields, $debug = false)
 
@@ -139,6 +181,13 @@ $tododao->getByFields( array( 'open' => '0', 'handling' => '1' ) );
 
 Ex. array( 'field1' => 'value1', 'field2' => 'value2' )
 
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$bookDao->updateByFields(['scaffolding' => 5, 'category' => 'literature'], [ 'title' => 'The Tragedy of Macbeth', 'author', 'William Shakespeare' ]);
+{% endhighlight %}
+
 #### updateByFieldsNoDate($conditionsfields, $fields, $debug = false)
 
 This method allow to update many rows of a single table at the same time
@@ -155,7 +204,14 @@ $tododao->getByFields( array( 'open' => '0', 'handling' => '1' ) );
 
 @param $fields :: array of fields to update
 
-Ex. array( 'field1' => 'value1', 'field2' => 'value2' )
+Ex.
+
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$bookDao->updateByFieldsNoDate(['scaffolding' => 5, 'category' => 'literature'], [ 'title' => 'The Tragedy of Macbeth', 'author', 'William Shakespeare' ]);
+{% endhighlight %}
 
 #### delete( $id )
 
@@ -171,15 +227,19 @@ Remeber that you need to set the primary key in the tabledao.php file in a costa
 
 Example:
 
-const DB_TABLE_PK = 'stp_id';
-
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$bookDao->delete( 5 );
+{% endhighlight %}
 
 #### deleteByFields( $fields )
 
 This function deletes a set of row from a table depending from the
 parameters you set when calling it.
 
-$tododao->delete( array( 'open' => '0', 'handling' => '1' ) );
+$tododao->delete( [ 'open' => '0', 'handling' => '1' ] );
 
 this will delete the row having the field open set to 0 and the field handling set to 1.
 
@@ -187,11 +247,14 @@ Remeber that you need to set the table name in the tabledao.php file in a costan
 
 Example:
 
-const DB_TABLE = 'mytablename';
-
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$bookDao->deleteByFields( ['open' => '0', 'handling' => '1'] );
+{% endhighlight %}
 
 #### getByFields($conditionsfields, $orderby = 'none', $requestedfields = 'none')
-
 
 This is the basic function for getting a set of elements from a table.
 Once you created a instance of the DAO object you can do for example:
@@ -212,6 +275,14 @@ you can even request few specific fields and not the whole table fields
 
 $tododao->getByFields( array( 'id' => '42' ), array('name', 'description'), array('id', 'name', 'description') );
 
+
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$myBooks = $bookDao->getByFields( ['open' => '0', 'handling' => '1'] );
+{% endhighlight %}
+
 #### getBySQLQuery($sqlQuery, $fields, $debug = false)
 
 This is the basic function for running a SQL query.
@@ -223,6 +294,12 @@ $tododao->getBySQLQuery( 'SELECT * FROM mytable WHERE myfield = :myfieldcontent;
 
 this will get all the row having the field myfield = 0
 
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$myBooks = $bookDao->getBySQLQuery( "SELECT * FROM books WHERE id=:id;", [':id'=>5] );
+{% endhighlight %}
 
 #### getByFieldList($fieldname, $ids, $conditionsfields, $orderby = 'none', $requestedfields = 'none')
 
@@ -276,28 +353,41 @@ you can even request few specific fields and not the whole table fields
 
 $tododao->getOneByFields( array( 'id' => '42' ), array('id', 'name', 'description') );
 
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$myBook = $bookDao->getOneByFields( [ 'id' => '42' ], ['id', 'name', 'description' ] );
+{% endhighlight %}
+
 #### getArrayByFields($conditionsfields, $orderby = 'none', $requestedfields = 'none')
 
 This is the basic function for getting an array of elements from a table.
 The returned array will have the entity id as index
 Once you created a instance of the DAO object you can do for example:
 
-$tododao->getByFields( array( 'open' => '0' ) );
+$tododao->getArrayByFields( array( 'open' => '0' ) );
 
 this will get all the row having the field open = 0
 
 you can set more then a search parameter (evaluated in AND)
 
-$tododao->getByFields( array( 'open' => '0', 'handling' => '1' ) );
+$tododao->getArrayByFields( array( 'open' => '0', 'handling' => '1' ) );
 
 you can even specify how to order the rows you requested
 
-$tododao->getByFields( array( 'id' => '42' ), array('name', 'description') );
+$tododao->getArrayByFields( array( 'id' => '42' ), array('name', 'description') );
 
 you can even request few specific fields and not the whole table fields
 
-$tododao->getByFields( array( 'id' => '42' ), array('name', 'description'), array('id', 'name', 'description') );
+$tododao->getArrayByFields( array( 'id' => '42' ), array('name', 'description'), array('id', 'name', 'description') );
 
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$myCount = $bookDao->getArrayByFields( [ 'id' => '42' ], [ 'name', 'description' ], ['id', 'name', 'description' ] );
+{% endhighlight %}
     
 #### countByFields( $conditionsfields )
 
@@ -312,8 +402,14 @@ his will get all the row having the field open = 0
 
 ou can set more then a search parameter (evaluated in AND)
 
-tododao->getByFields( array( 'open' => '0', 'handling' => '1' ) );
+tododao->getByFields( [ 'open' => '0', 'handling' => '1' ] );
 
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$myCount = $bookDao->countByFields( [ 'open' => '0', 'handling' => '1' ] );
+{% endhighlight %}
     
 #### countByFieldList($fieldname, $ids, $conditionsfields, $orderby = 'none', $requestedfields = 'none')
 
@@ -334,6 +430,12 @@ respect given conditions.
 
 @throws\Exception
 
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$myCount = $bookDao->countByFieldList( 'id', [4, 6, 7], [ 'open' => '0', 'handling' => '1' ] );
+{% endhighlight %}
  
 #### getOneField($fieldname, $conditionsfields)
 
@@ -346,3 +448,11 @@ This method get just one filed from a table
 @return the field content
 
 @throws\Exception
+
+{% highlight php %}
+$bookDao = new BookDao();
+$bookDao->setDBH($this->dbconnection->getDBH());
+$bookDao->setLogger($this->logger);
+$mybook = $bookDao->getOneField( 'title', [ 'open' => '0', 'handling' => '1' ] );
+{% endhighlight %}
+
