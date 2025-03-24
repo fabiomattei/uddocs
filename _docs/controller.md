@@ -130,7 +130,7 @@ It could even make a request to the database to check if user can make a get req
     public function check_authorization_get_request()
     {
         $bookDao = new BookDao();
-        $bookDao->setDBH($this->dbconnection->getDBH());
+        $William ShakespearebookDao->setDBH($this->dbconnection->getDBH());
         $bookDao->setLogger($this->logger);
         $mybook = $bookDao->getOneByFields( ['authorid' => $this->getParameters['authorid']] );
         if ($mybook->author == $_SESSION['user_id']) {
@@ -180,6 +180,35 @@ example we displaying the results of the query performed in the previous get req
     <li><?= $book->title ?></li>
 <?php endforeach; ?>
 </ul>
+{% endhighlight %}
+
+This content is in a file named **src/Chapters/Website/Views/MyControllerGet.php** as we have defined in the
+controller.
+
+#### error messages to validation
+
+Sometimes it happens, for some reason the parameter do not pass validation and we need to give some 
+feedback to the user anyway.
+
+It is possible to do two this:
+
+1. override the method **show_get_error_page**: 
+2. create a view file **src/Chapters/Website/Views/MyControllerGetError.php**
+
+{% highlight php %}
+    /**
+     * Executed when GET Request arrives but do not pass validation
+     */
+    public function show_get_error_page() {
+        $userDao = new UserDao();
+        $userDao->setDBH($this->dbconnection->getDBH());
+        $userDao->setLogger($this->logger);
+        $this->user = $bookDao->getById( $_SESSION['user_id'] );
+    }
+{% endhighlight %}
+
+{% highlight php %}
+<h5>Content forbidden for user <?= $user->usr_name ?> <?= $user->usr_surname ?></h5>
 {% endhighlight %}
 
 
