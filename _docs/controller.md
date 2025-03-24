@@ -228,7 +228,7 @@ It can check the group the user belongs to using this approach
     }
 {% endhighlight %}
 
-It could even make a request to the database to check if user can make a get request with a specific paramter
+It could even make a request to the database to check if user can make a post request with a specific paramter
 {% highlight php %}
     public function check_authorization_post_request()
     {
@@ -246,7 +246,7 @@ It could even make a request to the database to check if user can make a get req
 #### properties **$post_validation_rules** and **$post_filter_rules**
 
 These are two lists that a user can define in order to define the validation and the filters applied to paramters
-the get riquest is getting. Please refer to [Gump](https://github.com/Wixel/GUMP) library to know more about all the possibilities.
+the post request is getting. Please refer to [Gump](https://github.com/Wixel/GUMP) library to know more about all the possibilities.
 
 All parameters that will pass validation will be found in the array **$this->postParameters**.
 
@@ -265,16 +265,16 @@ perform the operations needed by the business logic.
         $bookDao = new BookDao();
         $bookDao->setDBH($this->dbconnection->getDBH());
         $bookDao->setLogger($this->logger);
-        $this->mybooks = $bookDao->getByFields( ['authorid' => $this->getParameters['authorid']] );
+        $this->mybooks = $bookDao->getByFields( ['authorid' => $this->postParameters['authorid']] );
         $this->author = 'William Shakespeare';
     }
 {% endhighlight %}
 
 #### content of view file
 
-A view file as the job of printing all information coming from the getRequest. We have already said that 
+A view file as the job of printing all information coming from the postRequest. We have already said that 
 **Each property defined in this method will be available as variabile in the view.**. In the following
-example we displaying the results of the query performed in the previous get request.
+example we displaying the results of the query performed in the previous post request.
 
 {% highlight php %}
 <h4><?= $author ?></h4>
@@ -315,5 +315,16 @@ It is possible to do two this:
 {% endhighlight %}
 
 
+### Redirect 
+
+Sometimes we need to a redirect at the end of a GET or POST request. UD has 4 different ways to do that.
+
+* method redirectToPreviousPage: redirect the call to the GET request called before this one
+* method redirectToSecondPreviousPage: redirect the call to the second previous GET request called
+* method redirectToPage($url): redirect the call to a specific url. If the constant **BASE_PATH** is defined
+it get added to the request. It is a good idea to define BASE_PATH='https://myapp.com/myinternapathtoapp'.
+* method redirectToDefaultPage(): redirect the call to the default page define in the contstant DEFAULT_PAGE 
+for the whole application. If the constant **BASE_PATH** is defined
+it get added to the request. It is a good idea to define BASE_PATH='https://myapp.com/myinternapathtoapp'.
 
 
