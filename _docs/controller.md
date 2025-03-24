@@ -143,7 +143,7 @@ It could even make a request to the database to check if user can make a get req
 #### properties **$get_validation_rules** and **$get_filter_rules**
 
 These are two lists that a user can define in order to define the validation and the filters applied to paramters
-the get riquest is getting. Please refer to [https://github.com/Wixel/GUMP](Gump) library to know more about all the possibilities.
+the get riquest is getting. Please refer to [Gump](https://github.com/Wixel/GUMP) library to know more about all the possibilities.
 
 All parameters that will pass validation will be found in the array **$this->getParameters**.
 
