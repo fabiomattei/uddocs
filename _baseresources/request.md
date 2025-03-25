@@ -12,7 +12,7 @@ In a web application it is possible to have two kinds of requests: GET or POST
 {% highlight json %}
 "request": {
   "parameters": [
-    { "type":"integer", "validation":"required|integer", "name":"id" }
+    { "validation":"required|integer", "name":"id" }
   ]
 }
 {% endhighlight %}
@@ -29,8 +29,8 @@ If you want to know about the <a href="{{site.baseurl}}/docs/validation">Validat
 {% highlight json %}
 "request": {
   "postparameters": [
-    { "type":"long", "validation":"required|integer", "name":"idform" },
-    { "type":"string", "validation":"alphanumerical", "name":"name" }
+    { "validation":"required|integer", "name":"idform" },
+    { "validation":"alphanumerical", "name":"name" }
   ]
 }
 {% endhighlight %}

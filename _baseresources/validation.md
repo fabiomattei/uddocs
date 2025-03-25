@@ -5,7 +5,30 @@ name: Validation
 
 # Validation
 
-This class check the content of a set o fields to see if they contains what they are ment to, possible filters are:
+The properties *get_validation_rules*, *get_filter_rules*, *post_validation_rules*, and *post_filter_rules* allow the user to set the validation and flter rules for a GET or a POST request. 
+
+UD uses the <a href="https://github.com/Wixel/GUMP">GUMP library</a> in order to implement validation correclty.
+Here we are going to give an introducation but please feel free to refer to <a href="https://github.com/Wixel/GUMP">GUMP library documentation</a>
+in order to have a complete view of all possibilities.
+
+The validation section of a resource checks the content of a set o paramters that can be send through a GET request or ghruogh a POST requeste.
+
+In case of a get request we need to deal with something like this:
+
+{% highlight json %}
+"request": {
+  "parameters": [
+    { "validation":"required|integer", "name":"id" }
+  ]
+}
+{% endhighlight %}
+
+Here we are saying two thigs:
+
+1. we expect this GET request to have a parameter named id
+2. we expect this parameter to be a required interger number. 
+
+This is a list of all many type of validation we can apply to a parameter but feel free to refer to <a href="https://github.com/Wixel/GUMP">GUMP library documentation</a> in order to have more information.
 
 * boolean             can contain [true, false]
 * integer             can contain an integer number
