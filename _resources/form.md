@@ -101,7 +101,7 @@ All fields are listed in a list named **fields** that is part of the **form** ob
       ]
     },
     { "type":"hidden", "name":"assetid", "getparameter":"assetid", "row":"5" },
-	{ "type":"submitbutton", "width":"2", "row":"5", "name": "Save", "constantparameter": "Save" },
+    { "type":"submitbutton", "width":"2", "row":"5", "name": "Save", "constantparameter": "Save" },
   ]
 }
 {% endhighlight %}
@@ -111,21 +111,21 @@ All fields are listed in a list named **fields** that is part of the **form** ob
 As you can see a field is a complicated structure, we need to define many things in order to set them up properly.
 The properties of the **field** object are:
 
-* label: the descriptive text associated to the field the user can read
-* type: the type of the field [textfield, numeric, textarea, currency, date, dropdown, sqldropdown, hidden, submitbutton]
-* name: html name attrbute associated to the field
-* placeholder: html placeholder attrbute associated to the field
-* sqlfield: used in case we need to load data in a field that comes from a query
-* sessionparameter: used in case we need to load data in a field that comes from a session parameter
-* getparameter: used in case we need to load data in a field that comes from a getparameter parameter
-* postparameter: used in case we need to load data in a field that comes from a postparameter parameter
-* constantparameter: used in case we need to load data in a field that comes from a constantparameter parameter
-* width: the width of the field in bootstrap terms
-* row: the row number where the field is located in bootstrap terms
-* options: used in case of dropdown field a list of possible option objects Ex: { "value": "0", "label":"(Not set)" }
-* query: used by sqldropdown
-* valuesqlfield: used by sqldropdown
-* labelsqlfield: used by sqldropdown
+* **label:** the descriptive text associated to the field the user can read
+* **type:** the type of the field [textfield, numeric, textarea, currency, date, dropdown, sqldropdown, hidden, submitbutton]
+* **name:** html name attrbute associated to the field
+* **placeholder:** html placeholder attrbute associated to the field
+* **sqlfield:** used in case we need to load data in a field that comes from a query
+* **sessionparameter:** used in case we need to load data in a field that comes from a session parameter
+* **getparameter:** used in case we need to load data in a field that comes from a getparameter parameter
+* **postparameter:** used in case we need to load data in a field that comes from a postparameter parameter
+* **constantparameter:** used in case we need to load data in a field that comes from a constantparameter parameter
+* **width:** the width of the field in bootstrap terms
+* **row:** the row number where the field is located in bootstrap terms
+* **options:** used in case of dropdown field a list of possible option objects Ex: { "value": "0", "label":"(Not set)" }
+* **query:** used by sqldropdown
+* **valuesqlfield:** used by sqldropdown
+* **labelsqlfield:** used by sqldropdown
 
 ## POST section
 
@@ -159,7 +159,7 @@ A commit is set in order to make all changes permanent only if all queries succe
 {% highlight json %}
 "transactions": [
   {
-	"label": "firstquery"
+    "label": "firstquery",
     "sql":"UPDATE mytable SET name = :name, amount = :amount, duedate = :duedate, categoryid= :categoryid, tag = :tag WHERE id=:assetid;",
     "parameters":[
       { "type":"string", "placeholder": ":name", "postparameter": "name" },
@@ -171,6 +171,7 @@ A commit is set in order to make all changes permanent only if all queries succe
     ]
   },
   {
+    "label": "secondquery",
     "sql":"UPDATE asset SET name = :name WHERE id=:technicalassetid;",
     "parameters":[
       { "type":"string", "placeholder": ":name", "postparameter": "name" },
@@ -194,18 +195,18 @@ Once all queries listed in a transaction are completed it is possible to redirec
 All we need to do is to add a redirect block to the page.
 
 {% highlight json %}
-    "redirect": {
-      "action": { "resource": "asset-list" }
-    }
+"redirect": {
+  "action": { "resource": "asset-list" }
+}
 {% endhighlight %}
 
 Sometimes we need to do a redirection with **parameters returned by the transactions**.
 What we need to do is refer the the **query label** using the **returnedid** property.
 
 {% highlight json %}
-    "redirect": {
-      "action": { "resource": "siti-immersione-edit", "parameters":[{"name": "id", "returnedid": "insert-new-immersione"}] }
-    }
+"redirect": {
+  "action": { "resource": "siti-immersione-edit", "parameters":[{"name": "id", "returnedid": "insert-new-immersione"}] }
+}
 {% endhighlight %}
 
 ## Complete example
@@ -259,36 +260,36 @@ What we need to do is refer the the **query label** using the **returnedid** pro
   },
   "post": {
     "request": {
-	  "postparameters": [
-	    { "name":"name", "validation":"required|max_len,250" },
-	    { "name":"amount", "validation":"numeric" },
-	    { "name":"duedate", "validation":"max_len,20" },
-	    { "name":"categoryid", "validation":"numeric" },
-	    { "name":"tag", "validation":"numeric" },
-	    { "name":"assetid", "validation":"required|integer" },
-	  ]
+      "postparameters": [
+        { "name":"name", "validation":"required|max_len,250" },
+        { "name":"amount", "validation":"numeric" },
+        { "name":"duedate", "validation":"max_len,20" },
+        { "name":"categoryid", "validation":"numeric" },
+        { "name":"tag", "validation":"numeric" },
+        { "name":"assetid", "validation":"required|integer" },
+      ]
     },
-	"transactions": [
-	  {
-		"label": "firstquery"
-	    "sql":"UPDATE mytable SET name = :name, amount = :amount, duedate = :duedate, categoryid= :categoryid, tag = :tag WHERE id=:assetid;",
-	    "parameters":[
-	      { "type":"string", "placeholder": ":name", "postparameter": "name" },
-	      { "type":"string", "placeholder": ":amount", "postparameter": "amount" },
-	      { "type":"string", "placeholder": ":duedate", "postparameter": "duedate" },
-	      { "type":"string", "placeholder": ":categoryid", "postparameter": "categoryid" },
-	      { "type":"string", "placeholder": ":tag", "postparameter": "tag" },
-	      { "type":"long", "placeholder": ":assetid", "postparameter": "assetid" }
-	    ]
-	  },
-	  {
-	    "sql":"UPDATE asset SET name = :name WHERE id=:technicalassetid;",
-	    "parameters":[
-	      { "type":"string", "placeholder": ":name", "postparameter": "name" },
-	      { "type":"long", "placeholder": ":assetid", "postparameter": "assetid" }
-	    ]
-	  }
-	],
+    "transactions": [
+      {
+        "label": "firstquery"
+        "sql":"UPDATE mytable SET name = :name, amount = :amount, duedate = :duedate, categoryid= :categoryid, tag = :tag WHERE id=:assetid;",
+        "parameters":[
+          { "type":"string", "placeholder": ":name", "postparameter": "name" },
+          { "type":"string", "placeholder": ":amount", "postparameter": "amount" },
+          { "type":"string", "placeholder": ":duedate", "postparameter": "duedate" },
+          { "type":"string", "placeholder": ":categoryid", "postparameter": "categoryid" },
+          { "type":"string", "placeholder": ":tag", "postparameter": "tag" },
+          { "type":"long", "placeholder": ":assetid", "postparameter": "assetid" }
+        ]
+      },
+      {
+        "sql":"UPDATE asset SET name = :name WHERE id=:technicalassetid;",
+        "parameters":[
+          { "type":"string", "placeholder": ":name", "postparameter": "name" },
+          { "type":"long", "placeholder": ":assetid", "postparameter": "assetid" }
+        ]
+      }
+    ],
     "redirect": {
       "action": { "resource": "asset-list" }
     }
