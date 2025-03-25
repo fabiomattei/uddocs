@@ -283,7 +283,7 @@ What we need to do is refer the the **query label** using the **returnedid** pro
         ]
       },
       {
-        "sql":"UPDATE asset SET name = :name WHERE id=:technicalassetid;",
+        "sql":"UPDATE asset SET name = :name WHERE id=:assetid;",
         "parameters":[
           { "type":"string", "placeholder": ":name", "postparameter": "name" },
           { "type":"long", "placeholder": ":assetid", "postparameter": "assetid" }
