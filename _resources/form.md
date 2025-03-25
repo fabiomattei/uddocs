@@ -172,7 +172,7 @@ A commit is set in order to make all changes permanent only if all queries succe
   },
   {
     "label": "secondquery",
-    "sql":"UPDATE asset SET name = :name WHERE id=:technicalassetid;",
+    "sql":"UPDATE asset SET name = :name WHERE id=:assetid;",
     "parameters":[
       { "type":"string", "placeholder": ":name", "postparameter": "name" },
       { "type":"long", "placeholder": ":assetid", "postparameter": "assetid" }
