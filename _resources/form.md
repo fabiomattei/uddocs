@@ -25,7 +25,7 @@ Example: parentId = 2302
   { "type":"integer", "validation":"required|integer", "name":"parentId" }
 ]
 {% endhighlight %}
-If you want to know about the <a href="{{site.baseurl}}/docs/validation">Validation</a> check out the related page.
+If you want to know about the <a href="{{site.baseurl}}/baseresources/validation">Validation</a> check out the related page.
 
 ### Query
 
@@ -50,7 +50,7 @@ It is possible to send to the query a session parameter using: "sessionparameter
 
 It is possible to send to the query a constant parameter using: "constantparameter": "constantvalue"
 
-If you want to know more about SQL paramenters check out the <a href="{{site.baseurl}}/docs/query">Query</a> page.
+If you want to know more about SQL paramenters check out the <a href="{{site.baseurl}}/baseresources/query">Query</a> page.
 
 ### Dummy data
 
