@@ -2,7 +2,7 @@
 layout: post
 title:  "Decluttering a developer mind"
 date:   2021-01-13 05:24:00 +0100
-categories: develper-mental-sanity
+categories: developer-mental-sanity
 ---
 
 I do not know about you but my main problem as a developer is about the many, too many, things I need to handle at the same time for a project tu succeed. The purpose of a project should be about solving somebody's problem, simplifying, or adding value to his life. Then why we are losing so much time to activities that do not create value and do not solve any problem? 

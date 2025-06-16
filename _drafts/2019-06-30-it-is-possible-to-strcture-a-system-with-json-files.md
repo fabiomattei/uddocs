@@ -7,7 +7,7 @@ categories: jekyll update
 
 # Is it possible to structure a working web application using only json files?
 
-The short answer is yes, for the most part.
+The short answer is: yes, for the most part.
 
 When I started with this idea of structuring the different pages of a web application using just json files i tought I could only do that for the simplest pages, the ones with a simple UI and a simple logic behind them. 
 

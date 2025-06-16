@@ -2,7 +2,7 @@
 layout: post
 title:  "The cartographer"
 date:   2024-08-04 05:24:00 +0100
-categories: develper-mental-sanity
+categories: developer-mental-sanity
 ---
 
 I think that our job as software developers is to help people find what they are looking for.
