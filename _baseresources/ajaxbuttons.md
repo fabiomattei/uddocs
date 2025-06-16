@@ -1,6 +1,7 @@
 ---
 layout: page
-name: "Ajax buttons"
+name: Ajax buttons
+title: Ajax buttons
 ---
 
 Ajax buttons are part of a trik that allows the user to implement *one page applications using UD*.

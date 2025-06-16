@@ -1,11 +1,8 @@
 ---
 layout: page
-name: "Ajax form"
+name: Ajax form
+title: Ajax form
 ---
-
-# Ajax form
-
-## Ajax forms
 
 It is possible to create a form the insted of triggering a reload of the whole page, it triggers an ajax response
 

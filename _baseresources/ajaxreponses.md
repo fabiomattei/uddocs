@@ -1,6 +1,7 @@
 ---
 layout: page
-name: "Ajax reponses"
+name: Ajax reponses
+title: Ajax reponses
 ---
 
 The ajax response is usually in the post section of a resource.
