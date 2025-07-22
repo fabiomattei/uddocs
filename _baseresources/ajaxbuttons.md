@@ -77,6 +77,7 @@ This button, if clicked, makes a request (GET or POST) to a resource and **repla
   "type": "ajaxbutton",
   "label": "Create new barrier",
   "cssclass": "udbuttonoverwrite",
+  "method": "GET",
   "dataudurl": {
     "controller": "partial",
     "resource":"bowtie-partial-add-proactive-barrier-form",
@@ -105,6 +106,7 @@ Same as above, the only difference it that this button append the loaded resourc
   "type": "ajaxbutton", 
   "label": "Link barrier", 
   "cssclass": "udbuttonappend",
+  "method": "GET",
   "dataudurl": { 
     "controller": "bowtieudbuttonsendpoint",
     "parameters": [
