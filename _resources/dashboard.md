@@ -32,12 +32,12 @@ You can use a dashboard in order to oraganize a page that is composed by more th
   "allowedgroups": [ "author" ],
   "title":"Manager dashboard",
   "panels":[
-    { "title":"My chart", "resource":"articleschartv1", "row":"1", "width":"6" },
-    { "title":"Last five articles", "resource":"smallarticlestable", "row":"1", "width":"6" },
-    { "title":"Last article inserted", "resource":"lastarticleinfov1", "row":"2", "width":"6" },
-    { "title":"New article", "resource":"newarticleform", "row":"2", "width":"6" },
-    { "title":"Search an article", "resource":"articlesearchv1", "row":"3", "width":"6" },
-    { "title":"Export an article", "resource":"articleexportv1", "row":"3", "width":"6" }
+    { "id":"panel1", "title":"My chart", "resource":"articleschartv1", "row":"1", "width":"6" },
+    { "id":"panel2", "title":"Last five articles", "resource":"smallarticlestable", "row":"1", "width":"6" },
+    { "id":"panel3", "title":"Last article inserted", "resource":"lastarticleinfov1", "row":"2", "width":"6" },
+    { "id":"panel4", "title":"New article", "resource":"newarticleform", "row":"2", "width":"6" },
+    { "id":"panel5", "title":"Search an article", "resource":"articlesearchv1", "row":"3", "width":"6" },
+    { "id":"panel6", "title":"Export an article", "resource":"articleexportv1", "row":"3", "width":"6" }
   ]
 }
 {% endhighlight %}
