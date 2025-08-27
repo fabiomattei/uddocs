@@ -78,7 +78,8 @@ All fields are listed in a list named **fields** that is part of the **form** ob
 
 {% highlight json %}
 "form": {
-  "title": "",
+  "title": "My Form",
+  "action": { "resource": "my-form-script", "parameters":[{"name": "id", "sqlfield": "id"}] }
   "fields": [
     { "type":"textarea", "name":"name", "label":"Name", "placeholder":"Name", "sqlfield":"name", "width":"6", "row":"1" },
     { "type":"currency", "name":"amount", "label":"Amount", "placeholder":"10.0", "sqlfield":"amount", "width":"6", "row":"1" },

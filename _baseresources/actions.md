@@ -18,6 +18,8 @@ The properties of the action object are:
 * buttoncolor: the color associated to the button. They come out of bootstrap classes, possible values are: [ gray, blue, pink, green, red, yellow ]
 * outline: if true the button is an outline button
 * parameters: parameters linked to the action
+* parameter_assign_symbol: usullay it is **=** but in some case it can be important to be able to personalize it
+* parameter_separator: usually it is **&** but in some case it can be important to be able to personalize it
 
 # Action parameters
 
