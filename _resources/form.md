@@ -255,7 +255,7 @@ What we need to do is refer the the **query label** using the **returnedid** pro
 	      ]
 	    },
 	    { "type":"hidden", "name":"assetid", "getparameter":"assetid", "row":"5" },
-		{ "type":"submitbutton", "width":"2", "row":"5", "name": "Save", "constantparameter": "Save" },
+		{ "type":"submitbutton", "width":"2", "row":"5", "name": "Save", "constantparameter": "Save" }
 	  ]
     }
   },
@@ -267,7 +267,7 @@ What we need to do is refer the the **query label** using the **returnedid** pro
         { "name":"duedate", "validation":"max_len,20" },
         { "name":"categoryid", "validation":"numeric" },
         { "name":"tag", "validation":"numeric" },
-        { "name":"assetid", "validation":"required|integer" },
+        { "name":"assetid", "validation":"required|integer" }
       ]
     },
     "transactions": [
