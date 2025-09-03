@@ -26,10 +26,10 @@ class BookDao extends BasicDao {
     /*
     Field list
     bk_id  	                     Primary key
-	bk_title
+    bk_title
     bk_author
-	bk_updated
-	bk_created
+    bk_updated
+    bk_created
     */
 
     /**
