@@ -14,8 +14,8 @@ In the following example we can see an Ajax form that allows the user to change 
 This form is not that different from a <a href="{{site.baseurl}}/resources/form">form</a> resource.
 
 There are tree main differences:
-* the formid section
-* the bottombuttons section
+* the **formid** section
+* the **bottombuttons** section containing <a href="{{site.baseurl}}/baseresources/ajaxbuttons">Ajax buttons</a>
 * the <a href="{{site.baseurl}}/baseresources/ajaxreponses">Ajax response</a> section
 
 {% highlight json %}
@@ -241,3 +241,4 @@ use DBYD\Chapters\Common\Controllers\UserChangesPasswordController;
     </div>
 </div>
 {% endhighlight %}
+
