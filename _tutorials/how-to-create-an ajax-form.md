@@ -5,18 +5,18 @@ orderfield: 8
 ---
 
 An ajax form is a form that does not have a submit button.
-An Ajax form has one or more Ajax buttons and, if clicked, does not reload the whole page,
+An Ajax form has one or more <a href="{{site.baseurl}}/baseresources/ajaxbuttons">Ajax buttons</a> and, if clicked, does not reload the whole page,
 An Ajax form only relad a section of a page. 
 
 ### The Json version
 
 In the following example we can see an Ajax form that allows the user to change his address and his phone number. 
-This form is not that different from a form described in the Form section.
+This form is not that different from a <a href="{{site.baseurl}}/resources/form">form</a> resource.
 
 There are tree main differences:
 * the formid section
 * the bottombuttons section
-* the Ajax response section
+* the <a href="{{site.baseurl}}/baseresources/ajaxreponses">Ajax response</a> section
 
 {% highlight json %}
 {
