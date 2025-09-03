@@ -136,11 +136,11 @@ $myNewUUID = $bookDao->insertWithUUID([ 'title' => 'The Tragedy of Macbeth', 'au
 This function updates a single row of the delared table.
 It uptades the row haveing id = $id
 
-@param $id :: integer id
+@param $id :: integer or string id 
 
 @param $fields :: array of fields to update
 
-Ex. array( 'field1' => 'value1', 'field2' => 'value2' )
+Ex. [ 'field1' => 'value1', 'field2' => 'value2' ]
 
 {% highlight php %}
 $bookDao = new BookDao();
