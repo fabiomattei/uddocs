@@ -263,3 +263,48 @@ It is possible to use <a href="{{site.baseurl}}/baseresources/value">value</a> o
   }
 ]
 {% endhighlight %}
+
+# HTML
+
+Ajax buttons are connected to an HTML represantation. 
+
+## Button Remove
+
+This class adds an event to a DOM element (it could be a button or a link or whaterver you need) this button will empty a certain target in the DOM defined by his **id** and if a url is designed it is going to call a fetch function to the designed URL.
+
+{% highlight html %}
+<button class="udbuttonremove" data-udiddestination="#mydestination" data-udurl="myapp.com?var1=A&var2=B" data-udmethod="GET">Remove</button>
+{% endhighlight %}
+
+
+
+* data-udiddestination: destination of the remove in the DOM. It is going to be used in a document.querySelector(args) call.
+* data-udurl: URL called when the button is pushed
+* data-udmethod: method used in order to call URL: GET or POST
+
+## Button Empty
+
+{% highlight html %}
+<button class="udbuttonempty" data-udiddestination="#mydestination" data-udurl="myapp.com?var1=A&var2=B" data-udmethod="GET">Remove</button>
+{% endhighlight %}
+
+## Button Append
+
+{% highlight html %}
+<button class="udbuttonappend" data-udiddestination="#mydestination" data-udurl="myapp.com?var1=A&var2=B" data-udmethod="GET">Remove</button>
+{% endhighlight %}
+
+## Button Overwrite
+
+{% highlight html %}
+<button class="udbuttonoverwrite" data-udiddestination="#mydestination" data-udurl="myapp.com?var1=A&var2=B" data-udmethod="GET">Remove</button>
+{% endhighlight %}
+
+
+## Button Ajax Request
+
+{% highlight html %}
+<button class="udbuttonajaxrequest" data-udiddestination="#mydestination" data-udurl="myapp.com?var1=A&var2=B" data-udmethod="GET">Remove</button>
+{% endhighlight %}
+
+
