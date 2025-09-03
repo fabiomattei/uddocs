@@ -163,7 +163,7 @@ The button can **link a form**, using the property *dataudformid*, in this case 
 }
 {% endhighlight %}
 
-## Ajax reponses
+## Ajax responses
 
 The ajax response is usually in the post section of a resource.
 
@@ -266,7 +266,7 @@ It is possible to use <a href="{{site.baseurl}}/baseresources/value">value</a> o
 
 # HTML
 
-Ajax buttons are connected to an HTML represantation. 
+Ajax buttons are connected to an HTML representation. 
 
 ## Button Remove
 

@@ -14,6 +14,8 @@ that define the basic features needed in order to query the data.
 This is the bare minimum we need to define a DAO class. 
 
 {% highlight php %}
+use Fabiom\UglyDuckling\Framework\DataBase\BasicDao;
+
 class BookDao extends BasicDao {
 
     const DB_TABLE = 'books';
