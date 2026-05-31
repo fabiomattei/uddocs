@@ -22,6 +22,14 @@ Here you can find some documentation for the framework behind the code
 * <a href="{{site.baseurl}}/docs/validation">Validation</a>
 * <a href="{{site.baseurl}}/docs/jsonindex">Index</a>
 
+## Component system
+
+The component system lets you build pages in pure PHP by composing small, self-contained classes instead of editing JSON files. It is the right choice when a page requires custom business logic, complex rendering, or interactions that go beyond what a JSON resource can express.
+
+* <a href="{{site.baseurl}}/docs/component">Component</a> — a single reusable unit: fetches data, handles POST, renders HTML
+* <a href="{{site.baseurl}}/docs/page-grid">Page (Grid layout)</a> — assembles components in a Bootstrap grid
+* <a href="{{site.baseurl}}/docs/page-tabs">Page (Tabs layout)</a> — assembles components in a Bootstrap tabbed interface
+
 ## Extending the system
 
 You do not need to limit your UD-programming to the ready to go solutions, you can create your own. 
