@@ -20,7 +20,7 @@ Here you can find some documentation for the framework behind the code
 * <a href="{{site.baseurl}}/docs/title-bar">Title</a>
 * <a href="{{site.baseurl}}/docs/transaction">Transaction</a>
 * <a href="{{site.baseurl}}/docs/validation">Validation</a>
-* <a href="{{site.baseurl}}/docs/jsonindex">Index</a>
+* <a href="{{site.baseurl}}/resources/jsonindex">Index</a>
 
 ## Component system
 
