@@ -9,6 +9,8 @@ A **Component** is a PHP class that encapsulates a single, self-contained unit o
 
 Every component extends `BaseComponent` and must implement the abstract method `render(array $data)`.
 
+For a step-by-step walkthrough of all four CRUD operations using components, see the <a href="{{site.baseurl}}/tutorials/crud-components">CRUD with Components</a> tutorial.
+
 ---
 
 ## Minimal example
