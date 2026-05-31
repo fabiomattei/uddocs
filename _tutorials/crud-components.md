@@ -6,7 +6,9 @@ orderfield: 3
 
 This tutorial builds a complete Create / Read / Update / Delete feature using the component system.
 Each operation is a self-contained <a href="{{site.baseurl}}/docs/component">Component</a> class.
-Components are assembled into pages using <a href="{{site.baseurl}}/docs/page-grid">BaseGridComponent</a> or <a href="{{site.baseurl}}/docs/page-tabs">BaseTabsComponent</a>.
+
+A component can be registered directly as a route, or embedded inside a page built with <a href="{{site.baseurl}}/docs/page-grid">BaseGridComponent</a> or <a href="{{site.baseurl}}/docs/page-tabs">BaseTabsComponent</a>.
+For single-component screens the direct registration is simpler — no page class is needed.
 
 The tutorial uses a single `articles` table throughout:
 
@@ -78,7 +80,7 @@ class ArticlesList extends BaseComponent {
 }
 {% endhighlight %}
 
-`url_for('article-edit', ...)` and `url_for('article-delete', ...)` refer to the `CONTROLLER_NAME` of the edit and delete pages defined further below.
+`url_for('article-edit', ...)` and `url_for('article-delete', ...)` refer to the route keys used when registering the edit and delete components in `index_components.php`, as shown in the registration section below.
 
 ---
 
@@ -294,60 +296,33 @@ class ArticleDelete extends BaseComponent {
 
 ## Assembling the pages
 
-Each component is placed on a page. The list and create components share one page. Edit and delete each have their own dedicated page because they receive a row identifier via the URL.
+The list and create components share one page because they appear together on the same screen. Edit and delete each own a dedicated screen because they receive a row identifier via the URL.
 
 ### Main page: list + new form
 
-{% highlight php %}
-use Fabiom\UDDemo\Components\BaseGridComponent;
-
-class ArticlesPage extends BaseGridComponent {
-
-    const CONTROLLER_NAME = 'articles-page';
-
-    protected array $panels = [
-        ['cssclass' => 'col-12 mb-4', 'component' => ArticlesList::class],
-        ['cssclass' => 'row', 'panels' => [
-            ['cssclass' => 'col-md-8 offset-md-2', 'component' => ArticleNew::class],
-        ]],
-    ];
-
-}
-{% endhighlight %}
-
-### Edit page
+The main page combines two components so it needs an explicit layout. Register an inline panels array directly in `index_components.php` — no page class required:
 
 {% highlight php %}
-use Fabiom\UDDemo\Components\BaseGridComponent;
-
-class ArticleEditPage extends BaseGridComponent {
-
-    const CONTROLLER_NAME = 'article-edit';
-
-    protected array $panels = [
-        ['cssclass' => 'col-md-8 offset-md-2', 'component' => ArticleEdit::class],
-    ];
-
-}
+// index_components.php
+'articles-page' => [
+    ['cssclass' => 'col-12 mb-4', 'component' => ArticlesList::class],
+    ['cssclass' => 'row', 'panels' => [
+        ['cssclass' => 'col-md-8 offset-md-2', 'component' => ArticleNew::class],
+    ]],
+],
 {% endhighlight %}
 
-### Delete page
+### Edit and delete pages
+
+`ArticleEdit` and `ArticleDelete` each fill the whole screen on their own. Register them directly — the bootstrap auto-wraps each one in a full-width grid:
 
 {% highlight php %}
-use Fabiom\UDDemo\Components\BaseGridComponent;
-
-class ArticleDeletePage extends BaseGridComponent {
-
-    const CONTROLLER_NAME = 'article-delete';
-
-    protected array $panels = [
-        ['cssclass' => 'col-md-6 offset-md-3', 'component' => ArticleDelete::class],
-    ];
-
-}
+// index_components.php
+'article-edit'   => ArticleEdit::class,
+'article-delete' => ArticleDelete::class,
 {% endhighlight %}
 
-The `CONTROLLER_NAME` on each page registers it with the router. `url_for('articles-page')`, `url_for('article-edit', ...)`, and `url_for('article-delete', ...)` used inside the components resolve to those names.
+No wrapper class is needed. The route keys `'articles-page'`, `'article-edit'`, and `'article-delete'` are exactly what `url_for()` resolves inside the components.
 
 ---
 
@@ -384,7 +359,7 @@ class ArticlesPage extends BaseTabsComponent {
 }
 {% endhighlight %}
 
-The edit and delete pages remain unchanged — they are single-component grid pages regardless of how the main list page is organised.
+The edit and delete registrations remain unchanged — `ArticleEdit::class` and `ArticleDelete::class` are still registered directly, regardless of how the main list page is laid out.
 
 ---
 
@@ -406,14 +381,25 @@ articles-page (POST, _component=ArticleNew)
 
 ---
 
-## Adding to the router
+## Registering in index_components.php
 
-Register each page in `src/Controllers/CustomRouter.php`:
+All three routes go into `index_components.php`. The complete registration for this tutorial looks like this:
 
 {% highlight php %}
-'articles-page'  => ArticlesPage::class,
-'article-edit'   => ArticleEditPage::class,
-'article-delete' => ArticleDeletePage::class,
+// index_components.php
+$index_components = [
+
+    'articles-page' => [
+        ['cssclass' => 'col-12 mb-4', 'component' => ArticlesList::class],
+        ['cssclass' => 'row', 'panels' => [
+            ['cssclass' => 'col-md-8 offset-md-2', 'component' => ArticleNew::class],
+        ]],
+    ],
+
+    'article-edit'   => ArticleEdit::class,
+    'article-delete' => ArticleDelete::class,
+
+];
 {% endhighlight %}
 
-The key is the `CONTROLLER_NAME` value; the value is the fully-qualified class name.
+The array key is the route name. `url_for('articles-page')`, `url_for('article-edit', ['art_id' => ...])`, and `url_for('article-delete', ['art_id' => ...])` inside the components resolve to these keys.

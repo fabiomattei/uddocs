@@ -5,9 +5,14 @@ name: Component
 
 # Description
 
-A **Component** is a PHP class that encapsulates a single, self-contained unit of a page: it fetches data, validates input, handles POST submissions, and renders its own HTML. Components are the building blocks that Pages assemble into full screens.
+A **Component** is a PHP class that encapsulates a single, self-contained unit of a page: it fetches data, validates input, handles POST submissions, and renders its own HTML.
 
 Every component extends `BaseComponent` and must implement the abstract method `render(array $data)`.
+
+A component can be used in two ways:
+
+* **Embedded in a page** — a <a href="{{site.baseurl}}/docs/page-grid">Grid Page</a> or <a href="{{site.baseurl}}/docs/page-tabs">Tabs Page</a> declares it in its `$panels` or `$tabs` array alongside other components.
+* **Standalone** — the component class is registered directly in `$index_components`. The bootstrap detects that it is not a page and wraps it automatically in a full-width grid so no explicit page class is needed.
 
 For a step-by-step walkthrough of all four CRUD operations using components, see the <a href="{{site.baseurl}}/tutorials/crud-components">CRUD with Components</a> tutorial.
 
@@ -172,6 +177,43 @@ $this->executeWriteQuery(
     ['title' => $this->postParameters['art_title'], 'id' => $this->postParameters['art_id']]
 );
 {% endhighlight %}
+
+---
+
+## Registering a component as a standalone page
+
+When a component is the only thing on a screen, there is no need to create an explicit page class. Register the component class directly in `index_components.php` and the bootstrap wraps it automatically in a full-width (`col-md-12`) grid:
+
+{% highlight php %}
+// index_components.php
+$index_components = [
+    'article-edit'   => ArticleEdit::class,
+    'article-delete' => ArticleDelete::class,
+];
+{% endhighlight %}
+
+The bootstrap also accepts an inline panels array or a tabs array as the value, so a layout can be described without writing any class at all:
+
+{% highlight php %}
+$index_components = [
+    // inline grid — no class needed
+    'articles-page' => [
+        ['cssclass' => 'col-12 mb-4', 'component' => ArticlesList::class],
+        ['cssclass' => 'col-md-8 offset-md-2', 'component' => ArticleNew::class],
+    ],
+    // inline tabs — no class needed
+    'articles-tabbed' => ['tabs' => [
+        ['id' => 'tab-list', 'label' => 'Articles', 'panels' => [
+            ['cssclass' => 'col-12', 'component' => ArticlesList::class],
+        ]],
+        ['id' => 'tab-new', 'label' => 'New Article', 'panels' => [
+            ['cssclass' => 'col-md-8 offset-md-2', 'component' => ArticleNew::class],
+        ]],
+    ]],
+];
+{% endhighlight %}
+
+An explicit page class (extending `BaseGridComponent` or `BaseTabsComponent`) is only necessary when the page needs custom authorization logic, a custom `onPostSuccess()` redirect, or page-level POST handling beyond what the components themselves provide.
 
 ---
 
