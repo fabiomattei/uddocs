@@ -402,4 +402,36 @@ $index_components = [
 ];
 {% endhighlight %}
 
-The array key is the route name. `url_for('articles-page')`, `url_for('article-edit', ['art_id' => ...])`, and `url_for('article-delete', ['art_id' => ...])` inside the components resolve to these keys.
+The array key is the route name. `url_for()` inside the components resolves these keys — but only after a matching entry exists in `index_links.php`.
+
+---
+
+## Registering in index_links.php
+
+`$index_links` maps every semantic link name to the route it targets and declares the URL parameters it accepts. `url_for()` reads this map to build HTML-safe URLs.
+
+Add one entry per route used in the tutorial:
+
+{% highlight php %}
+// index_links.php
+$index_links = [
+
+    'articles-page'  => ['page' => 'articles-page'],
+    'article-edit'   => ['page' => 'article-edit',   'params' => ['art_id']],
+    'article-delete' => ['page' => 'article-delete', 'params' => ['art_id']],
+
+];
+{% endhighlight %}
+
+Each entry has:
+
+* **`page`** — the route key from `$index_components`. This becomes the base of the URL (`article-edit.html`).
+* **`params`** — the query-string parameters this link accepts. Listing them documents the contract; `url_for()` appends whatever is passed as its second argument.
+
+With these entries in place, the calls inside the components resolve correctly:
+
+{% highlight php %}
+url_for('articles-page')                          // → articles-page.html
+url_for('article-edit',   ['art_id' => $id])      // → article-edit.html?art_id=…
+url_for('article-delete', ['art_id' => $id])      // → article-delete.html?art_id=…
+{% endhighlight %}
