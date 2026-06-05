@@ -3,328 +3,288 @@ layout: page
 name: Controller
 ---
 
-# Description
+# Controller
 
-UD allows the developer to save time. 90% of times json resources are enought to develop the most of the application.
-Sometimes we need to implement some logic that is particulary complicated. In that case we can implement a controller.
+UglyDuckling covers 90% of use cases through JSON resources. When business logic becomes too complex for a JSON resource, you implement a controller.
 
-A controller in UD has, more or less, the same functionalities of a controller in a MVC framework.
+A controller in UglyDuckling works similarly to a controller in any MVC framework. It implements `getRequest()` and `postRequest()` methods, validates and filters incoming parameters, queries the database, and exposes data to a view file.
 
-A controller can implement the methods *getRequest* and *postRequest*. As you can imagine the *getRequest* method is called when the system receives a get request. :-)
+---
 
-For each controller we need to define the constant *CONTROLLER_NAME*. This consant sets the Router to sent calls to the specific controller. For example if *CONTROLLER_NAME* is set to *mycontroller*, each call to www.myapplication.com/mycontroller.html will be redirected to this controller.
-
-The properties *get_validation_rules*, *get_filter_rules*, *post_validation_rules*, and *post_filter_rules* allow the user to set the falidation and flter rules for a GET or a POST request. As for a resource <a href="{{site.baseurl}}/baseresources/validation">validation</a> seection these rules are set in ordet to call the <a href="https://github.com/Wixel/GUMP">GUMP library</a>.
-
-It is possible to overryde methods *check_authorization_get_request* and *check_authorization_post_request* in order to check if user is allowed to call this specific controller or not.
-
-### Controller skeleton
+## Controller skeleton
 
 {% highlight php %}
 class MyController extends BaseController {
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->classCompleteName = __CLASS__;
-        $this->className = 'MyController';
-        $this->chapter = 'Website';
-        $this->templateFile = 'websitetemplate';
-        $this->viewFile = 'src/Chapters/Website/Views/MyController';
+        $this->className         = 'MyController';
+        $this->chapter           = 'Website';
+        $this->templateFile      = 'websitetemplate';
+        $this->viewFile          = 'src/Chapters/Website/Views/MyController';
         $this->controllerPointer = $this;
-        $this->appTitle = 'My website title';
+        $this->appTitle          = 'My website title';
     }
 
     public function check_authorization_get_request() {
-        // implement checks in order to allow user to see this pagee
         return true;
     }
 
-    // get patameters 
-    public $get_validation_rules = [ 'authorid' => 'required|numeric' ];
-    public $get_filter_rules     = [ 'authorid' => 'trim' ];
+    public $get_validation_rules = ['authorid' => 'required|integer'];
+    public $get_filter_rules     = ['authorid' => 'trim'];
 
-    /**
-     * Executed when GET Request arrives
-     */
     public function getRequest() {
     }
 
     public function check_authorization_post_request() {
-        // implement checks in order to allow user to see this pagee
         return true;
     }
-	
-    // POST patameters 
-    public $post_validation_rules = [ 'asid' => 'required|numeric' ];
-    public $post_filter_rules     = [ 'asid' => 'trim' ];
 
-    /**
-     * Executed when POST Request arrives
-     */
+    public $post_validation_rules = ['title' => 'required|max_len,255'];
+    public $post_filter_rules     = ['title' => 'trim|sanitize_string'];
+
     public function postRequest() {
     }
 
 }
 {% endhighlight %}
 
-### Constructor
+---
 
-A controller need to extend **BaseController** class that belongs to the framework. When we are overriding the contructor we need
-to define some property:
+## Constructor
 
-* $this->classCompleteName = __CLASS__: the name of the class complete with his classpath, this is useful in case in the 
-view file or in a template file I need to know what controller class was called as we can share view files between more controllers.
-* $this->className = 'MyController': the name of the class, this is useful in case in the 
-view file or in a template file I need to know what controller class was called as we can share view files between more controllers.
-* $this->chapter = 'Website': the chapter the controller belongs so, each controller is saved in a folder structure like
-this: src/Chapters/NameOfTheChapter/Controllers/MyController. This allows us to have some organization in the file structure
-of the application.
-* $this->templateFile = 'websitetemplate': the name of the file in src/Templates that is going to contain the template 
-for this controller. More about this later.
-* $this->viewFile = 'src/Chapters/Website/Views/MyController': the name of the view file in 
-src/Chapters/NameOfTheChapter/Controllers/MyController. Usually a view is named 
-src/Chapters/NameOfTheChapter/Controllers/MyControllerGet.php for a Get call or 
-src/Chapters/NameOfTheChapter/Controllers/MyControllerPost.php for a Post call.  More about this later.
-* $this->controllerPointer = $this: a pointer to the class itself.
-* $this->appTitle = 'My website title': property that is usally used in the template in the <title> tag.
- 
+A controller must extend `BaseController`. The constructor sets several properties that the framework uses to route requests, load templates, and render views.
+
+| Property | Description |
+|---|---|
+| `$this->classCompleteName` | Fully qualified class name (`__CLASS__`). Useful in shared view and template files to identify which controller was called. |
+| `$this->className` | Short class name. Same use as above. |
+| `$this->chapter` | The chapter (domain folder) the controller belongs to. Controllers live at `src/Chapters/{Chapter}/Controllers/`. |
+| `$this->templateFile` | Name of the template file inside `src/Templates/` (without `.php`). |
+| `$this->viewFile` | Path prefix for the view file. The framework appends `Get.php`, `Post.php`, `GetError.php`, or `PostError.php` depending on the request. |
+| `$this->controllerPointer` | A reference to `$this`. Required for the template to access controller properties. |
+| `$this->appTitle` | Application title, typically used in the `<title>` tag of the template. |
+
 {% highlight php %}
-class MyController extends BaseController {
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->classCompleteName = __CLASS__;
-        $this->className = 'MyController';
-        $this->chapter = 'Website';
-        $this->templateFile = 'websitetemplate';
-        $this->viewFile = 'src/Chapters/Website/Views/MyController';
-        $this->controllerPointer = $this;
-        $this->appTitle = 'My website title';
-    }
+public function __construct() {
+    parent::__construct();
+    $this->classCompleteName = __CLASS__;
+    $this->className         = 'MyController';
+    $this->chapter           = 'Website';
+    $this->templateFile      = 'websitetemplate';
+    $this->viewFile          = 'src/Chapters/Website/Views/MyController';
+    $this->controllerPointer = $this;
+    $this->appTitle          = 'My website title';
 }
 {% endhighlight %}
 
-### Get Request
-
-Basically a controller can take two requests: a get requeste and a post request.
-This is useful because allow us, for instance, to define a form in a get request and to perform the operations related to it
-in the post request.
-
-In order to take a get request we need to ovverride three things and define a view file:
-
-#### method **check_authorization_get_request**
-this method allows to define what user group or which specific user can make a get request to this controller. 
-
-It can check the group the user belongs to using this approach
-{% highlight php %}
-    public function check_authorization_get_request()
-    {
-        return (isset($_SESSION['group']) and ($_SESSION['group'] == 'readergroup' or $_SESSION['group'] == 'writergroup'));
-    }
-{% endhighlight %}
-
-It could even make a request to the database to check if user can make a get request with a specific paramter
-{% highlight php %}
-    public function check_authorization_get_request()
-    {
-        $bookDao = new BookDao();
-        $William ShakespearebookDao->setDBH($this->dbconnection->getDBH());
-        $bookDao->setLogger($this->logger);
-        $mybook = $bookDao->getOneByFields( ['authorid' => $this->getParameters['authorid']] );
-        if ($mybook->author == $_SESSION['user_id']) {
-            return true;
-        }
-        return false;
-    }
-{% endhighlight %}
-
-#### properties **$get_validation_rules** and **$get_filter_rules**
-
-These are two lists that a user can define in order to define the validation and the filters applied to paramters
-the get riquest is getting. Please refer to [Gump](https://github.com/Wixel/GUMP) library to know more about all the possibilities.
-
-All parameters that will pass validation will be found in the array **$this->getParameters**.
-
-#### method **getRequest**
-
-Overriding this method we can process the parameters we have got from the request, we can query the database and we can 
-perform the operations needed by the business logic.
-
-**Each property defined in this method will be available as variabile in the view.**
+Each controller must also be registered in `index_controllers.php` with a URL slug that maps to the controller class. The slug corresponds to the `CONTROLLER_NAME` constant:
 
 {% highlight php %}
-    /**
-     * Executed when GET Request arrives
-     */
-    public function getRequest() {
-        $bookDao = new BookDao();
-        $bookDao->setDBH($this->dbconnection->getDBH());
-        $bookDao->setLogger($this->logger);
-        $this->mybooks = $bookDao->getByFields( ['authorid' => $this->getParameters['authorid']] );
-        $this->author = 'William Shakespeare';
-    }
+const CONTROLLER_NAME = 'mycontroller';
+// → reachable at www.myapplication.com/mycontroller.html
 {% endhighlight %}
 
-#### content of view file
+---
 
-A view file as the job of printing all information coming from the getRequest. We have already said that 
-**Each property defined in this method will be available as variabile in the view.**. In the following
-example we displaying the results of the query performed in the previous get request.
+## GET request
+
+### check_authorization_get_request
+
+Override this method to restrict which users can make a GET request to this controller. Return `true` to allow, `false` to deny.
+
+Check by session group:
 
 {% highlight php %}
-<h4><?= $author ?></h4>
-<ul>
-<?php foreach($mybooks as $book): ?>
-    <li><?= $book->title ?></li>
-<?php endforeach; ?>
-</ul>
+public function check_authorization_get_request() {
+    return isset($_SESSION['group'])
+        && in_array($_SESSION['group'], ['readergroup', 'writergroup']);
+}
 {% endhighlight %}
 
-This content is in a file named **src/Chapters/Website/Views/MyControllerGet.php** as we have defined in the
-controller.
-
-#### error messages to validation
-
-Sometimes it happens, for some reason the parameter do not pass validation and we need to give some 
-feedback to the user anyway.
-
-It is possible to do two this:
-
-1. override the method **show_get_error_page**: 
-2. create a view file **src/Chapters/Website/Views/MyControllerGetError.php**
+Check ownership via the database:
 
 {% highlight php %}
-    /**
-     * Executed when GET Request arrives but do not pass validation
-     */
-    public function show_get_error_page() {
-        $userDao = new UserDao();
-        $userDao->setDBH($this->dbconnection->getDBH());
-        $userDao->setLogger($this->logger);
-        $this->user = $bookDao->getById( $_SESSION['user_id'] );
-    }
+public function check_authorization_get_request() {
+    $bookDao = new BookDao();
+    $bookDao->setDBH($this->dbconnection->getDBH());
+    $mybook = $bookDao->getOneByFields(['id' => $this->getParameters['id']]);
+    return $mybook->author_id === $_SESSION['user_id'];
+}
 {% endhighlight %}
+
+### Validation and filter rules
+
+Declare `$get_validation_rules` and `$get_filter_rules` as public properties to validate and filter GET parameters before `getRequest()` is called. The framework runs these automatically and populates `$this->getParameters` with the cleaned values.
 
 {% highlight php %}
-<h5>Content forbidden for user <?= $user->usr_name ?> <?= $user->usr_surname ?></h5>
+public $get_validation_rules = ['authorid' => 'required|integer'];
+public $get_filter_rules     = ['authorid' => 'trim'];
 {% endhighlight %}
 
-### Post Request
-
-As we have said before a controller can take two requests: a get requeste and a post request.
-
-The post requeste is not that different from a get request
-
-#### method **check_authorization_post_request**
-this method allows to define what user group or which specific user can make a post request to this controller. 
-
-It can check the group the user belongs to using this approach
-{% highlight php %}
-    public function check_authorization_post_request()
-    {
-        return (isset($_SESSION['group']) and ($_SESSION['group'] == 'readergroup' or $_SESSION['group'] == 'writergroup'));
-    }
-{% endhighlight %}
-
-It could even make a request to the database to check if user can make a post request with a specific paramter
-{% highlight php %}
-    public function check_authorization_post_request()
-    {
-        $bookDao = new BookDao();
-        $William ShakespearebookDao->setDBH($this->dbconnection->getDBH());
-        $bookDao->setLogger($this->logger);
-        $mybook = $bookDao->getOneByFields( ['authorid' => $this->postParameters['authorid']] );
-        if ($mybook->author == $_SESSION['user_id']) {
-            return true;
-        }
-        return false;
-    }
-{% endhighlight %}
-
-#### properties **$post_validation_rules** and **$post_filter_rules**
-
-These are two lists that a user can define in order to define the validation and the filters applied to paramters
-the post request is getting. Please refer to [Gump](https://github.com/Wixel/GUMP) library to know more about all the possibilities.
-
-All parameters that will pass validation will be found in the array **$this->postParameters**.
-
-#### method **postRequest**
-
-Overriding this method we can process the parameters we have got from the request, we can query the database and we can 
-perform the operations needed by the business logic.
-
-**Each property defined in this method will be available as variabile in the view.**
+Multiple rules for the same field are separated by a pipe. Rules that take a parameter use a comma:
 
 {% highlight php %}
-    /**
-     * Executed when POST Request arrives
-     */
-    public function postRequest() {
-        $bookDao = new BookDao();
-        $bookDao->setDBH($this->dbconnection->getDBH());
-        $bookDao->setLogger($this->logger);
-        $this->mybooks = $bookDao->getByFields( ['authorid' => $this->postParameters['authorid']] );
-        $this->author = 'William Shakespeare';
-    }
+public $get_validation_rules = [
+    'id'   => 'required|integer',
+    'slug' => 'required|alpha_numeric_dash|max_len,100',
+];
+public $get_filter_rules = [
+    'id'   => 'trim',
+    'slug' => 'trim|sanitize_string|lowercase',
+];
 {% endhighlight %}
 
-#### content of view file
+See [Validation]({{site.baseurl}}/baseresources/validation) for the full list of available rules and filters.
 
-A view file as the job of printing all information coming from the postRequest. We have already said that 
-**Each property defined in this method will be available as variabile in the view.**. In the following
-example we displaying the results of the query performed in the previous post request.
+### getRequest
+
+Override this method to query the database and prepare data for the view. Every property you assign on `$this` becomes a variable available in the view file.
+
+{% highlight php %}
+public function getRequest() {
+    $bookDao = new BookDao();
+    $bookDao->setDBH($this->dbconnection->getDBH());
+    $this->books  = $bookDao->getByFields(['author_id' => $this->getParameters['authorid']]);
+    $this->author = 'William Shakespeare';
+}
+{% endhighlight %}
+
+### View file
+
+The view file renders the data prepared by `getRequest()`. It is loaded from the path defined in `$this->viewFile` with `Get.php` appended — e.g. `src/Chapters/Website/Views/MyControllerGet.php`.
 
 {% highlight php %}
 <h4><?= $author ?></h4>
 <ul>
-<?php foreach($mybooks as $book): ?>
-    <li><?= $book->title ?></li>
+<?php foreach ($books as $book): ?>
+    <li><?= htmlspecialchars($book->title) ?></li>
 <?php endforeach; ?>
 </ul>
 {% endhighlight %}
 
-This content is in a file named **src/Chapters/Website/Views/MyControllerPost.php** as we have defined in the
-controller.
+### Handling validation errors
 
-#### error messages to validation
-
-Sometimes it happens, for some reason the parameter do not pass validation and we need to give some 
-feedback to the user anyway.
-
-It is possible to do two this:
-
-1. override the method **show_post_error_page**: 
-2. create a view file **src/Chapters/Website/Views/MyControllerPostError.php**
+When GET parameters fail validation the framework calls `show_get_error_page()` instead of `getRequest()` and loads `MyControllerGetError.php` as the view. Override the method to prepare any data the error view needs. The validation error message is available in `$this->readableErrors`.
 
 {% highlight php %}
-    /**
-     * Executed when POST Request arrives but do not pass validation
-     */
-    public function show_post_error_page() {
-        $userDao = new UserDao();
-        $userDao->setDBH($this->dbconnection->getDBH());
-        $userDao->setLogger($this->logger);
-        $this->user = $bookDao->getById( $_SESSION['user_id'] );
-    }
+public function show_get_error_page() {
+    $this->errorMessage = $this->readableErrors;
+}
 {% endhighlight %}
 
 {% highlight php %}
-<h5>Content forbidden for user <?= $user->usr_name ?> <?= $user->usr_surname ?></h5>
+{{!-- src/Chapters/Website/Views/MyControllerGetError.php --}}
+<div class="alert alert-danger"><?= htmlspecialchars($errorMessage) ?></div>
 {% endhighlight %}
 
+---
 
-### Redirect 
+## POST request
 
-Sometimes we need to a redirect at the end of a GET or POST request. UD has 4 different ways to do that.
+### check_authorization_post_request
 
-* method redirectToPreviousPage: redirect the call to the GET request called before this one
-* method redirectToSecondPreviousPage: redirect the call to the second previous GET request called
-* method redirectToPage($url): redirect the call to a specific url. If the constant **BASE_PATH** is defined
-it get added to the request. It is a good idea to define BASE_PATH='https://myapp.com/myinternapathtoapp'.
-* method redirectToDefaultPage(): redirect the call to the default page define in the contstant DEFAULT_PAGE 
-for the whole application. If the constant **BASE_PATH** is defined
-it get added to the request. It is a good idea to define BASE_PATH='https://myapp.com/myinternapathtoapp'.
+Same concept as the GET version, but for POST requests. Return `true` to allow, `false` to deny.
 
+{% highlight php %}
+public function check_authorization_post_request() {
+    return isset($_SESSION['group'])
+        && in_array($_SESSION['group'], ['readergroup', 'writergroup']);
+}
+{% endhighlight %}
 
+### Validation and filter rules
+
+Declare `$post_validation_rules` and `$post_filter_rules` to validate and filter POST parameters before `postRequest()` is called. Validated values are available in `$this->postParameters`.
+
+{% highlight php %}
+public $post_validation_rules = [
+    'title'  => 'required|max_len,255',
+    'email'  => 'required|valid_email',
+    'price'  => 'required|float|min_numeric,0',
+    'avatar' => 'required_file|extension,jpg;jpeg;png;gif',
+];
+public $post_filter_rules = [
+    'title'  => 'trim|sanitize_string',
+    'email'  => 'trim|sanitize_email|lowercase',
+    'price'  => 'trim|sanitize_floats',
+];
+{% endhighlight %}
+
+See [Validation]({{site.baseurl}}/baseresources/validation) for the full list of available rules and filters.
+
+### postRequest
+
+Override this method to process the submitted data — save to the database, send emails, and so on. Every property assigned on `$this` is available in the view.
+
+{% highlight php %}
+public function postRequest() {
+    $bookDao = new BookDao();
+    $bookDao->setDBH($this->dbconnection->getDBH());
+    $bookDao->insert([
+        'title'     => $this->postParameters['title'],
+        'author_id' => $_SESSION['user_id'],
+    ]);
+    $this->redirectToPreviousPage();
+}
+{% endhighlight %}
+
+### View file
+
+Loaded from `$this->viewFile` with `Post.php` appended — e.g. `src/Chapters/Website/Views/MyControllerPost.php`.
+
+{% highlight php %}
+<p>Book saved successfully.</p>
+{% endhighlight %}
+
+### Handling validation errors
+
+When POST parameters fail validation the framework calls `show_post_error_page()` and loads `MyControllerPostError.php`. The validation error message is available in `$this->readableErrors`.
+
+{% highlight php %}
+public function show_post_error_page() {
+    $this->errorMessage = $this->readableErrors;
+}
+{% endhighlight %}
+
+{% highlight php %}
+{{!-- src/Chapters/Website/Views/MyControllerPostError.php --}}
+<div class="alert alert-danger"><?= htmlspecialchars($errorMessage) ?></div>
+{% endhighlight %}
+
+---
+
+## Redirect
+
+After a POST request it is common to redirect rather than render a view. Four helper methods are available:
+
+| Method | Description |
+|---|---|
+| `redirectToPreviousPage()` | Redirect to the last GET request the user made. |
+| `redirectToSecondPreviousPage()` | Redirect to the GET request before that. |
+| `redirectToPage($url)` | Redirect to a specific URL. If the constant `BASE_PATH` is defined it is prepended automatically. |
+| `redirectToDefaultPage()` | Redirect to the application's default page defined in `DEFAULT_PAGE`. `BASE_PATH` is prepended if defined. |
+
+{% highlight php %}
+public function postRequest() {
+    // ... save data ...
+    $this->setSuccess('Record saved successfully.');
+    $this->redirectToPreviousPage();
+}
+{% endhighlight %}
+
+---
+
+## Flash messages
+
+You can pass a one-request message to the next page using these methods, which persist the value in the session until it is read:
+
+| Method | Description |
+|---|---|
+| `setSuccess($msg)` | Green success message. |
+| `setError($msg)` | Red error message. |
+| `setInfo($msg)` | Blue informational message. |
+| `setWarning($msg)` | Yellow warning message. |
+
+The messages are automatically picked up by the messages block in the next controller's `makeAllPresets()` and made available in the view.
