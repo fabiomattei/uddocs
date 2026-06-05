@@ -3,68 +3,68 @@ layout: page
 name: DAO
 ---
 
-Data Access Object are what UD uses in order to query a database.
+# DAO
 
-It is a good idea to create a DAO class for each table we define in the database, 
-a DAO class should extend [BasicDao](https://github.com/fabiomattei/uglyduckling/blob/master/src/Framework/DataBase/BasicDao.php)
-that define the basic features needed in order to query the data.
+A Data Access Object (DAO) is the layer UglyDuckling uses to query the database. Create one DAO class per database table. Each DAO extends `BasicDao`, which provides all standard CRUD methods and query helpers through PDO prepared statements.
 
-### Starting to define a DAO
+---
 
-This is the bare minimum we need to define a DAO class. 
+## DAO skeleton
 
 {% highlight php %}
 use Fabiom\UglyDuckling\Framework\DataBase\BasicDao;
 
 class BookDao extends BasicDao {
 
-    const DB_TABLE = 'books';
-    const DB_TABLE_PK = 'bk_id';
+    const DB_TABLE                  = 'books';
+    const DB_TABLE_PK               = 'bk_id';
     const DB_TABLE_UPDATED_FIELD_NAME = 'bk_updated';
     const DB_TABLE_CREATED_FLIED_NAME = 'bk_created';
 
-    /*
-    Field list
-    bk_id  	                     Primary key
-    bk_title
-    bk_author
-    bk_updated
-    bk_created
-    */
-
-    /**
-     * it overloads the getEmpty method of the parent class
-     */
     public function getEmpty() {
-        $empty = new \stdClass;
-        $empty->bk_id      = 0;
-        $empty->bk_title   = '';
-        $empty->bk_author  = '';
-        $empty->cr_updated = '';
-        $empty->cr_created = '';
+        $empty            = new \stdClass;
+        $empty->bk_id     = 0;
+        $empty->bk_title  = '';
+        $empty->bk_author = '';
+        $empty->bk_updated = '';
+        $empty->bk_created = '';
         return $empty;
     }
 }
 {% endhighlight %}
 
-#### Basic setup
+---
 
-We are defining a new BookDao class and we are setting a few constants:
+## Constants
 
-* **DB_TABLE = 'books';** the name of the dable in the database
-* **DB_TABLE_PK = 'bk_id';** the name of the primary key
-* **DB_TABLE_UPDATED_FIELD_NAME = 'bk_updated';** this fields get automatically updated every time his row is updated
-* **DB_TABLE_CREATED_FLIED_NAME = 'bk_created';** this field is initiated with time when a row is created
+| Constant | Description |
+|---|---|
+| `DB_TABLE` | Name of the database table. |
+| `DB_TABLE_PK` | Name of the primary key column. Used by `getById`, `delete`, `update`, and count queries. |
+| `DB_TABLE_UPDATED_FIELD_NAME` | Column automatically set to the current timestamp on every `insert` and `update`. |
+| `DB_TABLE_CREATED_FLIED_NAME` | Column set to the current timestamp only on `insert`. |
 
-#### Empty object
+---
 
-Think it as a null object. This is the object returned in case there is no row to return in the database.
-This helps to keep the colde much cleaner in the database.
+## Empty object
 
-### Creating an instance
+Override `getEmpty()` to return a blank `stdClass` with all fields initialised to safe defaults. `getById()` and `getOneByFields()` return this object instead of `null` when no row is found, so the rest of your code can always dereference properties without null checks.
 
-In order to be able to use a DAO we need to create an instance. We usullay do this in a **getRequest** or in a 
-**postRequest** in a <a href="{{site.baseurl}}/docs/controller">controller</a>.
+{% highlight php %}
+public function getEmpty() {
+    $empty            = new \stdClass;
+    $empty->bk_id     = 0;
+    $empty->bk_title  = '';
+    $empty->bk_author = '';
+    return $empty;
+}
+{% endhighlight %}
+
+---
+
+## Creating an instance
+
+Instantiate a DAO inside a controller's `getRequest()` or `postRequest()`, inject the PDO connection, and optionally a logger:
 
 {% highlight php %}
 $bookDao = new BookDao();
@@ -72,389 +72,270 @@ $bookDao->setDBH($this->dbconnection->getDBH());
 $bookDao->setLogger($this->logger);
 {% endhighlight %}
 
+---
 
-### main methods
+## Read methods
 
-#### getAll
-Return all rows contained in a table. It return those as list of stdClass following the PDO::FETCH_OBJ directive
+### getAll()
 
-{% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$mybooks = $bookDao->getAll();
-{% endhighlight %}
-
-#### getById($id)
-It Get the row with the selected id
-if no corresponding row is found it gives the empty object
-calling the getEmpty method (null object).
+Returns all rows in the table as a PDO statement (iterable with `PDO::FETCH_OBJ`).
 
 {% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$mybooks = $bookDao->getById(5);
+$books = $bookDao->getAll();
+foreach ($books as $book) {
+    echo $book->bk_title;
+}
 {% endhighlight %}
 
-#### insert($fields, $debug = false)
-Insert a row in the database.
-Set the updated and created fields to current date and time
-It accpts an array containing as key the field name and as value
-the field content.
+### getById($id)
 
-@param $fields :: array of fields to insert
-
-EX. [ 'field1' => 'content field 1', 'field2', 'content field 2' ];
+Returns the row with the given primary key. Returns `getEmpty()` when no row is found.
 
 {% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$myNewId = $bookDao->insert([ 'title' => 'The Tragedy of Macbeth', 'author', 'William Shakespeare' ]);
+$book = $bookDao->getById(5);
+echo $book->bk_title;
 {% endhighlight %}
 
-#### insertWithUUID($fields, $debug = false)
-Insert a row in the database and automaticalli creates a UUID for the table primary key.
-Set the updated and created fields to current date and time.
-It accepts an array containing as key the field name and as value
-the field content.
+### getByFields($conditionsfields, $orderby = 'none', $requestedfields = 'none')
 
-@param $fields :: array of fields to insert
-
-EX. [ 'field1' => 'content field 1', 'field2', 'content field 2' ];
+Returns a PDO statement for all rows matching the given conditions. All conditions are combined with `AND`.
 
 {% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$myNewUUID = $bookDao->insertWithUUID([ 'title' => 'The Tragedy of Macbeth', 'author', 'William Shakespeare' ]);
+// All published books
+$books = $bookDao->getByFields(['bk_published' => 1]);
+
+// Published books ordered by title
+$books = $bookDao->getByFields(
+    ['bk_published' => 1],
+    ['bk_title']
+);
+
+// Specific columns only
+$books = $bookDao->getByFields(
+    ['bk_published' => 1],
+    ['bk_title'],
+    ['bk_id', 'bk_title', 'bk_author']
+);
 {% endhighlight %}
 
-#### update($id, $fields, $debug = false)
+### getOneByFields($conditionsfields, $requestedfields = 'none')
 
-This function updates a single row of the delared table.
-It uptades the row haveing id = $id
-
-@param $id :: integer or string id 
-
-@param $fields :: array of fields to update
-
-Ex. [ 'field1' => 'value1', 'field2' => 'value2' ]
+Returns a single row as a `stdClass`. Returns `getEmpty()` when no row is found.
 
 {% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$bookDao->update(5, [ 'title' => 'The Tragedy of Macbeth', 'author', 'William Shakespeare' ]);
+$book = $bookDao->getOneByFields(['bk_id' => 42]);
+
+// Specific columns only
+$book = $bookDao->getOneByFields(
+    ['bk_id' => 42],
+    ['bk_id', 'bk_title', 'bk_author']
+);
 {% endhighlight %}
 
-#### updateNoDate($id, $fields, $debug = false)
+### getArrayByFields($conditionsfields, $orderby = 'none', $requestedfields = 'none')
 
-This function updates a single row of the delared table.
-It uptades the row haveing id = $id
-
-@param $id :: integer id
-
-@param $fields :: array of fields to update
-
-Ex. array( 'field1' => 'value1', 'field2' => 'value2' )
+Same as `getByFields()` but returns an associative array keyed by primary key instead of a PDO statement. Convenient when you need random access by ID.
 
 {% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$bookDao->updateNoDate(5, [ 'title' => 'The Tragedy of Macbeth', 'author', 'William Shakespeare' ]);
+$booksById = $bookDao->getArrayByFields(['bk_published' => 1]);
+$book = $booksById[42];
 {% endhighlight %}
 
-#### updateByFields($conditionsfields, $fields, $debug = false)
+### getByFieldList($fieldname, $ids, $conditionsfields, $orderby = 'none', $requestedfields = 'none')
 
-This method allow to update many rows of a single table at the same time
-
-@param $conditionsfields :: array of fields to put in where clause
-$tododao->getByFields( [ 'open' => '0' ] );
-this will get all the row having the field open = 0
-
-you can set more then a search parameter (evaluated in AND)
-
-$tododao->getByFields( array( 'open' => '0', 'handling' => '1' ) );
-
-@param $fields :: array of fields to update
-
-Ex. array( 'field1' => 'value1', 'field2' => 'value2' )
+Returns a PDO statement for rows where `$fieldname` is in the `$ids` array, filtered further by `$conditionsfields`.
 
 {% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$bookDao->updateByFields(['scaffolding' => 5, 'category' => 'literature'], [ 'title' => 'The Tragedy of Macbeth', 'author', 'William Shakespeare' ]);
+// Books whose author_id is one of [3, 7, 12], and that are published
+$books = $bookDao->getByFieldList(
+    'bk_author_id',
+    [3, 7, 12],
+    ['bk_published' => 1]
+);
 {% endhighlight %}
 
-#### updateByFieldsNoDate($conditionsfields, $fields, $debug = false)
+### getArrayByFieldList($fieldname, $ids, $conditionsfields, $orderby = 'none', $requestedfields = 'none')
 
-This method allow to update many rows of a single table at the same time
-
-@param $conditionsfields :: array of fields to put in where clause
-
-$tododao->getByFields( array( 'open' => '0' ) );
-
-this will get all the row having the field open = 0
-
-you can set more then a search parameter (evaluated in AND)
-
-$tododao->getByFields( array( 'open' => '0', 'handling' => '1' ) );
-
-@param $fields :: array of fields to update
-
-Ex.
+Same as `getByFieldList()` but returns an associative array keyed by primary key.
 
 {% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$bookDao->updateByFieldsNoDate(['scaffolding' => 5, 'category' => 'literature'], [ 'title' => 'The Tragedy of Macbeth', 'author', 'William Shakespeare' ]);
+$booksById = $bookDao->getArrayByFieldList(
+    'bk_author_id',
+    [3, 7, 12],
+    ['bk_published' => 1]
+);
 {% endhighlight %}
 
-#### delete( $id )
+### getOneField($fieldname, $conditionsfields)
 
-This is the basic function for one row from a table specifying the primary key
-of the row you want to delete.
-Once you created a instance of the DAO object you can do for example:
-
-$tododao->delete( 15 );
-
-this will delete the row having the primary key set to 15.
-
-Remeber that you need to set the primary key in the tabledao.php file in a costant named DB_TABLE_PK
-
-Example:
+Returns the value of a single column from the first matching row. Returns an empty string when nothing is found.
 
 {% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$bookDao->delete( 5 );
+$title = $bookDao->getOneField('bk_title', ['bk_id' => 42]);
 {% endhighlight %}
 
-#### deleteByFields( $fields )
+### getBySQLQuery($sqlQuery, $fields, $debug = false)
 
-This function deletes a set of row from a table depending from the
-parameters you set when calling it.
-
-$tododao->delete( [ 'open' => '0', 'handling' => '1' ] );
-
-this will delete the row having the field open set to 0 and the field handling set to 1.
-
-Remeber that you need to set the table name in the tabledao.php file in a costant named DB_TABLE
-
-Example:
+Runs an arbitrary parameterised SQL query and returns a PDO statement. Use this only when the standard methods are not expressive enough.
 
 {% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$bookDao->deleteByFields( ['open' => '0', 'handling' => '1'] );
+$books = $bookDao->getBySQLQuery(
+    'SELECT * FROM books WHERE bk_author_id = :author_id AND bk_year > :year',
+    [':author_id' => 3, ':year' => 2000]
+);
 {% endhighlight %}
 
-#### getByFields($conditionsfields, $orderby = 'none', $requestedfields = 'none')
+---
 
-This is the basic function for getting a set of elements from a table.
-Once you created a instance of the DAO object you can do for example:
+## Write methods
 
-$tododao->getByFields( array( 'open' => '0' ) );
+All write methods accept a `$debug = false` parameter. When `true`, the method echoes the constructed SQL and parameter dump to the page — useful during development.
 
-this will get all the row having the field open = 0
+### insert($fields, $debug = false)
 
-you can set more then a search parameter (evaluated in AND)
-
-$tododao->getByFields( array( 'open' => '0', 'handling' => '1' ) );
-
-you can even specify how to order the rows you requested
-
-$tododao->getByFields( array( 'id' => '42' ), array('name', 'description') );
-
-you can even request few specific fields and not the whole table fields
-
-$tododao->getByFields( array( 'id' => '42' ), array('name', 'description'), array('id', 'name', 'description') );
-
+Inserts a row and returns the new auto-increment ID. Sets `DB_TABLE_UPDATED_FIELD_NAME` and `DB_TABLE_CREATED_FLIED_NAME` to the current timestamp automatically.
 
 {% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$myBooks = $bookDao->getByFields( ['open' => '0', 'handling' => '1'] );
+$newId = $bookDao->insert([
+    'bk_title'  => 'The Tragedy of Macbeth',
+    'bk_author' => 'William Shakespeare',
+]);
 {% endhighlight %}
 
-#### getBySQLQuery($sqlQuery, $fields, $debug = false)
+### insertWithUUID($fields, $debug = false)
 
-This is the basic function for running a SQL query.
-Once you created a instance of the DAO object you can do for example:
-
-$sqlQuery string containing the query
-
-$tododao->getBySQLQuery( 'SELECT * FROM mytable WHERE myfield = :myfieldcontent;', [ ':myfieldcontent' => '0' ] );
-
-this will get all the row having the field myfield = 0
+Inserts a row using a MySQL-generated UUID as the primary key. Returns the UUID string. Sets the timestamp fields automatically.
 
 {% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$myBooks = $bookDao->getBySQLQuery( "SELECT * FROM books WHERE id=:id;", [':id'=>5] );
+$uuid = $bookDao->insertWithUUID([
+    'bk_title'  => 'Hamlet',
+    'bk_author' => 'William Shakespeare',
+]);
 {% endhighlight %}
 
-#### getByFieldList($fieldname, $ids, $conditionsfields, $orderby = 'none', $requestedfields = 'none')
+### update($id, $fields, $debug = false)
 
-This function allows user to get a set of elements from a table.
-
-@param $fieldname                name of field that needs to be confronted with the array of ids
-
-@param $ids                      array of ids
-
-@param $conditionsfields
-
-@param string $orderby
-
-@param string $requestedfields
-
-@return array|PDOStatement
-
-#### getArrayByFieldList($fieldname, $ids, $conditionsfields, $orderby = 'none', $requestedfields = 'none')
-
-This function allows user to get a set of elements from a table.
-
-@param  $fieldname                name of field that needs to be confronted with the array of ids
-
-@param  $ids                      array of ids
-
-@param  $conditionsfields
-
-@param  string $orderby
-
-@param  string $requestedfields
-
-@return array|PDOStatement
-
-@throws\Exception
-
-
-#### getOneByFields($conditionsfields, $requestedfields = 'none')
-
-This is the basic function for getting one element from a table.
-Once you created a instance of the DAO object you can do for example:
-
-$tododao->getOneByFields( array( 'id' => '42' ) );
-
-this will get the field having id = 42
-
-you can set more then a search parameter (evaluated in AND)
-
-$tododao->getOneByFields( array( 'id' => '42', 'open' => '1' ) );
-
-you can even request few specific fields and not the whole table fields
-
-$tododao->getOneByFields( array( 'id' => '42' ), array('id', 'name', 'description') );
+Updates the row identified by `$id`. Sets `DB_TABLE_UPDATED_FIELD_NAME` to the current timestamp.
 
 {% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$myBook = $bookDao->getOneByFields( [ 'id' => '42' ], ['id', 'name', 'description' ] );
+$bookDao->update(5, [
+    'bk_title'  => 'The Tragedy of Macbeth',
+    'bk_author' => 'William Shakespeare',
+]);
 {% endhighlight %}
 
-#### getArrayByFields($conditionsfields, $orderby = 'none', $requestedfields = 'none')
+### updateNoDate($id, $fields, $debug = false)
 
-This is the basic function for getting an array of elements from a table.
-The returned array will have the entity id as index
-Once you created a instance of the DAO object you can do for example:
-
-$tododao->getArrayByFields( array( 'open' => '0' ) );
-
-this will get all the row having the field open = 0
-
-you can set more then a search parameter (evaluated in AND)
-
-$tododao->getArrayByFields( array( 'open' => '0', 'handling' => '1' ) );
-
-you can even specify how to order the rows you requested
-
-$tododao->getArrayByFields( array( 'id' => '42' ), array('name', 'description') );
-
-you can even request few specific fields and not the whole table fields
-
-$tododao->getArrayByFields( array( 'id' => '42' ), array('name', 'description'), array('id', 'name', 'description') );
+Updates the row identified by `$id` without touching the timestamp column. Use when you need to update a row but do not want to change the modification date.
 
 {% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$myCount = $bookDao->getArrayByFields( [ 'id' => '42' ], [ 'name', 'description' ], ['id', 'name', 'description' ] );
+$bookDao->updateNoDate(5, ['bk_published' => 0]);
 {% endhighlight %}
-    
-#### countByFields( $conditionsfields )
 
-his method allow to count the number of rows, contained in a table, that
-espect given conditions.
+### updateByFields($conditionsfields, $fields, $debug = false)
 
-nce you created a instance of the DAO object you can do for example:
-
-tododao->getByFields( array( 'open' => '0' ) );
-
-his will get all the row having the field open = 0
-
-ou can set more then a search parameter (evaluated in AND)
-
-tododao->getByFields( [ 'open' => '0', 'handling' => '1' ] );
+Updates all rows matching `$conditionsfields`. Sets `DB_TABLE_UPDATED_FIELD_NAME` to the current timestamp.
 
 {% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$myCount = $bookDao->countByFields( [ 'open' => '0', 'handling' => '1' ] );
+// Mark all books by a given author as published
+$bookDao->updateByFields(
+    ['bk_author' => 'William Shakespeare'],
+    ['bk_published' => 1]
+);
 {% endhighlight %}
-    
-#### countByFieldList($fieldname, $ids, $conditionsfields, $orderby = 'none', $requestedfields = 'none')
 
-This method allow to count the number of rows, contained in a table, that
-respect given conditions.
+### updateByFieldsNoDate($conditionsfields, $fields, $debug = false)
 
-@param $fieldname                name of field that needs to be confronted with the array of ids
-
-@param $ids                      array of ids
-
-@param $conditionsfields
-
-@param string $orderby
-
-@param string $requestedfields
-
-@return array|PDOStatement
-
-@throws\Exception
+Same as `updateByFields()` but does not update the timestamp column.
 
 {% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$myCount = $bookDao->countByFieldList( 'id', [4, 6, 7], [ 'open' => '0', 'handling' => '1' ] );
+$bookDao->updateByFieldsNoDate(
+    ['bk_author' => 'William Shakespeare'],
+    ['bk_featured' => 0]
+);
 {% endhighlight %}
- 
-#### getOneField($fieldname, $conditionsfields)
 
-This method get just one filed from a table
+### delete($id)
 
-@param $fieldname                name of field to get
-
-@param $conditionsfields         conditions evaluated in AND
-
-@return the field content
-
-@throws\Exception
+Deletes the row with the given primary key.
 
 {% highlight php %}
-$bookDao = new BookDao();
-$bookDao->setDBH($this->dbconnection->getDBH());
-$bookDao->setLogger($this->logger);
-$mybook = $bookDao->getOneField( 'title', [ 'open' => '0', 'handling' => '1' ] );
+$bookDao->delete(5);
 {% endhighlight %}
 
+### deleteByFields($fields)
+
+Deletes all rows matching the given conditions. All conditions are combined with `AND`.
+
+{% highlight php %}
+$bookDao->deleteByFields(['bk_published' => 0, 'bk_author' => 'Anonymous']);
+{% endhighlight %}
+
+---
+
+## Count methods
+
+### countByFields($conditionsfields)
+
+Returns the number of rows matching the given conditions.
+
+{% highlight php %}
+$count = $bookDao->countByFields(['bk_published' => 1]);
+{% endhighlight %}
+
+### countByFieldList($fieldname, $ids, $conditionsfields)
+
+Counts rows where `$fieldname` is in the `$ids` array, filtered by `$conditionsfields`. Returns an associative array keyed by each value in `$ids`, so you can look up the count per ID in O(1).
+
+{% highlight php %}
+// Count published books per author for authors 3, 7, and 12
+$counts = $bookDao->countByFieldList(
+    'bk_author_id',
+    [3, 7, 12],
+    ['bk_published' => 1]
+);
+// $counts[3] === 4, $counts[7] === 1, etc.
+{% endhighlight %}
+
+---
+
+## Extending BasicDao
+
+Add custom query methods to your DAO class whenever the standard methods are not sufficient. Keep domain-specific SQL inside the DAO so controllers stay free of raw queries.
+
+{% highlight php %}
+class BookDao extends BasicDao {
+
+    const DB_TABLE                    = 'books';
+    const DB_TABLE_PK                 = 'bk_id';
+    const DB_TABLE_UPDATED_FIELD_NAME = 'bk_updated';
+    const DB_TABLE_CREATED_FLIED_NAME = 'bk_created';
+
+    public function getEmpty() {
+        $empty            = new \stdClass;
+        $empty->bk_id     = 0;
+        $empty->bk_title  = '';
+        $empty->bk_author = '';
+        return $empty;
+    }
+
+    /**
+     * Returns [['id' => ..., 'label' => ...], ...] suitable for a dropdown.
+     */
+    public function makeListForDropdown(): array {
+        $out = [];
+        $rows = $this->getByFields(['bk_published' => 1], ['bk_title']);
+        foreach ($rows as $row) {
+            $out[] = ['id' => $row->bk_id, 'label' => $row->bk_title];
+        }
+        return $out;
+    }
+
+    public function getRecentByAuthor(int $authorId, int $limit): array {
+        return $this->getBySQLQuery(
+            'SELECT * FROM books WHERE bk_author_id = :author ORDER BY bk_created DESC LIMIT :lim',
+            [':author' => $authorId, ':lim' => $limit]
+        );
+    }
+}
+{% endhighlight %}
