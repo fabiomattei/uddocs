@@ -187,6 +187,43 @@ $books = $bookDao->getBySQLQuery(
 
 ---
 
+## Joins with QueryBuilder
+
+`BasicDao`'s field-based methods only query the DAO's own `DB_TABLE`. For queries that need to join other tables, call `newQuery()` to get a `QueryBuilder`: a fluent builder returning `stdClass` rows (`PDO::FETCH_OBJ`), same as the rest of the DAO.
+
+{% highlight php %}
+$rows = $bookDao->newQuery()
+    ->select('books.bk_title', 'authors.au_name AS author_name')
+    ->join('authors', 'books.bk_author_id = authors.au_id')
+    ->where('books.bk_published', '=', 1)
+    ->where('authors.au_country', '=', 'UK')
+    ->orderBy('books.bk_title')
+    ->limit(50)
+    ->get();
+
+foreach ($rows as $row) {
+    echo $row->author_name;
+}
+{% endhighlight %}
+
+`where()` values are always parameter-bound, even when the same column name is reused across joined tables. Table names, `select()`/`orderBy()` fields, and join conditions are not parameterisable by PDO, so treat them as trusted SQL you write yourself, not as a place to interpolate user input.
+
+| Method | Description |
+|---|---|
+| `select(...$fields)` | Columns to return. Defaults to `*`. |
+| `join($table, $onCondition, $type = 'INNER')` / `leftJoin($table, $onCondition)` | Adds a join clause. |
+| `where($field, $operator, $value)` | Adds a bound `AND` condition. |
+| `whereRaw($rawSql, $bindings = [])` | Escape hatch for conditions `where()` can't express, e.g. `BETWEEN`. Caller supplies and binds its own placeholders. |
+| `orderBy(...$fields)` | Sets `ORDER BY`. |
+| `limit($count)` | Sets `LIMIT`. |
+| `get()` | Runs the query, returns a `PDOStatement` (`FETCH_OBJ`). |
+| `first()` | Returns the first matching row as `stdClass`, or `null`. |
+| `count()` | Returns the number of matching rows, respecting joins and `where()`. |
+
+For one-off queries too irregular even for `QueryBuilder`, fall back to `getBySQLQuery()` above.
+
+---
+
 ## Write methods
 
 All write methods accept a `$debug = false` parameter. When `true`, the method echoes the constructed SQL and parameter dump to the page — useful during development.
