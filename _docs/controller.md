@@ -9,6 +9,8 @@ UglyDuckling covers 90% of use cases through JSON resources. When business logic
 
 A controller in UglyDuckling works similarly to a controller in any MVC framework. It implements `getRequest()` and `postRequest()` methods, validates and filters incoming parameters, queries the database, and exposes data to a view file.
 
+When the logic inside `getRequest()`/`postRequest()` grows complex enough to need isolated testing, extract it into a <a href="{{site.baseurl}}/docs/service">Service</a> and keep the controller itself limited to validation, delegating to the Service, and mapping the outcome to a view or redirect.
+
 ---
 
 ## Controller skeleton
