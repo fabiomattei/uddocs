@@ -22,6 +22,11 @@ Here you can find some documentation for the framework behind the code
 * <a href="{{site.baseurl}}/docs/validation">Validation</a>
 * <a href="{{site.baseurl}}/resources/jsonindex">Index</a>
 
+## Database
+
+* <a href="{{site.baseurl}}/docs/dao">DAO</a> — query and write to the database through PDO prepared statements
+* <a href="{{site.baseurl}}/docs/migrations">Migrations</a> — version-controlled schema changes, similar to Laravel's migrations
+
 ## Component system
 
 The component system lets you build pages in pure PHP by composing small, self-contained classes instead of editing JSON files. It is the right choice when a page requires custom business logic, complex rendering, or interactions that go beyond what a JSON resource can express.
