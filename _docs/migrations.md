@@ -88,6 +88,7 @@ Available column types:
 | `foreignUuid($name)` | `CHAR(36)` (alias for `uuid`, for referencing a `uuid()` primary key) |
 | `time($name)` | `TIME` — a time-of-day value with no date part |
 | `mediumText($name)` | `MEDIUMTEXT` — for MySQL, use this instead of `text()` for anything that might exceed 64KB |
+| `longText($name)` | `LONGTEXT` — the largest MySQL text tier (~4GB) |
 | `binary($name)` | `BLOB` |
 | `char($name, $length = 255)` | `CHAR($length)` — fixed-length, unlike `string()` |
 | `timestamps()` | adds nullable `created_at` / `updated_at` `dateTime` columns |
