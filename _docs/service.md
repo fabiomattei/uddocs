@@ -120,4 +120,4 @@ That is by design, not an oversight: the goal is not to make the controller clas
 
 ---
 
-This pattern is new in UglyDuckling: only the marker interface exists so far, and using it is not required. It targets the cases described in <a href="{{site.baseurl}}/docs/controller">Controller</a> where business logic inside `getRequest()`/`postRequest()` has grown complex enough to need isolated testing.
+This pattern is new in UglyDuckling: only the marker interface exists so far, and using it is not required. It targets the cases described in <a href="{{site.baseurl}}/docs/controller">Controller</a> and <a href="{{site.baseurl}}/docs/component">Component</a> where business logic inside `getRequest()`/`postRequest()` (or `get_request()`/`post_request()`) has grown complex enough to need isolated testing.

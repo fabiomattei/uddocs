@@ -26,6 +26,7 @@ Here you can find some documentation for the framework behind the code
 
 * <a href="{{site.baseurl}}/docs/dao">DAO</a> — query and write to the database through PDO prepared statements
 * <a href="{{site.baseurl}}/docs/migrations">Migrations</a> — version-controlled schema changes, similar to Laravel's migrations
+* <a href="{{site.baseurl}}/docs/queue">Queue</a> — a database-backed job queue for deferring work outside the request/response cycle
 
 ## Component system
 

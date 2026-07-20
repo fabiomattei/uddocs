@@ -16,6 +16,8 @@ A component can be used in two ways:
 
 For a step-by-step walkthrough of all four CRUD operations using components, see the <a href="{{site.baseurl}}/tutorials/crud-components">CRUD with Components</a> tutorial.
 
+When the logic inside `get_request()`/`post_request()` grows complex enough to need isolated testing, extract it into a <a href="{{site.baseurl}}/docs/service">Service</a> and keep the component itself limited to validation, delegating to the Service, and rendering the outcome.
+
 ---
 
 ## Minimal example
