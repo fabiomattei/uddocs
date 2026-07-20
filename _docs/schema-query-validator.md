@@ -64,6 +64,42 @@ If your migrations use MySQL-specific SQL that `Schema`/`Blueprint` doesn't abst
 
 ---
 
+## Running it as a CI check
+
+There's no bundled `ud-*` CLI command for this — `SchemaQueryValidator` is a plain PHP class, so wire it into your own project as a small script (e.g. `bin/check-schema.php`) that migrates a throwaway database and exits non-zero on any error:
+
+{% highlight php %}
+#!/usr/bin/env php
+<?php
+
+require __DIR__ . '/../vendor/autoload.php';
+
+use Fabiom\UglyDuckling\Framework\DataBase\Migrations\MigrationRepository;
+use Fabiom\UglyDuckling\Framework\DataBase\Migrations\Migrator;
+use Fabiom\UglyDuckling\Framework\DataBase\SchemaQueryValidator;
+
+$pdo = new PDO('sqlite::memory:');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+(new Migrator($pdo, new MigrationRepository($pdo), __DIR__ . '/../database/migrations'))->migrate();
+
+$errors = (new SchemaQueryValidator($pdo))->validateDirectory(__DIR__ . '/../src/Json');
+
+foreach ($errors as $error) {
+    fwrite(STDERR, $error . "\n");
+}
+
+exit(empty($errors) ? 0 : 1);
+{% endhighlight %}
+
+{% highlight bash %}
+php bin/check-schema.php
+{% endhighlight %}
+
+A non-zero exit code fails the build the same way a failing test would, which makes this a good candidate to run in CI right after migrations run against the test database — before `./vendor/bin/phpunit`, so schema drift is reported on its own rather than surfacing as a wall of unrelated test failures.
+
+---
+
 ## Scope
 
 * Only `get.query.sql` and `post.query.sql` inside JSON resource files are checked. Controllers and components that build SQL themselves are not scanned — keep that SQL inside a DAO (see <a href="{{site.baseurl}}/docs/dao">DAO</a>) where it's covered by your own tests instead.

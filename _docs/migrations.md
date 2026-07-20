@@ -327,3 +327,9 @@ $migrator->fresh();
 {% endhighlight %}
 
 Constructing a `Migrator` also points the `Schema` facade at that connection, so migration files calling `Schema::create()`/`Schema::table()` work the same way whether they're run through the CLI or through `Migrator` directly.
+
+---
+
+## Loading data after migrating
+
+Once a table exists, use [Seeders](seeders) — `ud-migrate seed` — to load rows into it.
