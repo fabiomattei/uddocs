@@ -86,6 +86,10 @@ Available column types:
 | `timestamp($name)` | `TIMESTAMP` |
 | `uuid($name)` | `CHAR(36)` |
 | `foreignUuid($name)` | `CHAR(36)` (alias for `uuid`, for referencing a `uuid()` primary key) |
+| `time($name)` | `TIME` — a time-of-day value with no date part |
+| `mediumText($name)` | `MEDIUMTEXT` — for MySQL, use this instead of `text()` for anything that might exceed 64KB |
+| `binary($name)` | `BLOB` |
+| `char($name, $length = 255)` | `CHAR($length)` — fixed-length, unlike `string()` |
 | `timestamps()` | adds nullable `created_at` / `updated_at` `dateTime` columns |
 
 Every column method except `timestamps()` returns a `ColumnDefinition` you can chain modifiers onto:
@@ -128,6 +132,36 @@ $table->foreignId( 'author_id' )
 {% endhighlight %}
 
 MySQL and SQLite compile this differently under the hood (MySQL needs a table-level `FOREIGN KEY` clause; SQLite enforces an inline `REFERENCES` clause and requires `PRAGMA foreign_keys = ON`, which `Schema` enables automatically on SQLite connections) — from a migration's point of view the API is identical either way.
+
+### Composite primary keys
+
+`->primary()` on a column (see the modifier table above) only works for a single column. For a primary key spanning more than one column — a join table with no surrogate id, for example — call `primary()` on the `Blueprint` itself instead, listing every column that makes up the key:
+
+{% highlight php %}
+Schema::create( 'session_tokens', function ( Blueprint $table ) {
+    $table->string( 'session_string', 20 );
+    $table->string( 'token', 32 );
+    $table->primary( [ 'session_string', 'token' ] );
+} );
+{% endhighlight %}
+
+Don't combine this with `->primary()` on the individual columns — MySQL only allows one `PRIMARY KEY` clause per table, and declaring it both ways would emit two.
+
+### Table options: engine, charset, collation
+
+`Schema::create()` doesn't set an engine or charset by default — on MySQL that means the table gets the server's defaults. To pin them explicitly (e.g. when a table needs to match the charset of data it will hold), call `engine()`/`charset()`/`collation()` on the `Blueprint`:
+
+{% highlight php %}
+Schema::create( 'legacy_reports', function ( Blueprint $table ) {
+    $table->id();
+    $table->text( 'body' );
+    $table->engine( 'InnoDB' );
+    $table->charset( 'utf8mb3' );
+    $table->collation( 'utf8mb3_bin' );
+} );
+{% endhighlight %}
+
+These three are MySQL-only — SQLite ignores them, so the same migration still runs against a SQLite connection (e.g. in tests) without error.
 
 ### Altering an existing table
 
