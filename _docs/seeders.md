@@ -5,7 +5,7 @@ name: Seeders
 
 # Seeders
 
-UglyDuckling ships a small seeder system to load data into a migrated database, similar in spirit to Laravel's seeders. Each seeder is a PHP file that returns a class with a `run()` method; the same `ud-migrate` CLI tool used for [migrations](migrations) can run every seeder in a directory, or just one.
+UglyDuckling ships a small seeder system to load data into a migrated database, similar in spirit to Laravel's seeders. Each seeder is a PHP file that declares a named class with a `run()` method — the same shape as a real Laravel seeder, not the anonymous-class convention migration files use; the same `ud-migrate` CLI tool used for [migrations](migrations) can run every seeder in a directory, or just one.
 
 Seeder files live in **your application**, not in the library — the library only provides the base class, the runner, and the CLI.
 
@@ -15,20 +15,37 @@ Unlike migrations, seeders are **not tracked** as "already run". Running `ud-mig
 
 ## Seeder skeleton
 
-A seeder file returns an anonymous class extending `Seeder`. `run()` receives the raw PDO connection:
+A seeder file declares a named class, under a fixed `Database\Seeders` namespace, extending `Seeder`. `run()` receives the raw PDO connection and is the first method in the class — exactly like a Laravel seeder:
 
 {% highlight php %}
-use Fabiom\UglyDuckling\Framework\DataBase\Seeders\Seeder;
+namespace Database\Seeders;
 
-return new class extends Seeder {
+use Fabiom\UglyDuckling\Framework\DataBase\Seeders\Seeder;
+use PDO;
+
+class SeedAuthors extends Seeder {
 
     public function run( PDO $pdo ): void {
-        $pdo->exec( "INSERT INTO authors (name) VALUES ('Italo Calvino')" );
-        $pdo->exec( "INSERT INTO authors (name) VALUES ('Primo Levi')" );
+        foreach ( $this->authors() as $name ) {
+            $pdo->exec( "INSERT INTO authors (name) VALUES (" . $pdo->quote( $name ) . ")" );
+        }
     }
 
-};
+    private function authors(): array {
+        return [
+            'Italo Calvino',
+            'Primo Levi',
+        ];
+    }
+
+}
 {% endhighlight %}
+
+Keeping `run()` first and pushing any reference data or helpers into private methods below it (as above) is the recommended shape once a seeder needs more than a line or two of data — it keeps the actual logic at the top of the file instead of buried under a wall of constants.
+
+The class name **must** match the filename with the timestamp prefix stripped and the remainder converted to StudlyCase — `2026_07_20_180602_seed_authors.php` must declare `SeedAuthors`. `ud-migrate make-seeder` (below) gets this right automatically; if you rename a seeder file by hand, rename the class to match. Two seeder files that produce the same class name once their timestamps are stripped (e.g. two "seed_authors" made on different days) will fatal on the second one, since both declare `Database\Seeders\SeedAuthors` — keep the descriptive part of the name unique.
+
+The `Database\Seeders` namespace is a fixed convention, not a PSR-4 mapping — the runner `require`s the file directly, so nothing needs to be added to your application's `composer.json` autoload config.
 
 There is no schema-building helper for seeders — `Schema`/`Blueprint` are migration-only concerns. Use `$pdo` directly, or a `BasicDao` subclass if one already exists for the table you're seeding.
 
@@ -36,11 +53,12 @@ There is no schema-building helper for seeders — `Schema`/`Blueprint` are migr
 
 ## Creating a seeder
 
-Use `ud-migrate make-seeder` to scaffold a new, timestamp-prefixed seeder file:
+Use `ud-migrate make-seeder` to scaffold a new, timestamp-prefixed seeder file, pre-filled with the correctly-derived class name:
 
 {% highlight bash %}
 ud-migrate make-seeder seed_authors
 # Created seeder: database/seeders/2026_07_20_180602_seed_authors.php
+# -> class Database\Seeders\SeedAuthors
 {% endhighlight %}
 
 The timestamp prefix determines run order when seeding "all", so seeders that depend on rows inserted by another seeder (e.g. a foreign key) should be named so their timestamp sorts after it.
