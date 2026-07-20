@@ -84,6 +84,8 @@ Available column types:
 | `date($name)` | `DATE` |
 | `dateTime($name)` | `DATETIME` |
 | `timestamp($name)` | `TIMESTAMP` |
+| `uuid($name)` | `CHAR(36)` |
+| `foreignUuid($name)` | `CHAR(36)` (alias for `uuid`, for referencing a `uuid()` primary key) |
 | `timestamps()` | adds nullable `created_at` / `updated_at` `dateTime` columns |
 
 Every column method except `timestamps()` returns a `ColumnDefinition` you can chain modifiers onto:
@@ -94,9 +96,28 @@ Every column method except `timestamps()` returns a `ColumnDefinition` you can c
 | `->default($value)` | sets a default value |
 | `->unsigned()` | marks a numeric column unsigned |
 | `->unique()` | adds a single-column unique constraint |
+| `->primary()` | marks this the primary key, without auto-increment |
 | `->constrained($table, $column = 'id')` | adds a `FOREIGN KEY` referencing `$table.$column` |
 | `->references($column)->on($table)` | same as `constrained()`, spelled out in two steps |
 | `->onDelete($action)` / `->onUpdate($action)` | `cascade` \| `restrict` \| `set_null` \| `no_action` |
+
+### UUID primary/foreign keys
+
+`id()`/`increments()` are always auto-increment. For a UUID primary key, use `uuid()` with the plain `->primary()` modifier instead, and `foreignUuid()` (not `foreignId()`) on the referencing side so the column types match:
+
+{% highlight php %}
+Schema::create( 'authors', function ( Blueprint $table ) {
+    $table->uuid( 'id' )->primary();
+    $table->string( 'name' );
+} );
+
+Schema::create( 'books', function ( Blueprint $table ) {
+    $table->id();
+    $table->foreignUuid( 'author_id' )->constrained( 'authors' );
+} );
+{% endhighlight %}
+
+`Schema`/`Blueprint` only declare the column - they don't generate UUID values. Neither MySQL nor SQLite has a portable UUID function, so generate the value in PHP before inserting (the same way Laravel's `HasUuids` trait does it), e.g. with `random_bytes()`-based UUIDv4 generation in your own code.
 
 `constrained()`/`references()`/`on()` always take an explicit table name — there's no pluralization guesswork (`author_id` does not automatically imply an `authors` table), to avoid a constraint silently pointing at the wrong table.
 
