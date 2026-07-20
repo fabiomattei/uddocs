@@ -62,7 +62,7 @@ Schema::create( 'books', function ( Blueprint $table ) {
     $table->text( 'description' )->nullable();
     $table->boolean( 'published' )->default( false );
     $table->decimal( 'price', 8, 2 )->nullable();
-    $table->foreignId( 'author_id' );           // unsigned bigint, for a foreign key value
+    $table->foreignId( 'author_id' )->constrained( 'authors' );
     $table->timestamps();                       // nullable created_at / updated_at datetime columns
 } );
 {% endhighlight %}
@@ -94,8 +94,19 @@ Every column method except `timestamps()` returns a `ColumnDefinition` you can c
 | `->default($value)` | sets a default value |
 | `->unsigned()` | marks a numeric column unsigned |
 | `->unique()` | adds a single-column unique constraint |
+| `->constrained($table, $column = 'id')` | adds a `FOREIGN KEY` referencing `$table.$column` |
+| `->references($column)->on($table)` | same as `constrained()`, spelled out in two steps |
+| `->onDelete($action)` / `->onUpdate($action)` | `cascade` \| `restrict` \| `set_null` \| `no_action` |
 
-`foreignId()` only creates the column — it does not add a `FOREIGN KEY` constraint yet.
+`constrained()`/`references()`/`on()` always take an explicit table name — there's no pluralization guesswork (`author_id` does not automatically imply an `authors` table), to avoid a constraint silently pointing at the wrong table.
+
+{% highlight php %}
+$table->foreignId( 'author_id' )
+    ->constrained( 'authors' )
+    ->onDelete( 'cascade' );
+{% endhighlight %}
+
+MySQL and SQLite compile this differently under the hood (MySQL needs a table-level `FOREIGN KEY` clause; SQLite enforces an inline `REFERENCES` clause and requires `PRAGMA foreign_keys = ON`, which `Schema` enables automatically on SQLite connections) — from a migration's point of view the API is identical either way.
 
 ### Altering an existing table
 
@@ -110,6 +121,14 @@ Dropping columns uses the same closure:
 {% highlight php %}
 Schema::table( 'books', function ( Blueprint $table ) {
     $table->dropColumn( 'isbn' );
+} );
+{% endhighlight %}
+
+Foreign keys work the same way when added later, not just at `create()` time:
+
+{% highlight php %}
+Schema::table( 'books', function ( Blueprint $table ) {
+    $table->foreignId( 'author_id' )->nullable()->constrained( 'authors' );
 } );
 {% endhighlight %}
 
