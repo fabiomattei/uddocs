@@ -58,7 +58,7 @@ Each entry in `$tabs` is a tab descriptor with three required keys.
 
 ## Panel nodes inside a tab
 
-The `panels` array inside each tab supports the same three node types as a Grid Page.
+The `panels` array inside each tab supports the same four node types as a Grid Page.
 
 ### Component node
 
@@ -90,6 +90,20 @@ Tabs can be nested — a tab panel can itself contain a tabs node.
 ]]
 {% endhighlight %}
 
+### Embed node
+
+Nests an entire other routable page — a `BaseGridComponent` or `BaseTabsComponent` subclass — inside a tab, rather than a single component. See the "Embed node" section of the <a href="{{site.baseurl}}/docs/page-grid">Grid Page docs</a> for the full explanation of embedding, which applies identically here.
+
+{% highlight php %}
+['cssclass' => 'col-12', 'embed' => ArticleStatsPage::class]
+{% endhighlight %}
+
+---
+
+## Lifecycle hooks
+
+Override `onGetRequest()`/`onPostRequest()` for page-level setup around the component dispatch, exactly as on a <a href="{{site.baseurl}}/docs/page-grid#lifecycle-hooks">Grid Page</a>.
+
 ---
 
 ## POST dispatch
@@ -116,7 +130,13 @@ protected function onPostSuccess(): void {
 
 ## Authorization
 
-Override `check_authorization_get_request()` and `check_authorization_post_request()` to guard the whole page.
+For simple group restriction, set `$allowedGroups`; the page checks it automatically for both GET and POST.
+
+{% highlight php %}
+protected array $allowedGroups = ['editor', 'admin'];
+{% endhighlight %}
+
+For anything more than a group check, override `check_authorization_get_request()` and `check_authorization_post_request()` directly.
 
 {% highlight php %}
 protected function check_authorization_get_request(): bool {

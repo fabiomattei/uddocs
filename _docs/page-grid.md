@@ -36,7 +36,7 @@ The `CONTROLLER_NAME` constant registers the page with the router. A request to 
 
 ## The `$panels` array
 
-Each entry in `$panels` is a **node**. Three node types are supported.
+Each entry in `$panels` is a **node**. Four node types are supported.
 
 ### 1. Component node
 
@@ -72,7 +72,29 @@ Renders a Bootstrap tabs widget inside a `<div>`. See <a href="{{site.baseurl}}/
 ]]
 {% endhighlight %}
 
+### 4. Embed node
+
+Nests an entire other routable page — a `BaseGridComponent` or `BaseTabsComponent` subclass — inside a `<div>`, rather than a single component. This is how grid-in-grid or grid-in-tabs layouts are built without JSON.
+
+{% highlight php %}
+['cssclass' => 'col-md-6', 'embed' => ArticleStatsPage::class]
+{% endhighlight %}
+
+The embedded page's own `check_authorization_get_request()` is honored — if it returns `false`, the node renders nothing rather than raising an error. Embedding is type-agnostic and recursive: a Grid Page can embed a Tabs Page inside one of its panels, that Tabs Page can embed another Grid Page inside one of its tabs, and so on to any depth. Because embedding reaches into `renderPanels()`/`allPanels()` on the embedded page, head/foot asset collection and `_component` POST dispatch automatically flow through nested pages too — an embedded page does not get its own CSRF token or `showPage()` lifecycle; only the outermost routed page does.
+
 Nodes may be nested to any depth.
+
+---
+
+## Lifecycle hooks
+
+Override `onGetRequest()`/`onPostRequest()` to run page-level setup — building navigation, a menu, or other scaffolding — around the component dispatch. `onGetRequest()` runs after authorization but before validation on GET; `onPostRequest()` runs after POST dispatch completes.
+
+{% highlight php %}
+protected function onGetRequest(): void {
+    $this->menubuilder = new SomeMenuBuilder($this->pageStatus);
+}
+{% endhighlight %}
 
 ---
 
@@ -96,7 +118,13 @@ protected function onPostSuccess(): void {
 
 ## Authorization
 
-Override `check_authorization_get_request()` and `check_authorization_post_request()` to guard access to the whole page.
+For simple group restriction, set `$allowedGroups`; the page checks it automatically for both GET and POST, in place of overriding `check_authorization_get_request()`/`check_authorization_post_request()` yourself.
+
+{% highlight php %}
+protected array $allowedGroups = ['editor', 'admin'];
+{% endhighlight %}
+
+For anything more than a group check — combining it with a login check, for instance — override `check_authorization_get_request()` and `check_authorization_post_request()` directly.
 
 {% highlight php %}
 protected function check_authorization_get_request(): bool {

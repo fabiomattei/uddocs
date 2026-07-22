@@ -9,6 +9,8 @@ A **Component** is a PHP class that encapsulates a single, self-contained unit o
 
 Every component extends `BaseComponent` and must implement the abstract method `render(array $data)`.
 
+For the common cases of a form, a read-only info panel, or a table, you don't need to hand-write `render()` at all — see <a href="{{site.baseurl}}/docs/declarative-components">Declarative leaf components</a>.
+
 A component can be used in two ways:
 
 * **Embedded in a page** — a <a href="{{site.baseurl}}/docs/page-grid">Grid Page</a> or <a href="{{site.baseurl}}/docs/page-tabs">Tabs Page</a> declares it in its `$panels` or `$tabs` array alongside other components.
@@ -221,13 +223,21 @@ An explicit page class (extending `BaseGridComponent` or `BaseTabsComponent`) is
 
 ## Authorization
 
-Override `check_authorization_resource_request()` to restrict who can see the component. Return `false` to silently skip rendering.
+For simple group restriction, set `$allowedGroups`. `BaseComponent` checks it automatically before both rendering and handling a POST; leaving it empty (the default) means the component is visible to any logged-in group.
+
+{% highlight php %}
+protected array $allowedGroups = ['admin', 'editor'];
+{% endhighlight %}
+
+For anything more than a group check, override `check_authorization_resource_request()` directly. Return `false` to silently skip rendering.
 
 {% highlight php %}
 protected function check_authorization_resource_request(): bool {
     return isset($_SESSION['group']) && $_SESSION['group'] === 'admin';
 }
 {% endhighlight %}
+
+A component embedded in a <a href="{{site.baseurl}}/docs/page-grid">Grid Page</a> or <a href="{{site.baseurl}}/docs/page-tabs">Tabs Page</a> is authorized independently of the page — it can hide itself even on a page that is otherwise visible to the current user.
 
 ---
 
