@@ -81,12 +81,18 @@ public function __construct() {
 }
 {% endhighlight %}
 
-Each controller must also be registered in `index_controllers.php` with a URL slug that maps to the controller class. The slug corresponds to the `CONTROLLER_NAME` constant:
+Each controller must also carry a `#[Route]` attribute mapping it to a URL slug:
 
 {% highlight php %}
-const CONTROLLER_NAME = 'mycontroller';
-// → reachable at www.myapplication.com/mycontroller.html
+use Fabiom\UglyDuckling\Framework\Routing\Route;
+
+#[Route(name: 'mycontroller', slug: 'mycontroller')]
+class MyController extends BaseController {
+    // → reachable at www.myapplication.com/mycontroller.html
+}
 {% endhighlight %}
+
+Run `vendor/bin/ud-routes generate` to pick up the attribute — see <a href="{{site.baseurl}}/docs/routing">Routing</a> for the full generation and dispatch flow.
 
 ---
 
@@ -94,7 +100,7 @@ const CONTROLLER_NAME = 'mycontroller';
 
 ### check_authorization_get_request
 
-Override this method to restrict which users can make a GET request to this controller. Return `true` to allow, `false` to deny.
+Override this method to restrict which users can make a GET request to this controller. Return `true` to allow, `false` to deny. Returning `false` renders a shared "unauthorized" page (`http_response_code(403)`) instead of calling `getRequest()` — same mechanism for both GET and POST, see [Unauthorized access](#unauthorized-access) below.
 
 Check by session group:
 
@@ -254,6 +260,27 @@ public function show_post_error_page() {
 {{!-- src/Chapters/Website/Views/MyControllerPostError.php --}}
 <div class="alert alert-danger"><?= htmlspecialchars($errorMessage) ?></div>
 {% endhighlight %}
+
+---
+
+## Unauthorized access
+
+When `check_authorization_get_request()` or `check_authorization_post_request()` returns `false`, the controller renders a shared unauthorized page rather than a redirect — `http_response_code(403)` plus a static view, the same mechanism used for an unmatched route (see [Routing]({{site.baseurl}}/docs/routing)) but with its own template/view and a 403 instead of a 404.
+
+| Method | Description |
+|---|---|
+| `show_unauthorized_page()` | Renders the unauthorized page. Called automatically on authorization failure; override only if you need custom behavior beyond the default. |
+| `setUnauthorizedView($templateFile, $viewFile)` | Overrides the template/view used for the unauthorized page. Defaults to `'application'` / `'errors/unauthorized'`. |
+
+{% highlight php %}
+public function __construct() {
+    parent::__construct();
+    // ...
+    $this->setUnauthorizedView('websitetemplate', 'errors/websiteunauthorized');
+}
+{% endhighlight %}
+
+This is distinct from an invalid session (not logged in at all), which redirects to the application's login page before the controller is even reached.
 
 ---
 

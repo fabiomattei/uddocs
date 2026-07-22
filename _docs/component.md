@@ -14,7 +14,18 @@ For the common cases of a form, a read-only info panel, or a table, you don't ne
 A component can be used in two ways:
 
 * **Embedded in a page** — a <a href="{{site.baseurl}}/docs/page-grid">Grid Page</a> or <a href="{{site.baseurl}}/docs/page-tabs">Tabs Page</a> declares it in its `$panels` or `$tabs` array alongside other components.
-* **Standalone** — the component class is registered directly in `$index_components`. The bootstrap detects that it is not a page and wraps it automatically in a full-width grid so no explicit page class is needed.
+* **Standalone** — the component class carries a `#[Route]` attribute:
+
+{% highlight php %}
+use Fabiom\UglyDuckling\Framework\Routing\Route;
+
+#[Route(name: 'articles_list', slug: 'articles-list')]
+class ArticlesList extends BaseComponent {
+    // ...
+}
+{% endhighlight %}
+
+Run `vendor/bin/ud-routes generate` to pick it up. The dispatcher detects that it is a component (not a controller) and calls `renderAsPanel()`/`handlePost()` directly — no explicit page class needed. See <a href="{{site.baseurl}}/docs/routing">Routing</a> for the full generation and dispatch flow.
 
 For a step-by-step walkthrough of all four CRUD operations using components, see the <a href="{{site.baseurl}}/tutorials/crud-components">CRUD with Components</a> tutorial.
 
