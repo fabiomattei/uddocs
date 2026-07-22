@@ -7,6 +7,8 @@ name: Page (Grid layout)
 
 A **Grid Page** is a controller that assembles one or more <a href="{{site.baseurl}}/docs/component">Components</a> into a Bootstrap grid layout. Each component occupies a position defined by a CSS class string (e.g. `col-md-6`). The page handles authorization, CSRF, GET/POST dispatch, and collects `<head>` / `<foot>` contributions from all its components.
 
+`BaseGridComponent` and <a href="{{site.baseurl}}/docs/page-tabs">`BaseTabsComponent`</a> are both thin subclasses of `BasePageComponent`, which actually implements all of this shared behaviour: the `showPage()` GET/POST lifecycle, CSRF token creation, `<head>`/`<foot>` collection, the `_component` POST dispatcher, and the embed node type. `BaseGridComponent` adds only the `$panels` array and a `renderPanels()` that walks it as a grid; `BaseTabsComponent` adds only the `$tabs` array and a `renderPanels()` that renders it as a Bootstrap tab widget instead. So everything documented below under Lifecycle hooks, POST dispatch, and Authorization is defined once on `BasePageComponent` and inherited by both page types unchanged.
+
 For simple cases — a single component, or a fixed layout with no custom authorization or redirect logic — you do not need an explicit page class at all. Register the component or an inline panels array directly in `index_components.php` and the bootstrap creates the page for you. See <a href="{{site.baseurl}}/docs/component#registering-a-component-as-a-standalone-page">Registering a component as a standalone page</a>.
 
 Create an explicit Grid Page by extending `BaseGridComponent` when you need custom authorization, a custom `onPostSuccess()`, or page-level POST handling.

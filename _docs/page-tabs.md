@@ -5,7 +5,7 @@ name: Page (Tabs layout)
 
 # Description
 
-A **Tabs Page** is a controller that assembles <a href="{{site.baseurl}}/docs/component">Components</a> into a Bootstrap tab interface. Each tab has an id, a visible label, and its own grid of components. Everything else — authorization, CSRF, GET/POST dispatch, `<head>` / `<foot>` collection — works identically to a <a href="{{site.baseurl}}/docs/page-grid">Grid Page</a>.
+A **Tabs Page** is a controller that assembles <a href="{{site.baseurl}}/docs/component">Components</a> into a Bootstrap tab interface. Each tab has an id, a visible label, and its own grid of components. Everything else — authorization, CSRF, GET/POST dispatch, `<head>` / `<foot>` collection — works identically to a <a href="{{site.baseurl}}/docs/page-grid">Grid Page</a>, because both extend the same `BasePageComponent`: it owns the `showPage()` lifecycle, CSRF, dispatch, and head/foot collection, while `BaseTabsComponent` contributes only the `$tabs` array and a tab-rendering `renderPanels()`. See the class hierarchy note in the <a href="{{site.baseurl}}/docs/page-grid">Grid Page docs</a> for the full picture.
 
 Create a Tabs Page by extending `BaseTabsComponent` and declaring a `$tabs` array.
 
