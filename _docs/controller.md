@@ -270,12 +270,13 @@ When `check_authorization_get_request()` or `check_authorization_post_request()`
 | Method | Description |
 |---|---|
 | `show_unauthorized_page()` | Renders the unauthorized page. Called automatically on authorization failure; override only if you need custom behavior beyond the default. |
-| `setUnauthorizedView($templateFile, $viewFile)` | Overrides the template/view used for the unauthorized page. Defaults to `'application'` / `'errors/unauthorized'`. |
+| `setUnauthorizedView($templateFile, $viewFile)` | Overrides the template/view used for the unauthorized page. Defaults to `'staticpage'` / `'errors/unauthorized'` — `'staticpage'` is a minimal built-in template that just requires the view file directly, so write `errors/unauthorized.php` as a normal, self-contained HTML page. |
 
 {% highlight php %}
 public function __construct() {
     parent::__construct();
     // ...
+    // wrap the unauthorized page in the app's own chrome instead of the bare default
     $this->setUnauthorizedView('websitetemplate', 'errors/websiteunauthorized');
 }
 {% endhighlight %}

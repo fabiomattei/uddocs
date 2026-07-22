@@ -82,14 +82,14 @@ RouteTable::load(__DIR__ . '/config/routes.php');
 
 (new RouteDispatcher(
     $dbconnection, $logger, $securityChecker, $mailer, $pageStatus, $groupsIndex,
-    notFoundTemplateFile: 'application',
+    notFoundTemplateFile: 'staticpage',
     notFoundViewFile: 'errors/notfound',
 ))->dispatch();
 {% endhighlight %}
 
 `RouteTable::load()` only reads a plain array — it does not touch any of your controller or component classes. `RouteDispatcher::dispatch()` resolves the current request's slug and instantiates exactly the one matching controller or component; every other class named in the table is left untouched, so registering hundreds of routes costs nothing per request beyond the array lookup.
 
-An unmatched slug renders a shared 404 page (`StaticPageController`, `http_response_code(404)`) using the `notFoundTemplateFile`/`notFoundViewFile` you configure above.
+An unmatched slug renders a shared 404 page (`StaticPageController`, `http_response_code(404)`) using the `notFoundTemplateFile`/`notFoundViewFile` you configure above. `'staticpage'` is a minimal built-in template (`src/Templates/staticpage.php`) that just requires your view file — write `errors/notfound.php` (or wherever `notFoundViewFile` points) as a normal, self-contained HTML page. Point `notFoundTemplateFile` at your own template instead if you want the 404 page wrapped in your app's full chrome (nav, sidebar, etc.).
 
 For controllers, `RouteDispatcher` calls `setPageStatus()`, `setGroupsIndex()`, `makeAllPresets()`, and `showPage()` — the same lifecycle the controller already goes through, so `check_authorization_get_request()`/`check_authorization_post_request()` and every validation rule still apply exactly as documented in <a href="{{site.baseurl}}/docs/controller">Controller</a>. Failed authorization is handled by the controller itself (see `show_unauthorized_page()` there), not by the dispatcher.
 
