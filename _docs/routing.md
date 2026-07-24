@@ -176,3 +176,11 @@ if (RouteTable::isVisible('articles')) {
 | `allowedgroups` is non-empty | Visible only if the session's group is in the list |
 
 Each group's own menu JSON already calls this automatically when rendering `menu`/`submenu`/`rightmenu` — an item pointing at a `resource` or `controller` the current session's group can't open is dropped silently, rather than rendering a link that would just 403 when clicked. A dropdown whose every child gets dropped this way is itself dropped. This means the menu JSON only has to describe the app's navigation *shape*; which items actually show up for a given group now follows from each item's own `$allowedGroups` / `"allowedgroups"`, instead of being kept in sync by hand across two separate lists.
+
+The same check reaches every other place a JSON structure points at a route:
+
+- **Grid and Tabs JSON resources** (`GridJsonTemplate`, `TabsJsonTemplate`) drop a panel entirely — no wrapper `<div>`, no empty tab — if its `resource` isn't visible.
+- **Grid Page / Tabs Page components** (`BaseGridComponent`/`BaseTabsComponent`, via `BasePageComponent`) apply the equivalent check to `component`/`embed` nodes through each component's own `isAuthorized()` (see <a href="{{site.baseurl}}/docs/component#authorization">Component</a>) rather than a route-table lookup, since those nodes reference a PHP class directly instead of a slug — but the effect is identical: an unauthorized node, or a tab left with nothing authorized inside it, disappears rather than leaving an empty shell behind.
+- **Buttons and links built from JSON** — anything registered in `index_json_tag_templates.php` (button bars, per-row table actions, plain links) — go through `JsonDefaultTemplateFactory::getHTMLTag()`, which checks the tag's own `resource`/`controller` (or, for AJAX-style buttons, the nested `dataudurl` object) the same way before ever instantiating the tag class. The check mirrors `UrlServices::make_resource_url()`'s own precedence for which of `resource`/`controller` is the real destination — `controller` normally wins when both are set, except when `controller` is the special `"partial"` marker, in which case `resource` is the actual target.
+
+So a link, panel, tab, or component a group can't open is never part of the rendered interface — not shown disabled, not shown and left to 403 on click, just absent.
