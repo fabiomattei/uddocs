@@ -38,6 +38,8 @@ class SummaryComponent extends BaseComponent {
 
 A component embedded inside a <a href="{{site.baseurl}}/docs/page-grid">Grid</a> or <a href="{{site.baseurl}}/docs/page-tabs">Tabs</a> page does **not** need a `#[Route]` — only components meant to be hit directly (typically over AJAX) need one.
 
+Both kinds can also declare `$allowedGroups` — see <a href="{{site.baseurl}}/docs/controller">Controller</a> and <a href="{{site.baseurl}}/docs/component">Component</a> for how. The generator reads that property straight off the class (it never runs your code to do so) and carries it into the route table as `allowedgroups`, which is what powers the group-visibility filtering covered later on this page.
+
 ---
 
 ## Generating the route table
@@ -69,6 +71,38 @@ return [
 {% endhighlight %}
 
 Run `ud-routes generate` again whenever you add, rename, or remove a routed class — it's a build/deploy step, not something that runs on every request. Duplicate names or duplicate slugs across classes cause the command to fail loudly rather than silently overwrite one route with another.
+
+---
+
+## Merging in JSON resources
+
+A JSON resource (see <a href="{{site.baseurl}}/docs/json-template">JSON Template</a>) isn't a class and can't carry a `#[Route]` attribute, but the generator can still merge one in — so the same table covers everything a link might point at, not just attributed classes:
+
+{% highlight php %}
+// routes-config.php
+return [
+    'scan' => [
+        ['namespace' => 'App\\Controllers\\', 'directory' => __DIR__ . '/app/Controllers'],
+    ],
+    'jsonResources' => [
+        'registry' => __DIR__ . '/index_json_resources.php',   // slug => JSON file path
+        'variable' => 'index_resources',                        // the array variable that file defines
+    ],
+    'output' => __DIR__ . '/config/routes.php',
+];
+{% endhighlight %}
+
+Each entry is keyed by the resource's own slug — a JSON resource has no separate `name`, unlike a `#[Route]` class — and its `allowedgroups` is read straight from the resource's own JSON:
+
+{% highlight json %}
+{
+  "allowedgroups": ["readergroup", "writergroup"]
+}
+{% endhighlight %}
+
+If a slug is claimed by both a scanned class and a JSON resource — a full-page controller that loads its own JSON resource internally over AJAX under the same slug is a common case — the class wins and the JSON resource entry is skipped, rather than the generator failing on a "duplicate" it didn't cause.
+
+A resource with no `"allowedgroups"` key at all is recorded as `null`, not `[]` — deliberately different from "empty means every group", so the group-visibility check described below can tell "explicitly open to everyone" apart from "no policy declared, deny by default."
 
 ---
 
@@ -119,3 +153,26 @@ Redirects and component success URLs should go through `url_for()` too, rather t
 $this->redirectToPage(url_for('articles'));
 $this->postSuccessUrl = url_for('articles');
 {% endhighlight %}
+
+---
+
+## Filtering links by group
+
+`RouteTable::isVisible(string $slug)` answers one narrow question: should the current session's group see a link to this slug at all? It's a visibility check for building menus and nav — not a substitute for `check_authorization_get_request()` / `check_authorization_resource_request()`, which still run at request time regardless of what any menu shows.
+
+{% highlight php %}
+use Fabiom\UglyDuckling\Framework\Routing\RouteTable;
+
+if (RouteTable::isVisible('articles')) {
+    echo '<a href="' . url_for('articles') . '">Articles</a>';
+}
+{% endhighlight %}
+
+| Table state | Result |
+|---|---|
+| Slug not in the table at all | Visible — fails open, so nothing you haven't generated a route for is ever hidden |
+| `allowedgroups` is `null` | Hidden — a JSON resource with no `"allowedgroups"` key at all |
+| `allowedgroups` is `[]` | Visible to every group |
+| `allowedgroups` is non-empty | Visible only if the session's group is in the list |
+
+Each group's own menu JSON already calls this automatically when rendering `menu`/`submenu`/`rightmenu` — an item pointing at a `resource` or `controller` the current session's group can't open is dropped silently, rather than rendering a link that would just 403 when clicked. A dropdown whose every child gets dropped this way is itself dropped. This means the menu JSON only has to describe the app's navigation *shape*; which items actually show up for a given group now follows from each item's own `$allowedGroups` / `"allowedgroups"`, instead of being kept in sync by hand across two separate lists.

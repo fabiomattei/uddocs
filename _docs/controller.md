@@ -102,7 +102,13 @@ Run `vendor/bin/ud-routes generate` to pick up the attribute — see <a href="{{
 
 Override this method to restrict which users can make a GET request to this controller. Return `true` to allow, `false` to deny. Returning `false` renders a shared "unauthorized" page (`http_response_code(403)`) instead of calling `getRequest()` — same mechanism for both GET and POST, see [Unauthorized access](#unauthorized-access) below.
 
-Check by session group:
+For simple group restriction, set `$allowedGroups` instead of overriding this method — the default implementation already checks it, the same mechanism <a href="{{site.baseurl}}/docs/component">Component</a> uses. Leaving it empty (the default) means every logged-in group can reach this controller; the same property governs `check_authorization_post_request` too, so it only needs setting once.
+
+{% highlight php %}
+protected array $allowedGroups = ['readergroup', 'writergroup'];
+{% endhighlight %}
+
+Override the method directly for anything more than a group check:
 
 {% highlight php %}
 public function check_authorization_get_request() {
@@ -193,7 +199,7 @@ public function show_get_error_page() {
 
 ### check_authorization_post_request
 
-Same concept as the GET version, but for POST requests. Return `true` to allow, `false` to deny.
+Same concept as the GET version, but for POST requests. Return `true` to allow, `false` to deny — and `$allowedGroups` (see above) already covers this method too, so a simple group restriction rarely needs overriding it separately.
 
 {% highlight php %}
 public function check_authorization_post_request() {
