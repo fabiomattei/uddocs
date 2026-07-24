@@ -42,7 +42,7 @@ Each entry in `$panels` is a **node**. Four node types are supported.
 
 ### 1. Component node
 
-Renders a single component inside a `<div>` with the given CSS class.
+Renders a single component inside a `<div>` with the given CSS class — or nothing at all if the component's own authorization fails (see <a href="{{site.baseurl}}/docs/component#authorization">Component authorization</a>). The `<div>` wrapper itself is skipped, not left empty, the same way an unauthorized [embed node](#4-embed-node) below disappears entirely.
 
 {% highlight php %}
 ['cssclass' => 'col-md-8', 'component' => ArticlesList::class]
@@ -139,6 +139,8 @@ protected function check_authorization_post_request(): bool {
 {% endhighlight %}
 
 Individual components can also declare their own `check_authorization_resource_request()` to hide themselves independently of the page.
+
+This is exactly what makes an unauthorized component node disappear cleanly instead of leaving an empty box: before rendering a component node's wrapper `<div>`, the page checks the component's public `isAuthorized()` accessor (see <a href="{{site.baseurl}}/docs/component#authorization">Component</a>) and skips the wrapper entirely if it returns `false`. The same check excludes the component from `<head>`/`<foot>` collection and `_component` POST dispatch — an invisible component costs nothing and cannot be posted to.
 
 ---
 

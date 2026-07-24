@@ -250,6 +250,16 @@ protected function check_authorization_resource_request(): bool {
 
 A component embedded in a <a href="{{site.baseurl}}/docs/page-grid">Grid Page</a> or <a href="{{site.baseurl}}/docs/page-tabs">Tabs Page</a> is authorized independently of the page — it can hide itself even on a page that is otherwise visible to the current user.
 
+Code outside the component's own hierarchy — a page deciding whether to render a panel's wrapper `<div>` at all, for instance — can check this via the public `isAuthorized()` accessor, without needing access to the protected `check_authorization_resource_request()` it wraps:
+
+{% highlight php %}
+if ($component->isAuthorized()) {
+    // safe to render this component, link to it, load its head/foot assets, etc.
+}
+{% endhighlight %}
+
+This is exactly how <a href="{{site.baseurl}}/docs/page-grid#authorization">Grid Page</a> and <a href="{{site.baseurl}}/docs/page-tabs">Tabs Page</a> avoid leaving an empty wrapper behind for a component a user can't see.
+
 ---
 
 ## CSS and JavaScript

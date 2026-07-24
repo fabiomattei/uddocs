@@ -54,6 +54,8 @@ Each entry in `$tabs` is a tab descriptor with three required keys.
 | `label` | string | Text shown on the tab button. |
 | `panels` | array | A list of layout nodes, identical to the `$panels` array of a <a href="{{site.baseurl}}/docs/page-grid">Grid Page</a>. |
 
+If every panel inside a tab turns out to be unauthorized for the current session, the whole tab is dropped — button and pane both — rather than showing an empty tab with nothing in it. This is resolved recursively, so a tab whose only content is a nested tabs node or an embed is also hidden if nothing inside *that* would render either.
+
 ---
 
 ## Panel nodes inside a tab
@@ -61,6 +63,8 @@ Each entry in `$tabs` is a tab descriptor with three required keys.
 The `panels` array inside each tab supports the same four node types as a Grid Page.
 
 ### Component node
+
+Same rule as a Grid Page: an unauthorized component's `<div>` wrapper is skipped, not left empty.
 
 {% highlight php %}
 ['cssclass' => 'col-12', 'component' => ArticlesList::class]
@@ -148,7 +152,7 @@ protected function check_authorization_post_request(): bool {
 }
 {% endhighlight %}
 
-Individual components inside any tab can still declare their own `check_authorization_resource_request()` to hide themselves for certain users.
+Individual components inside any tab can still declare their own `check_authorization_resource_request()` to hide themselves for certain users. As described above, a tab left with nothing authorized to show is itself omitted — see <a href="{{site.baseurl}}/docs/page-grid#authorization">Grid Page authorization</a> for how this check (`isAuthorized()`) works.
 
 ---
 
