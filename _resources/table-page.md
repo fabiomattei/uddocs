@@ -111,6 +111,7 @@ The properties of the **field** object are:
 * constant: used in case we need to load data in a field that comes from a constantparameter parameter
 * composite: used in in a column we want to put more than one field
 * filter: the filter functions to apply to the field.
+* allowedgroups, visibleIf, visibleIfHook: restrict or condition the visibility of this column — see <a href="{{site.baseurl}}/baseresources/visibility">Visibility</a>. A hidden column still renders an empty header/cell rather than being dropped, so the table stays aligned.
 
 {% highlight json %}
 {"headline": "Name", "composite":"${placeholder1} ${placeholder2}", "parameters": [

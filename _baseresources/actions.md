@@ -20,6 +20,9 @@ The properties of the action object are:
 * parameters: parameters linked to the action
 * parameter_assign_symbol: usullay it is **=** but in some case it can be important to be able to personalize it
 * parameter_separator: usually it is **&** but in some case it can be important to be able to personalize it
+* allowedgroups: restricts this specific action to the listed groups — see <a href="{{site.baseurl}}/baseresources/visibility">Visibility</a>
+* visibleIf: shows the action only if a condition against the current row/entity is met — see <a href="{{site.baseurl}}/baseresources/visibility">Visibility</a>
+* visibleIfHook: delegates the visibility decision to a <a href="{{site.baseurl}}/docs/resource-hooks">Resource Hook</a> method — see <a href="{{site.baseurl}}/baseresources/visibility">Visibility</a>
 
 # Action parameters
 

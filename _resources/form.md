@@ -127,6 +127,7 @@ The properties of the **field** object are:
 * **query:** used by sqldropdown
 * **valuesqlfield:** used by sqldropdown
 * **labelsqlfield:** used by sqldropdown
+* **allowedgroups, visibleIf, visibleIfHook:** restrict or condition the visibility of this field — see <a href="{{site.baseurl}}/baseresources/visibility">Visibility</a>. A hidden form field is skipped entirely.
 
 ## POST section
 
