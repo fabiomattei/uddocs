@@ -81,7 +81,7 @@ Once a condition needs real `AND`/`OR` nesting plus business rules that don't re
 {% endhighlight %}
 
 {% highlight php %}
-class OrderFormResourceHook extends BaseResourceHook {
+class order_form extends BaseResourceHook {
 
     public function canApproveInvoice(\stdClass $rowData): bool {
         return ($rowData->status === 'pending' && $rowData->total_amount < 5000)
@@ -91,7 +91,7 @@ class OrderFormResourceHook extends BaseResourceHook {
 }
 {% endhighlight %}
 
-The method receives the current row/entity as a `\stdClass`, same as `afterFetch()` on a Resource Hook. If `visibleIfHook` names a method that doesn't exist on the resolved hook — or no hook file exists for the resource at all — UD throws rather than silently showing or hiding the element, since that's a resource/hook mismatch, not a runtime visibility decision.
+The method receives the current row/entity as a `\stdClass`, same as `beforeRenderGet()` on a Resource Hook. If `visibleIfHook` names a method that doesn't exist on the resolved hook — or no hook file exists for the resource at all — UD throws rather than silently showing or hiding the element, since that's a resource/hook mismatch, not a runtime visibility decision.
 
 ## Choosing between visibleIf and visibleIfHook
 
