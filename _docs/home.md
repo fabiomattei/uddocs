@@ -49,3 +49,4 @@ the most.
 * <a href="{{site.baseurl}}/docs/controller">Custom Controller</a>
 * <a href="{{site.baseurl}}/docs/jsontemplate">Custom Json template</a>
 * <a href="{{site.baseurl}}/docs/htmlblock">Custom HTML Block</a>
+* <a href="{{site.baseurl}}/docs/resource-hooks">Resource Hooks</a> — attach beforeSave/afterFetch logic to a resource by naming convention, no JSON declaration needed

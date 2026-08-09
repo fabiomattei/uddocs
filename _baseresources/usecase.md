@@ -8,6 +8,8 @@ Sometimes the desired result of a POST call is not just the execution of a bounc
 
 In order to give this opportunity have created what I call a use case. A use case is a class containing a method that takes paramters as input, perform operations and gives back output.
 
+If the logic you need is intrinsic to one specific resource — a save-time validation, a computed display field — rather than a reusable, parameterized operation, see <a href="{{site.baseurl}}/docs/resource-hooks">Resource Hooks</a> instead: no JSON declaration needed, just a PHP file named after the resource.
+
 A *use case* class is a subclass of *BaseUseCase* and implement the needed logic in the *performAction* method.
 
 The base for implementation looks like the following code.
