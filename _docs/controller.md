@@ -81,18 +81,17 @@ public function __construct() {
 }
 {% endhighlight %}
 
-Each controller must also carry a `#[Route]` attribute mapping it to a URL slug:
+There is no attribute or registry mapping a controller to a URL — the framework has no built-in router. Wire it up from your own entry-point file, e.g. `mycontroller.php` requested as `www.myapplication.com/mycontroller.html`:
 
 {% highlight php %}
-use Fabiom\UglyDuckling\Framework\Routing\Route;
-
-#[Route(name: 'mycontroller', slug: 'mycontroller')]
-class MyController extends BaseController {
-    // → reachable at www.myapplication.com/mycontroller.html
-}
+$controller = new MyController();
+$controller->setPageStatus($pageStatus);
+$controller->setGroupsIndex($groupsIndex);
+$controller->makeAllPresets($dbconnection, $logger, $securityChecker, $mailer);
+$controller->showPage();
 {% endhighlight %}
 
-Run `vendor/bin/ud-routes generate` to pick up the attribute — see <a href="{{site.baseurl}}/docs/routing">Routing</a> for the full generation and dispatch flow.
+See <a href="{{site.baseurl}}/docs/routing">Linking &amp; Visibility</a> for the full picture, including how to build links back to it.
 
 ---
 
@@ -271,7 +270,7 @@ public function show_post_error_page() {
 
 ## Unauthorized access
 
-When `check_authorization_get_request()` or `check_authorization_post_request()` returns `false`, the controller renders a shared unauthorized page rather than a redirect — `http_response_code(403)` plus a static view, the same mechanism used for an unmatched route (see [Routing]({{site.baseurl}}/docs/routing)) but with its own template/view and a 403 instead of a 404.
+When `check_authorization_get_request()` or `check_authorization_post_request()` returns `false`, the controller renders a shared unauthorized page rather than a redirect — `http_response_code(403)` plus a static view, using `StaticPageController` the same way you'd wire up a 404 page yourself (see [Linking & Visibility]({{site.baseurl}}/docs/routing)) but with its own template/view and a 403 instead of a 404.
 
 | Method | Description |
 |---|---|

@@ -64,9 +64,9 @@ class ArticlesList extends BaseComponent {
                                 <td><?= htmlspecialchars($row['art_title']) ?></td>
                                 <td><?= htmlspecialchars($row['art_created']) ?></td>
                                 <td class="text-end">
-                                    <a href="<?= url_for('article-edit', ['art_id' => $row['art_id']]) ?>"
+                                    <a href="article-edit.html?art_id=<?= urlencode($row['art_id']) ?>"
                                        class="btn btn-sm btn-primary me-1">Edit</a>
-                                    <a href="<?= url_for('article-delete', ['art_id' => $row['art_id']]) ?>"
+                                    <a href="article-delete.html?art_id=<?= urlencode($row['art_id']) ?>"
                                        class="btn btn-sm btn-danger">Delete</a>
                                 </td>
                             </tr>
@@ -80,7 +80,7 @@ class ArticlesList extends BaseComponent {
 }
 {% endhighlight %}
 
-`url_for('article-edit', ...)` and `url_for('article-delete', ...)` refer to the route keys used when registering the edit and delete components in `index_components.php`, as shown in the registration section below.
+`article-edit.html` and `article-delete.html` are the slugs the edit and delete components are registered under in `index_components.php`, as shown in the registration section below — there's no route lookup involved, the link is just the slug with `.html` appended.
 
 ---
 
@@ -96,7 +96,7 @@ class ArticleNew extends BaseComponent {
     public string $postSuccessMessage = 'Article created';
 
     public function __construct() {
-        $this->postSuccessUrl = url_for('articles-page');
+        $this->postSuccessUrl = 'articles-page.html';
     }
 
     protected array $post_validation_rules = [
@@ -155,7 +155,7 @@ class ArticleEdit extends BaseComponent {
     public string $postSuccessMessage = 'Article updated';
 
     public function __construct() {
-        $this->postSuccessUrl = url_for('articles-page');
+        $this->postSuccessUrl = 'articles-page.html';
     }
 
     protected array $get_validation_rules = ['art_id' => 'required|max_len,36'];
@@ -213,7 +213,7 @@ class ArticleEdit extends BaseComponent {
                             htmlspecialchars($data['art_body'])
                         ?></textarea>
                     </div>
-                    <a href="<?= url_for('articles-page') ?>" class="btn btn-secondary me-2">Cancel</a>
+                    <a href="articles-page.html" class="btn btn-secondary me-2">Cancel</a>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </form>
             </div>
@@ -238,7 +238,7 @@ class ArticleDelete extends BaseComponent {
     public string $postSuccessMessage = 'Article deleted';
 
     public function __construct() {
-        $this->postSuccessUrl = url_for('articles-page');
+        $this->postSuccessUrl = 'articles-page.html';
     }
 
     protected array $get_validation_rules = ['art_id' => 'required|max_len,36'];
@@ -282,7 +282,7 @@ class ArticleDelete extends BaseComponent {
                     <input type="hidden" name="_component" value="<?= self::class ?>">
                     <input type="hidden" name="art_id"
                            value="<?= htmlspecialchars($data['art_id']) ?>">
-                    <a href="<?= url_for('articles-page') ?>" class="btn btn-secondary me-2">Cancel</a>
+                    <a href="articles-page.html" class="btn btn-secondary me-2">Cancel</a>
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </div>
@@ -322,7 +322,7 @@ The main page combines two components so it needs an explicit layout. Register a
 'article-delete' => ArticleDelete::class,
 {% endhighlight %}
 
-No wrapper class is needed. The route keys `'articles-page'`, `'article-edit'`, and `'article-delete'` are exactly what `url_for()` resolves inside the components.
+No wrapper class is needed. The keys `'articles-page'`, `'article-edit'`, and `'article-delete'` are exactly the slugs used in the hardcoded links inside the components above (`article-edit.html`, `article-delete.html`, `articles-page.html`).
 
 ---
 
@@ -334,8 +334,6 @@ If you prefer a tabbed layout instead of a stacked one, swap `BaseGridComponent`
 use Fabiom\UDDemo\Components\BaseTabsComponent;
 
 class ArticlesPage extends BaseTabsComponent {
-
-    const CONTROLLER_NAME = 'articles-page';
 
     protected array $tabs = [
         [
@@ -359,7 +357,7 @@ class ArticlesPage extends BaseTabsComponent {
 }
 {% endhighlight %}
 
-The edit and delete registrations remain unchanged — `ArticleEdit::class` and `ArticleDelete::class` are still registered directly, regardless of how the main list page is laid out.
+Register the explicit class in place of the inline panels array — `'articles-page' => ArticlesPage::class` instead of `'articles-page' => [...]` — everything else in `index_components.php` stays the same. The edit and delete registrations remain unchanged either way — `ArticleEdit::class` and `ArticleDelete::class` are still registered directly, regardless of how the main list page is laid out.
 
 ---
 
@@ -383,7 +381,7 @@ articles-page (POST, _component=ArticleNew)
 
 ## Registering in index_components.php
 
-All three routes go into `index_components.php`. The complete registration for this tutorial looks like this:
+All three slugs go into `index_components.php`. The complete registration for this tutorial looks like this:
 
 {% highlight php %}
 // index_components.php
@@ -402,36 +400,4 @@ $index_components = [
 ];
 {% endhighlight %}
 
-The array key is the route name. `url_for()` inside the components resolves these keys — but only after a matching entry exists in `index_links.php`.
-
----
-
-## Registering in index_links.php
-
-`$index_links` maps every semantic link name to the route it targets and declares the URL parameters it accepts. `url_for()` reads this map to build HTML-safe URLs.
-
-Add one entry per route used in the tutorial:
-
-{% highlight php %}
-// index_links.php
-$index_links = [
-
-    'articles-page'  => ['page' => 'articles-page'],
-    'article-edit'   => ['page' => 'article-edit',   'params' => ['art_id']],
-    'article-delete' => ['page' => 'article-delete', 'params' => ['art_id']],
-
-];
-{% endhighlight %}
-
-Each entry has:
-
-* **`page`** — the route key from `$index_components`. This becomes the base of the URL (`article-edit.html`).
-* **`params`** — the query-string parameters this link accepts. Listing them documents the contract; `url_for()` appends whatever is passed as its second argument.
-
-With these entries in place, the calls inside the components resolve correctly:
-
-{% highlight php %}
-url_for('articles-page')                          // → articles-page.html
-url_for('article-edit',   ['art_id' => $id])      // → article-edit.html?art_id=…
-url_for('article-delete', ['art_id' => $id])      // → article-delete.html?art_id=…
-{% endhighlight %}
+The array key is the slug each entry answers to — `article-edit` renders at `article-edit.html`, and so on. There's no separate link registry: the components above link to each other by hardcoding that same `slug.html` convention directly, since there's no `url_for()`-style helper to resolve it for them. See <a href="{{site.baseurl}}/docs/routing">Linking &amp; Visibility</a> for the full picture.

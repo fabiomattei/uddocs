@@ -14,18 +14,7 @@ For the common cases of a form, a read-only info panel, or a table, you don't ne
 A component can be used in two ways:
 
 * **Embedded in a page** — a <a href="{{site.baseurl}}/docs/page-grid">Grid Page</a> or <a href="{{site.baseurl}}/docs/page-tabs">Tabs Page</a> declares it in its `$panels` or `$tabs` array alongside other components.
-* **Standalone** — the component class carries a `#[Route]` attribute:
-
-{% highlight php %}
-use Fabiom\UglyDuckling\Framework\Routing\Route;
-
-#[Route(name: 'articles_list', slug: 'articles-list')]
-class ArticlesList extends BaseComponent {
-    // ...
-}
-{% endhighlight %}
-
-Run `vendor/bin/ud-routes generate` to pick it up. The dispatcher detects that it is a component (not a controller) and calls `renderAsPanel()`/`handlePost()` directly — no explicit page class needed. See <a href="{{site.baseurl}}/docs/routing">Routing</a> for the full generation and dispatch flow.
+* **Standalone** — registered by slug in `index_components.php`, or wired up directly by calling `renderAsPanel()`/`handlePost()` from your own entry-point file. See <a href="{{site.baseurl}}/docs/routing">Linking &amp; Visibility</a> for both approaches, and <a href="#registering-a-component-as-a-standalone-page">Registering a component as a standalone page</a> below for the `index_components.php` shortcut.
 
 For a step-by-step walkthrough of all four CRUD operations using components, see the <a href="{{site.baseurl}}/tutorials/crud-components">CRUD with Components</a> tutorial.
 
@@ -161,7 +150,7 @@ Set `$postSuccessUrl` to redirect after a successful submission. Set `$postSucce
 public string $postSuccessMessage = 'Article saved successfully';
 
 public function __construct() {
-    $this->postSuccessUrl = url_for('articles-list');
+    $this->postSuccessUrl = 'articles-list.html';
 }
 {% endhighlight %}
 
@@ -288,7 +277,7 @@ class ArticleEdit extends BaseComponent {
     public string $postSuccessMessage = 'Article updated';
 
     public function __construct() {
-        $this->postSuccessUrl = url_for('articles-list');
+        $this->postSuccessUrl = 'articles-list.html';
     }
 
     protected array $get_validation_rules = ['art_id' => 'required|max_len,38'];

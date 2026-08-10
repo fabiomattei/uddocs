@@ -18,8 +18,6 @@ use Fabiom\UDDemo\Components\BaseTabsComponent;
 
 class ArticlesPage extends BaseTabsComponent {
 
-    const CONTROLLER_NAME = 'articles-page';
-
     protected array $tabs = [
         [
             'id'     => 'tab-list',
@@ -40,7 +38,17 @@ class ArticlesPage extends BaseTabsComponent {
 }
 {% endhighlight %}
 
-The `CONTROLLER_NAME` constant registers the page with the router. A request to `/articles-page.html` renders the tab interface, with the first tab active by default.
+There's no built-in router — wire the page to a URL yourself, e.g. from `articles-page.php`:
+
+{% highlight php %}
+$page = new ArticlesPage();
+$page->setPageStatus($pageStatus);
+$page->setGroupsIndex($groupsIndex);
+$page->makeAllPresets($dbconnection, $logger, $securityChecker, $mailer);
+$page->showPage();
+{% endhighlight %}
+
+The tab interface renders with the first tab active by default. See <a href="{{site.baseurl}}/docs/routing">Linking &amp; Visibility</a> for the full picture.
 
 ---
 
@@ -126,7 +134,7 @@ After a successful POST the page redirects back to the referring page by default
 
 {% highlight php %}
 protected function onPostSuccess(): void {
-    $this->redirectToPage(url_for('articles-page'));
+    $this->redirectToPage('articles-page.html');
 }
 {% endhighlight %}
 
@@ -166,8 +174,6 @@ use Fabiom\UDDemo\Chapters\Articles\Components\ArticleSearch;
 use Fabiom\UDDemo\Chapters\Articles\Components\ArticleStats;
 
 class ArticlesPage extends BaseTabsComponent {
-
-    const CONTROLLER_NAME = 'articles-page';
 
     protected array $tabs = [
         [

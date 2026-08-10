@@ -48,7 +48,7 @@ class ArticleEdit extends BaseFormComponent {
     public string $postSuccessMessage = 'Article updated';
 
     public function __construct() {
-        $this->postSuccessUrl = url_for('articles-list');
+        $this->postSuccessUrl = 'articles-list.html';
     }
 
     protected function entity(): array {
@@ -169,14 +169,14 @@ class ArticlesList extends BaseTableComponent {
 
     protected array $actions = [
         ['label' => 'Edit',   'icon' => 'bi bi-pencil', 'cssclass' => 'btn btn-sm btn-primary',
-            'url' => fn(array $row) => url_for('article-edit', ['art_id' => $row['art_id']])],
+            'url' => fn(array $row) => 'article-edit.html?art_id=' . urlencode($row['art_id'])],
         ['label' => 'Delete', 'icon' => 'bi bi-trash',  'cssclass' => 'btn btn-sm btn-danger',
             'confirm' => 'Delete this article?',
-            'url' => fn(array $row) => url_for('article-delete', ['art_id' => $row['art_id']])],
+            'url' => fn(array $row) => 'article-delete.html?art_id=' . urlencode($row['art_id'])],
     ];
 
     protected array $topActions = [
-        ['label' => 'New article', 'cssclass' => 'btn btn-success', 'url' => fn() => url_for('article-new')],
+        ['label' => 'New article', 'cssclass' => 'btn btn-success', 'url' => fn() => 'article-new.html'],
     ];
 
     protected function rows(): array {

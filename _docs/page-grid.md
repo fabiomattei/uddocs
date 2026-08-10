@@ -22,8 +22,6 @@ use Fabiom\UDDemo\Components\BaseGridComponent;
 
 class ArticlesDashboardPage extends BaseGridComponent {
 
-    const CONTROLLER_NAME = 'articles-dashboard';
-
     protected array $panels = [
         ['cssclass' => 'col-12',   'component' => ArticlesList::class],
         ['cssclass' => 'col-md-6', 'component' => ArticleNew::class],
@@ -32,7 +30,17 @@ class ArticlesDashboardPage extends BaseGridComponent {
 }
 {% endhighlight %}
 
-The `CONTROLLER_NAME` constant registers the page with the router. A request to `/articles-dashboard.html` will instantiate this class and call `showPage()`.
+There's no built-in router — wire the page to a URL yourself, e.g. from `articles-dashboard.php`:
+
+{% highlight php %}
+$page = new ArticlesDashboardPage();
+$page->setPageStatus($pageStatus);
+$page->setGroupsIndex($groupsIndex);
+$page->makeAllPresets($dbconnection, $logger, $securityChecker, $mailer);
+$page->showPage();
+{% endhighlight %}
+
+See <a href="{{site.baseurl}}/docs/routing">Linking &amp; Visibility</a> for the full picture.
 
 ---
 
@@ -112,7 +120,7 @@ After a successful POST the page calls `onPostSuccess()`, which by default redir
 
 {% highlight php %}
 protected function onPostSuccess(): void {
-    $this->redirectToPage(url_for('articles-dashboard'));
+    $this->redirectToPage('articles-dashboard.html');
 }
 {% endhighlight %}
 
@@ -172,8 +180,6 @@ use Fabiom\UDDemo\Chapters\Articles\Components\ArticleNew;
 use Fabiom\UDDemo\Chapters\Articles\Components\ArticleSearch;
 
 class ArticlesDashboardPage extends BaseGridComponent {
-
-    const CONTROLLER_NAME = 'articles-dashboard';
 
     protected array $panels = [
         ['cssclass' => 'col-12 mb-4', 'component' => ArticleSearch::class],
